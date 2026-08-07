@@ -29,7 +29,7 @@ export const resumePath = "/resume-placeholder.pdf";
 export const hero = {
   name: "Norman K. Muhwezi",
   title:
-    "Digital Infrastructure & Innovation Leader · PRINCE2® Practitioner",
+    "Digital Transformation & Innovation Leader · PRINCE2® Practitioner",
   location: "Addis Ababa, Ethiopia",
 };
 
@@ -256,6 +256,10 @@ export const languages = [
 /* ------------------------------------------------------------------ */
 
 export const contact = {
+  /** Drafted from the brief's own framing (digital health & AI product roles,
+   * open to other opportunities) — edit freely, this is a starting point. */
+  opening:
+    "Open to conversations about digital health leadership and AI product roles — and other opportunities where this experience is a fit.",
   email: "nkmuhwezi@gmail.com",
   phone: "+251 97 819 1199",
   phoneHref: "+251978191199",

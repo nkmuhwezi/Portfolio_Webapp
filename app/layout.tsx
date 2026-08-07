@@ -37,14 +37,19 @@ const robotoMono = Roboto_Mono({
   display: "swap",
 });
 
+// Derived from hero.title rather than duplicated as a literal, so the two
+// can't drift out of sync the way they just did.
+const heroRole = hero.title.split(" · ")[0];
+const metaTitle = `${hero.name} — ${heroRole}`;
+const metaDescription =
+  "15+ years delivering infrastructure and digital platforms across telecom and multilateral development, taking platforms from pilot to national scale.";
+
 export const metadata: Metadata = {
-  title: `${hero.name} — Digital Infrastructure & Innovation Leader`,
-  description:
-    "15+ years delivering infrastructure and digital platforms across telecom and multilateral development, taking platforms from pilot to national scale.",
+  title: metaTitle,
+  description: metaDescription,
   openGraph: {
-    title: `${hero.name} — Digital Infrastructure & Innovation Leader`,
-    description:
-      "15+ years delivering infrastructure and digital platforms across telecom and multilateral development, taking platforms from pilot to national scale.",
+    title: metaTitle,
+    description: metaDescription,
     type: "profile",
     locale: "en_US",
   },

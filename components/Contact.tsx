@@ -27,6 +27,8 @@ export default function Contact() {
       <div className="container">
         <SectionHeading title="Contact" />
 
+        <p className={styles.opening}>{contact.opening}</p>
+
         <ul className={styles.list}>
           {links.map((link) => (
             <li className={styles.item} key={link.label}>

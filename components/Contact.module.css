@@ -3,6 +3,14 @@
   padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
+.opening {
+  max-width: 46ch;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.7;
+  color: var(--text);
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
