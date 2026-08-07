@@ -11,13 +11,17 @@ export default function Education() {
         <ul className={styles.list}>
           {education.map((item) => (
             <li className={styles.item} key={item.credential}>
-              <div className={styles.text}>
+              {/* Same metadata rail as Experience — here it carries the year. */}
+              <div className={styles.rail}>
+                <span className={styles.year}>{item.year}</span>
+              </div>
+
+              <div className={styles.main}>
                 <h3 className={styles.credential}>{item.credential}</h3>
                 {item.institution ? (
                   <p className={styles.institution}>{item.institution}</p>
                 ) : null}
               </div>
-              <span className={styles.year}>{item.year}</span>
             </li>
           ))}
         </ul>

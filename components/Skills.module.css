@@ -8,10 +8,11 @@
   gap: clamp(2.5rem, 5vw, 3.5rem);
 }
 
+/* Same metadata rail width as Experience and Education. */
 .group {
   display: grid;
-  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
   align-items: start;
 }
 

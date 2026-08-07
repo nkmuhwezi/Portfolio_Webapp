@@ -18,12 +18,14 @@
   min-width: 0;
 }
 
+/* The page's opening dateline — same device that anchors every role below. */
 .location {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--accent);
   display: flex;
   align-items: center;
   gap: 0.75rem;
