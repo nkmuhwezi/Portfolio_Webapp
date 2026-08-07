@@ -5,9 +5,11 @@ import styles from "./ThemeToggle.module.css";
 
 type Theme = "dark" | "light";
 
+// wispr's own names for these two literal tones (lumen, vast) — kept
+// rather than swapped for generic "Light/Dark" labels.
 const THEME_COLOR: Record<Theme, string> = {
-  dark: "#1a1817",
-  light: "#f1f3f4",
+  dark: "#1a1a1a",
+  light: "#ffffeb",
 };
 
 function applyTheme(theme: Theme) {
@@ -21,7 +23,7 @@ export default function ThemeToggle() {
   // The blocking script in layout.tsx has already set data-theme on <html>
   // before this component mounts, preventing a flash of the wrong theme —
   // this just reads back whatever it decided.
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     // Syncing from an external system (the DOM attribute the blocking
@@ -29,7 +31,7 @@ export default function ThemeToggle() {
     // can't tell the two apart.
     const current = document.documentElement.getAttribute("data-theme");
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(current === "light" ? "light" : "dark");
+    setTheme(current === "dark" ? "dark" : "light");
   }, []);
 
   const choose = (next: Theme) => {
@@ -43,19 +45,19 @@ export default function ThemeToggle() {
       <button
         type="button"
         className={styles.option}
-        aria-pressed={theme === "dark"}
-        onClick={() => choose("dark")}
+        aria-pressed={theme === "light"}
+        onClick={() => choose("light")}
       >
-        Noir
+        Lumen
       </button>
       <span className={styles.divider} aria-hidden="true" />
       <button
         type="button"
         className={styles.option}
-        aria-pressed={theme === "light"}
-        onClick={() => choose("light")}
+        aria-pressed={theme === "dark"}
+        onClick={() => choose("dark")}
       >
-        Daylight
+        Vast
       </button>
     </div>
   );
