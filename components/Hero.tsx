@@ -25,7 +25,15 @@ export default function Hero() {
           </p>
 
           <div className={styles.actions}>
-            <a className={styles.primaryAction} href={`mailto:${contact.email}`}>
+            {/* LinkedIn has no universal "compose message" link — this opens
+                the profile, where a visitor can message (if connected) or
+                connect first. */}
+            <a
+              className={styles.primaryAction}
+              href={contact.linkedinUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               Get in touch
             </a>
             <a className={styles.secondaryAction} href={resumePath} download>

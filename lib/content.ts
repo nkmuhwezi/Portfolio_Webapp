@@ -264,10 +264,8 @@ export const languages = [
 /* ------------------------------------------------------------------ */
 
 export const contact = {
-  /** Drafted from the brief's own framing (digital health & AI product roles,
-   * open to other opportunities) — edit freely, this is a starting point. */
   opening:
-    "Open to conversations about digital health leadership and AI product roles — and other opportunities where this experience is a fit.",
+    "Open to conversations about digital transformation, digital health leadership, and AI Adoption roles and other opportunities where this experience adds value.",
   email: "nkmuhwezi@gmail.com",
   phone: "+251 97 819 1199",
   phoneHref: "+251978191199",
