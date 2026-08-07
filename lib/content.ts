@@ -161,6 +161,17 @@ export const experience: ExperienceEntry[] = [
     ],
   },
   {
+    id: "mtn-sudan",
+    primary: "MTN Sudan",
+    secondary: "Wireless Project Manager",
+    location: "Khartoum",
+    dates: "May–Dec 2016",
+    bullets: [
+      "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
+      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
+    ],
+  },
+  {
     id: "mtn-uganda",
     primary: "MTN Uganda",
     secondary: "Project Manager & Senior Engineer, Radio Planning",
@@ -170,17 +181,6 @@ export const experience: ExperienceEntry[] = [
       "Started as a Radio Planning & Network Service Delivery Engineer before advancing to Project Manager & Senior Engineer.",
       "Directed end-to-end RAN modernization across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), managing vendor integration (Huawei) and tower companies (ATC, Eaton).",
       "Negotiated vendor and subcontractor contracts for $75,000+ in annual CAPEX savings, contributing to MTN Uganda's #1 national Quality of Service ranking (2014).",
-    ],
-  },
-  {
-    id: "mtn-sudan",
-    primary: "MTN Sudan",
-    secondary: "Wireless Project Manager",
-    location: "Khartoum",
-    dates: "May–Dec 2016",
-    bullets: [
-      "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
-      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
     ],
   },
 ];

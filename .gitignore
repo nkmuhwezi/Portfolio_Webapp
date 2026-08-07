@@ -39,6 +39,8 @@ build/Release
 
 # Dependency directories
 node_modules/
+# Also match when node_modules is a symlink (kept outside OneDrive sync).
+node_modules
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
