@@ -17,23 +17,27 @@
 
 :root {
   /* Palette — light (default): wispr's lumen/vast relationship.
-     Accent is fathom (deep teal), not glow — glow only clears 1.9:1
+     Accent is pulse (deep burgundy), not glow — glow only clears 1.9:1
      against lumen, illegible as the text-colored accent this token
      doubles as (labels, links, figures). Glow moves to dark mode below,
-     where it actually has the contrast to do that job. */
+     where it actually has the contrast to do that job. Pulse over fathom
+     (the other viable candidate, also passes contrast): green reads as
+     "success/eco" and risks over-indexing on the recycled-plastic
+     flagship story; burgundy reads institutional instead, and edges out
+     fathom on contrast too (9.80:1 vs 9.39:1). */
   --bg: #ffffeb;
   --bg-raised: #ffffff;
   --bg-sunken: #f0d7ff;
   --text: #1a1a1a;
   --heading: #000000;
   --muted: #666666;
-  --accent: #034f46;
+  --accent: #7f1c34;
 
   /* Derived surfaces */
   --rule: rgba(26, 26, 26, 0.1);
   --rule-soft: rgba(26, 26, 26, 0.05);
-  --accent-rule: rgba(3, 79, 70, 0.35);
-  --accent-wash: rgba(3, 79, 70, 0.06);
+  --accent-rule: rgba(127, 28, 52, 0.35);
+  --accent-wash: rgba(127, 28, 52, 0.06);
 
   /* Typography */
   --font-serif: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
@@ -56,7 +60,7 @@
 
 /* Dark — wispr's own alternate section (vast background, lumen text) is
    reused directly rather than invented; glow is their most prominent warm
-   highlight and has the contrast light mode's fathom lacks here. */
+   highlight and has the contrast light mode's pulse lacks here. */
 :root[data-theme="dark"] {
   --bg: #1a1a1a;
   --bg-raised: #222222;
@@ -258,7 +262,7 @@ button {
     --text: #1a1a1a;
     --heading: #000000;
     --muted: #666666;
-    --accent: #034f46;
+    --accent: #7f1c34;
     --rule: rgba(26, 26, 26, 0.18);
   }
 
