@@ -27,46 +27,33 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* Tags                                                              */
+/* Term lists                                                        */
 /* ---------------------------------------------------------------- */
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem;
-}
-
-.tag {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  line-height: 1.4;
+/* Set as a running line rather than boxed chips — these are terms in a
+   list, and the brief itself writes them separated by middots. */
+.flow {
+  font-size: 1.0625rem;
+  line-height: 1.9;
   color: var(--text);
-  background-color: var(--bg-raised);
-  border: 1px solid var(--rule);
-  border-radius: 2px;
-  transition:
-    border-color var(--dur) var(--ease),
-    color var(--dur) var(--ease);
 }
 
-.tag:hover {
-  border-color: var(--accent-rule);
-  color: var(--heading);
+.flowItem {
+  display: inline;
+}
+
+.flowItem:not(:last-child)::after {
+  content: "·";
+  color: var(--accent);
+  margin-inline: 0.7em;
 }
 
 /* Technical stack labels carry the mono treatment. */
-.tagMono {
+.flowMono {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  background-color: transparent;
-  border-color: var(--accent-rule);
-}
-
-.tagMono:hover {
-  background-color: var(--accent-wash);
-  color: var(--accent);
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  line-height: 2;
 }
 
 /* ---------------------------------------------------------------- */

@@ -99,30 +99,24 @@
 .toggle {
   position: relative;
   flex-shrink: 0;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-top: 0.125rem;
-  border: 1px solid var(--rule);
-  border-radius: 50%;
-  transition:
-    border-color var(--dur) var(--ease),
-    background-color var(--dur) var(--ease),
-    transform var(--dur) var(--ease);
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: 0.75rem;
+  opacity: 0.75;
+  transition: opacity var(--dur) var(--ease);
 }
 
 .head:hover .toggle {
-  border-color: var(--accent-rule);
-  background-color: var(--accent-wash);
+  opacity: 1;
 }
 
 .toggleBar {
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: 0.6875rem;
+  left: 0;
+  width: 100%;
   height: 1px;
   background-color: var(--accent);
-  translate: -50% -50%;
   transition: transform var(--dur) var(--ease);
 }
 
@@ -133,11 +127,6 @@
 
 .head[aria-expanded="true"] .toggleBarVertical {
   transform: scaleX(0);
-}
-
-.head[aria-expanded="true"] .toggle {
-  background-color: var(--accent-wash);
-  border-color: var(--accent-rule);
 }
 
 /* ---------------------------------------------------------------- */

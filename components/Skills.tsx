@@ -11,9 +11,9 @@ export default function Skills() {
         <div className={styles.groups}>
           <div className={styles.group}>
             <h3 className={styles.groupTitle}>Core Competencies</h3>
-            <ul className={styles.tags}>
+            <ul className={styles.flow}>
               {coreCompetencies.map((item) => (
-                <li className={styles.tag} key={item}>
+                <li className={styles.flowItem} key={item}>
                   {item}
                 </li>
               ))}
@@ -22,9 +22,9 @@ export default function Skills() {
 
           <div className={styles.group}>
             <h3 className={styles.groupTitle}>Platforms & Tools</h3>
-            <ul className={styles.tags}>
+            <ul className={`${styles.flow} ${styles.flowMono}`}>
               {platformsAndTools.map((item) => (
-                <li className={`${styles.tag} ${styles.tagMono}`} key={item}>
+                <li className={styles.flowItem} key={item}>
                   {item}
                 </li>
               ))}

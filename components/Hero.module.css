@@ -6,22 +6,6 @@
   overflow: hidden;
 }
 
-/* A faint brass wash bleeding from the top-right corner. */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -30%;
-  right: -10%;
-  width: min(70vw, 40rem);
-  aspect-ratio: 1;
-  background: radial-gradient(
-    circle,
-    var(--accent-glow) 0%,
-    transparent 68%
-  );
-  pointer-events: none;
-}
-
 .grid {
   position: relative;
   display: grid;

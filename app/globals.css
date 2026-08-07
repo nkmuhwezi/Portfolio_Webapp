@@ -17,7 +17,6 @@
   --rule-soft: rgba(232, 226, 217, 0.06);
   --accent-rule: rgba(197, 162, 103, 0.32);
   --accent-wash: rgba(197, 162, 103, 0.06);
-  --accent-glow: rgba(197, 162, 103, 0.14);
 
   /* Typography */
   --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;

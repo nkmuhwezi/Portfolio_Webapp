@@ -19,9 +19,10 @@ export default function Profile() {
             </div>
           ))}
         </dl>
-
-        <Flagship />
       </div>
+
+      {/* Outside the container so the band can run edge to edge. */}
+      <Flagship />
     </section>
   );
 }
