@@ -55,16 +55,43 @@
   min-width: 0;
 }
 
-/* The <h3> exists for document outline; the button carries the style. */
-.headingReset {
-  font: inherit;
+/* ---------------------------------------------------------------- */
+/* Org name — plain text or a link, sits above the toggle button     */
+/* ---------------------------------------------------------------- */
+
+.name {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.375rem, 2.6vw, 1.875rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--heading);
+}
+
+/* Same underline-sweep treatment as the Contact links, so a linked
+   employer name reads as "this leaves the site" rather than "this
+   expands the card" — that affordance belongs to the button below. */
+.nameLink {
+  position: relative;
+  display: inline-block;
   color: inherit;
-  letter-spacing: inherit;
-  margin: 0;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition:
+    background-size var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.nameLink:hover {
+  color: var(--accent);
+  background-size: 100% 1px;
 }
 
 /* ---------------------------------------------------------------- */
-/* Head                                                              */
+/* Head — the toggle button: role line + expand/collapse icon        */
 /* ---------------------------------------------------------------- */
 
 .head {
@@ -76,31 +103,15 @@
   text-align: left;
 }
 
-.headText {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  min-width: 0;
-}
-
-.primary {
-  font-family: var(--font-serif);
-  font-size: clamp(1.375rem, 2.6vw, 1.875rem);
-  font-weight: 300;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  color: var(--heading);
-  transition: color var(--dur) var(--ease);
-}
-
-.head:hover .primary {
-  color: var(--accent);
-}
-
 .secondary {
   font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--text);
+  transition: color var(--dur) var(--ease);
+}
+
+.head:hover .secondary {
+  color: var(--heading);
 }
 
 /* ---------------------------------------------------------------- */

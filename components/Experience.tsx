@@ -37,29 +37,42 @@ export default function Experience() {
                   </div>
 
                   <div className={styles.main}>
-                    <h3 className={styles.headingReset}>
-                      <button
-                        type="button"
-                        className={styles.head}
-                        aria-expanded={isOpen}
-                        aria-controls={panelId}
-                        onClick={() => toggle(entry.id)}
-                      >
-                        <span className={styles.headText}>
-                          <span className={styles.primary}>{entry.primary}</span>
-                          <span className={styles.secondary}>
-                            {entry.secondary}
-                          </span>
-                        </span>
-
-                        <span className={styles.toggle} aria-hidden="true">
-                          <span className={styles.toggleBar} />
-                          <span
-                            className={`${styles.toggleBar} ${styles.toggleBarVertical}`}
-                          />
-                        </span>
-                      </button>
+                    {/* The org name is a real link when we have one, so it can't
+                        live inside the toggle <button> below — an <a> nested in
+                        a <button> is invalid HTML. They're visually stacked as
+                        one header but interactively independent. */}
+                    <h3 className={styles.name}>
+                      {entry.orgUrl ? (
+                        <a
+                          className={styles.nameLink}
+                          href={entry.orgUrl}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          {entry.primary}
+                        </a>
+                      ) : (
+                        entry.primary
+                      )}
                     </h3>
+
+                    <button
+                      type="button"
+                      className={styles.head}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      aria-label={`${isOpen ? "Collapse" : "Expand"} details for ${entry.primary}`}
+                      onClick={() => toggle(entry.id)}
+                    >
+                      <span className={styles.secondary}>{entry.secondary}</span>
+
+                      <span className={styles.toggle} aria-hidden="true">
+                        <span className={styles.toggleBar} />
+                        <span
+                          className={`${styles.toggleBar} ${styles.toggleBarVertical}`}
+                        />
+                      </span>
+                    </button>
 
                     <div
                       className={styles.panel}

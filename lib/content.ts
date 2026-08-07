@@ -96,6 +96,8 @@ export type ExperienceEntry = {
   bullets: string[];
   /** The two most recent entries open on load; the rest start collapsed. */
   defaultOpen?: boolean;
+  /** Links the headline to the employer's site when set; plain text otherwise. */
+  orgUrl?: string;
 };
 
 export const experience: ExperienceEntry[] = [
@@ -106,6 +108,7 @@ export const experience: ExperienceEntry[] = [
     location: "Kampala",
     dates: "2026–present",
     defaultOpen: true,
+    orgUrl: "https://www.unionbps.com/",
     bullets: [
       "Advise a Kampala-based IT and consulting firm on AI adoption strategy and digital transformation roadmaps for enterprise clients.",
     ],
@@ -127,6 +130,7 @@ export const experience: ExperienceEntry[] = [
     secondary: "Innovation Manager & Acting SBC Section Chief",
     location: "Kinshasa",
     dates: "Mar 2023–Mar 2025",
+    orgUrl: "https://www.unicef.org/drcongo/en",
     bullets: [
       "Served three periods as Officer-in-Charge (approx. 6.5 months combined), directing a 20+ person team and budgets up to $20M.",
       "Led vendor selection and procurement (Nyaruka/RapidPro, ONA, YUX) for the DRC digital platform portfolio, then directed FunDoo's end-to-end delivery to a 10,000-user beta launch.",
@@ -141,6 +145,7 @@ export const experience: ExperienceEntry[] = [
     secondary: "Innovation Manager (Stretch Assignment)",
     location: "Freetown",
     dates: "Jul–Oct 2022",
+    orgUrl: "https://www.unicef.org/sierraleone/",
     bullets: [
       "Led deployment of the Learning Passport digital education platform, training 87 Ministry of Education staff on system management.",
       "Negotiated Project Giga's broadband vendor contracts, securing $500K in funding for school connectivity.",
@@ -153,6 +158,7 @@ export const experience: ExperienceEntry[] = [
     secondary: "Innovation Specialist",
     location: "Abidjan",
     dates: "Dec 2016–Mar 2023",
+    orgUrl: "https://www.unicef.org/cotedivoire/en",
     bullets: [
       "Built a national SMS/WhatsApp digital birth registration system with the Ministry of Justice, running sprint planning and UAT cycles and training 50+ registration agents to pilot the system for government rollout.",
       "Digitized mobile money payments for 30,000+ frontline workers, overseeing requirements, MNO integration, and transition to operations.",
@@ -166,6 +172,7 @@ export const experience: ExperienceEntry[] = [
     secondary: "Wireless Project Manager",
     location: "Khartoum",
     dates: "May–Dec 2016",
+    orgUrl: "https://www.mtn.sd/",
     bullets: [
       "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
       "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
@@ -177,6 +184,7 @@ export const experience: ExperienceEntry[] = [
     secondary: "Project Manager & Senior Engineer, Radio Planning",
     location: "Kampala",
     dates: "Sep 2009–Apr 2016",
+    orgUrl: "https://www.mtn.co.ug/",
     bullets: [
       "Started as a Radio Planning & Network Service Delivery Engineer before advancing to Project Manager & Senior Engineer.",
       "Directed end-to-end RAN modernization across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), managing vendor integration (Huawei) and tower companies (ATC, Eaton).",
