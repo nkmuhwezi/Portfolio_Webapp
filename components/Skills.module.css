@@ -1,0 +1,115 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.group {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.groupTitle {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-top: 0.5rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Tags                                                              */
+/* ---------------------------------------------------------------- */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text);
+  background-color: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition:
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.tag:hover {
+  border-color: var(--accent-rule);
+  color: var(--heading);
+}
+
+/* Technical stack labels carry the mono treatment. */
+.tagMono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  background-color: transparent;
+  border-color: var(--accent-rule);
+}
+
+.tagMono:hover {
+  background-color: var(--accent-wash);
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- */
+/* Languages                                                         */
+/* ---------------------------------------------------------------- */
+
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem 3rem;
+}
+
+.language {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.languageName {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--heading);
+}
+
+.languageLevel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                        */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 48rem) {
+  .group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.125rem;
+  }
+
+  .groupTitle {
+    padding-top: 0;
+  }
+}

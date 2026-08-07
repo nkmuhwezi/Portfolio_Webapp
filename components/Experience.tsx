@@ -1,0 +1,90 @@
+"use client";
+
+import { useState } from "react";
+import { experience } from "@/lib/content";
+import SectionHeading from "./SectionHeading";
+import styles from "./Experience.module.css";
+
+export default function Experience() {
+  const [open, setOpen] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(
+      experience.map((entry) => [entry.id, entry.defaultOpen === true]),
+    ),
+  );
+
+  const toggle = (id: string) =>
+    setOpen((current) => ({ ...current, [id]: !current[id] }));
+
+  return (
+    <section className={styles.section} id="experience">
+      <div className="container">
+        <SectionHeading title="Experience" />
+
+        <ol className={styles.list}>
+          {experience.map((entry) => {
+            const isOpen = open[entry.id];
+            const panelId = `${entry.id}-panel`;
+
+            return (
+              <li className={styles.item} key={entry.id}>
+                <article>
+                  <h3 className={styles.headingReset}>
+                    <button
+                      type="button"
+                      className={styles.head}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => toggle(entry.id)}
+                    >
+                      <span className={styles.headText}>
+                        <span className={styles.primary}>{entry.primary}</span>
+                        <span className={styles.secondary}>
+                          {entry.secondary}
+                        </span>
+                      </span>
+
+                      <span className={styles.meta}>
+                        <span className={styles.dates}>{entry.dates}</span>
+                        {entry.location ? (
+                          <span className={styles.location}>
+                            {entry.location}
+                          </span>
+                        ) : null}
+                      </span>
+
+                      <span className={styles.toggle} aria-hidden="true">
+                        <span className={styles.toggleBar} />
+                        <span
+                          className={`${styles.toggleBar} ${styles.toggleBarVertical}`}
+                        />
+                      </span>
+                    </button>
+                  </h3>
+
+                  <div
+                    className={styles.panel}
+                    id={panelId}
+                    data-open={isOpen}
+                    // Keeps collapsed bullets out of the tab order and the
+                    // accessibility tree while still animating smoothly.
+                    inert={!isOpen}
+                  >
+                    <div className={styles.panelInner}>
+                      <ul className={styles.bullets}>
+                        {entry.bullets.map((bullet) => (
+                          <li className={styles.bullet} key={bullet}>
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,11 @@
+.heading {
+  display: flex;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.title {
+  margin-top: 0;
+}

@@ -1,0 +1,125 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(26, 24, 23, 0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+/* Only draw the hairline once the page has scrolled under the bar. */
+.lifted {
+  border-bottom-color: var(--rule);
+  background-color: rgba(26, 24, 23, 0.88);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: var(--nav-height);
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.monogram {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--heading);
+}
+
+.monogram:hover {
+  color: var(--accent);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 3vw, 2.25rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Let the row bleed to the screen edge when it scrolls on narrow screens. */
+  margin-right: calc(var(--gutter) * -1);
+  padding-right: var(--gutter);
+  /* Fades the trailing edge so a scrolled row reads as intentional. */
+  mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(100% - 2rem),
+    transparent 100%
+  );
+}
+
+.links::-webkit-scrollbar {
+  display: none;
+}
+
+.link {
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  padding-block: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+.active {
+  color: var(--accent);
+}
+
+.active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 40rem) {
+  /* The name leads the hero directly below, so the monogram is redundant here
+     and the space is better spent fitting all five links without scrolling. */
+  .monogram {
+    display: none;
+  }
+
+  .inner {
+    justify-content: flex-start;
+  }
+
+  .links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .link {
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+  }
+}

@@ -1,0 +1,233 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  border-top: 1px solid var(--rule);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* The <h3> exists purely for document outline; the button carries the style. */
+.headingReset {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Card head                                                         */
+/* ---------------------------------------------------------------- */
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: start;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  width: 100%;
+  padding-block: clamp(1.75rem, 3.5vw, 2.5rem);
+  text-align: left;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.headText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.primary {
+  font-family: var(--font-serif);
+  font-size: clamp(1.375rem, 2.6vw, 1.875rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--heading);
+  transition: color var(--dur) var(--ease);
+}
+
+.head:hover .primary {
+  color: var(--accent);
+}
+
+.secondary {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- */
+/* Dates / location                                                  */
+/* ---------------------------------------------------------------- */
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  padding-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.dates {
+  color: var(--text);
+}
+
+.location {
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+}
+
+/* ---------------------------------------------------------------- */
+/* Toggle                                                            */
+/* ---------------------------------------------------------------- */
+
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.125rem;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  transition:
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.head:hover .toggle {
+  border-color: var(--accent-rule);
+  background-color: var(--accent-wash);
+}
+
+.toggleBar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.6875rem;
+  height: 1px;
+  background-color: var(--accent);
+  translate: -50% -50%;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* The vertical stroke collapses into the horizontal one to form a minus. */
+.toggleBarVertical {
+  rotate: 90deg;
+}
+
+.head[aria-expanded="true"] .toggleBarVertical {
+  transform: scaleX(0);
+}
+
+.head[aria-expanded="true"] .toggle {
+  background-color: var(--accent-wash);
+  border-color: var(--accent-rule);
+}
+
+/* ---------------------------------------------------------------- */
+/* Expanding panel                                                   */
+/* ---------------------------------------------------------------- */
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ease);
+}
+
+.panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: var(--measure-text);
+  /* Aligns the bullet column under the role text, clear of the toggle. */
+  padding-bottom: clamp(2rem, 4vw, 2.75rem);
+}
+
+.bullet {
+  position: relative;
+  padding-left: 1.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.bullet::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 0.875rem;
+  height: 1px;
+  background-color: var(--accent);
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                        */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 48rem) {
+  .head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "text toggle"
+      "meta meta";
+    gap: 1rem;
+  }
+
+  .headText {
+    grid-area: text;
+  }
+
+  .toggle {
+    grid-area: toggle;
+  }
+
+  .meta {
+    grid-area: meta;
+    flex-flow: row wrap;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 0.5rem 0.75rem;
+    padding-top: 0;
+    white-space: normal;
+  }
+
+  /* Separates dates from location once they sit on one line. */
+  .location::before {
+    content: "·";
+    color: var(--accent);
+    margin-right: 0.75rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .bullets {
+    padding-bottom: 2rem;
+  }
+}

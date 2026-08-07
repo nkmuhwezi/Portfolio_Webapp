@@ -1,0 +1,49 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: clamp(1rem, 4vw, 3rem);
+  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.item:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.text {
+  min-width: 0;
+}
+
+.credential {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--heading);
+}
+
+.institution {
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.year {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: lining-nums tabular-nums;
+}

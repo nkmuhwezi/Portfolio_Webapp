@@ -1,0 +1,78 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.summary {
+  max-width: var(--measure-text);
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.85;
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- */
+/* Stats strip                                                       */
+/* ---------------------------------------------------------------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+  padding-top: clamp(2rem, 4vw, 2.75rem);
+  border-top: 1px solid var(--rule);
+}
+
+.stat {
+  min-width: 0;
+}
+
+.statValue {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 4.5vw, 3.125rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.statLabel {
+  margin: 0.875rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 24ch;
+}
+
+@media (max-width: 62rem) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 2.75rem);
+  }
+
+  .statLabel {
+    max-width: 32ch;
+  }
+}
+
+@media (max-width: 30rem) {
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, auto) 1fr;
+    align-items: baseline;
+    gap: 1.25rem;
+  }
+
+  .statValue {
+    font-size: 2.25rem;
+  }
+
+  .statLabel {
+    margin-top: 0;
+    max-width: none;
+  }
+}

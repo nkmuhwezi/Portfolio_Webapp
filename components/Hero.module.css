@@ -1,0 +1,211 @@
+.hero {
+  position: relative;
+  padding-top: clamp(3.5rem, 9vw, 7rem);
+  /* The next section supplies the gap below — see --section-gap. */
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  overflow: hidden;
+}
+
+/* A faint brass wash bleeding from the top-right corner. */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: min(70vw, 40rem);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    var(--accent-glow) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.body {
+  min-width: 0;
+}
+
+.location {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.location::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: clamp(3rem, 9.5vw, 6.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin-top: 1.5rem;
+}
+
+.title {
+  margin-top: 1.75rem;
+  max-width: 34ch;
+  font-size: clamp(1rem, 1.6vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.role {
+  color: var(--heading);
+}
+
+.sep {
+  color: var(--accent);
+  margin-inline: 0.6rem;
+}
+
+.credential {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- */
+/* Actions                                                           */
+/* ---------------------------------------------------------------- */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent-rule);
+  border-radius: 2px;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.primaryAction {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.primaryAction:hover {
+  background-color: transparent;
+  color: var(--accent);
+}
+
+.secondaryAction {
+  color: var(--text);
+}
+
+.secondaryAction:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--accent-wash);
+}
+
+.arrow {
+  transition: transform var(--dur) var(--ease);
+}
+
+.secondaryAction:hover .arrow {
+  transform: translateY(2px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Portrait                                                          */
+/* ---------------------------------------------------------------- */
+
+.portraitWrap {
+  position: relative;
+  min-width: 0;
+}
+
+/* Offset brass frame, echoing a mounted gallery print. */
+.portraitWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  translate: 0.875rem -0.875rem;
+  border: 1px solid var(--accent-rule);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 2px;
+  background-color: var(--bg-raised);
+  filter: grayscale(0.15) contrast(1.02);
+}
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                        */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 56rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2.5rem, 8vw, 3.5rem);
+  }
+
+  /* Lead with the name on small screens; the portrait follows the text. */
+  .body {
+    order: 1;
+  }
+
+  .portraitWrap {
+    order: 2;
+    max-width: 20rem;
+  }
+
+  .title {
+    max-width: 40ch;
+  }
+}
+
+@media (max-width: 30rem) {
+  .credential {
+    white-space: normal;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
