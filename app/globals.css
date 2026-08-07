@@ -1,9 +1,14 @@
 /* ==================================================================
-   Gallery Noir — global tokens & base styles
+   Theme tokens — Noir (dark, default) and Daylight (light)
+
+   Same names, different values: every component reads these custom
+   properties, never a literal color, so a theme is nothing more than
+   which block below is active. Typography, layout, and motion tokens
+   are shared — only the palette changes between themes.
    ================================================================== */
 
 :root {
-  /* Palette */
+  /* Palette — Noir: warm charcoal gallery, brass ink */
   --bg: #1a1817;
   --bg-raised: #211e1c;
   --bg-sunken: #151312;
@@ -35,6 +40,26 @@
   /* Motion */
   --ease: cubic-bezier(0.32, 0.08, 0.24, 1);
   --dur: 0.4s;
+}
+
+/* Daylight — a field report read in daylight, not "Noir with the lights on".
+   Cool paper stock and ink-navy type, with a single disciplined accent:
+   redline, the brick-red of a reviewed and signed-off document — a PRINCE2
+   sign-off mark, an engineering drawing markup. Same restraint as Noir's
+   brass: a thin mark, never a fill. */
+:root[data-theme="light"] {
+  --bg: #f1f3f4;
+  --bg-raised: #f8f9fa;
+  --bg-sunken: #e2e6e7;
+  --text: #1c2530;
+  --heading: #0e141b;
+  --muted: #54606b;
+  --accent: #a32b22;
+
+  --rule: rgba(28, 37, 48, 0.1);
+  --rule-soft: rgba(28, 37, 48, 0.05);
+  --accent-rule: rgba(163, 43, 34, 0.35);
+  --accent-wash: rgba(163, 43, 34, 0.06);
 }
 
 /* ------------------------------------------------------------------ */
@@ -214,14 +239,17 @@ button {
 /* ------------------------------------------------------------------ */
 
 @media print {
+  /* Printing is the Daylight theme by definition — ink on paper — so it
+     reuses those tokens rather than maintaining a third palette. */
   :root {
     --bg: #ffffff;
     --bg-raised: #ffffff;
-    --text: #1a1817;
-    --heading: #000000;
-    --muted: #55504b;
-    --accent: #8a6d33;
-    --rule: rgba(0, 0, 0, 0.18);
+    --bg-sunken: #ffffff;
+    --text: #1c2530;
+    --heading: #0e141b;
+    --muted: #54606b;
+    --accent: #a32b22;
+    --rule: rgba(28, 37, 48, 0.18);
   }
 
   body {

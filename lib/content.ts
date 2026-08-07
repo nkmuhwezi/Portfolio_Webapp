@@ -197,7 +197,7 @@ export type Credential = {
 
 export const education: Credential[] = [
   {
-    credential: "Designing & Building AI Solutions",
+    credential: "Designing and Building AI Solutions",
     institution: "Cornell University, USA",
     year: "2025",
   },

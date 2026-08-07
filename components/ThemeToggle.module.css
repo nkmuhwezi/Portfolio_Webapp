@@ -1,0 +1,54 @@
+/* Fixed, out of the nav's way entirely — the nav is already at capacity on
+   mobile (five section links), and this is a state control, not a section
+   to navigate to. */
+.toggle {
+  position: fixed;
+  right: clamp(1rem, 4vw, 1.5rem);
+  bottom: clamp(1rem, 4vw, 1.5rem);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.toggle:hover {
+  border-color: var(--accent-rule);
+}
+
+.option {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color var(--dur) var(--ease);
+}
+
+.option:hover {
+  color: var(--text);
+}
+
+.option[aria-pressed="true"] {
+  color: var(--accent);
+}
+
+.divider {
+  width: 1px;
+  height: 0.75rem;
+  background-color: var(--rule);
+}
+
+@media (max-width: 30rem) {
+  .toggle {
+    padding: 0.4375rem 0.625rem;
+  }
+
+  .option {
+    font-size: 0.625rem;
+  }
+}
