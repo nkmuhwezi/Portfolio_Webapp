@@ -114,6 +114,19 @@
   color: var(--heading);
 }
 
+/* A compressed scope line or personal aside — italic serif sets it apart
+   from the sans-serif role line above and the bullet list below, so it
+   reads as commentary rather than another list item. */
+.subtitle {
+  margin: 0.6rem 0 0;
+  max-width: var(--measure-text);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
 /* ---------------------------------------------------------------- */
 /* Toggle                                                            */
 /* ---------------------------------------------------------------- */
@@ -219,5 +232,32 @@
     content: "·";
     color: var(--accent);
     margin-left: 0.75rem;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Print                                                              */
+/* ---------------------------------------------------------------- */
+
+@media print {
+  .item {
+    /* Keep a whole posting together rather than splitting it across a
+       page break. */
+    break-inside: avoid;
+  }
+
+  /* This is the fix that matters: bullets are hidden via grid-template-rows
+     collapsing to 0fr while a card is toggled closed, and that JS-driven
+     state has no reason to match what should print. Force every panel open
+     so a printed page never silently drops content a reader never clicked
+     to expand. The panel's `inert` attribute stays in the DOM regardless
+     (CSS can't remove it) — harmless for print, since inert affects
+     focus/AT semantics, not visual layout. */
+  .panel {
+    grid-template-rows: 1fr !important;
+  }
+
+  .toggle {
+    display: none;
   }
 }

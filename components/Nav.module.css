@@ -125,3 +125,11 @@
     letter-spacing: 0.06em;
   }
 }
+
+/* Navigation serves on-screen browsing; a printed page has nothing to
+   navigate to. */
+@media print {
+  .header {
+    display: none;
+  }
+}

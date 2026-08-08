@@ -36,3 +36,155 @@
   font-variant-numeric: lining-nums tabular-nums;
   white-space: nowrap;
 }
+
+/* ---------------------------------------------------------------- */
+/* Flow diagram                                                       */
+/* ---------------------------------------------------------------- */
+
+.diagramScroll {
+  margin-top: 0.5rem;
+  /* The diagram never distorts by shrinking below legibility on narrow
+     screens — it scrolls horizontally instead, same rule as any wide
+     table or code block. */
+  overflow-x: auto;
+}
+
+.diagram {
+  display: block;
+  min-width: 32rem;
+  max-width: 42rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Case-study expand control                                         */
+/* ---------------------------------------------------------------- */
+
+.expandButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.expandButton:hover {
+  color: var(--heading);
+}
+
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.toggleBar {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transition: transform var(--dur) var(--ease);
+}
+
+.toggleBarVertical {
+  rotate: 90deg;
+}
+
+.expandButton[aria-expanded="true"] .toggleBarVertical {
+  transform: scaleX(0);
+}
+
+/* ---------------------------------------------------------------- */
+/* Case-study panel                                                   */
+/* ---------------------------------------------------------------- */
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ease);
+}
+
+.panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.caseStudy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: var(--measure-text);
+  padding-top: 1.75rem;
+}
+
+.caseStudyItem {
+  display: grid;
+  grid-template-columns: minmax(8rem, 10rem) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.caseStudyLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+
+.caseStudyBody {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+@media (max-width: 40rem) {
+  .caseStudyItem {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Print                                                              */
+/* ---------------------------------------------------------------- */
+
+@media print {
+  .band {
+    break-inside: avoid;
+  }
+
+  /* On screen this scrolls horizontally rather than shrinking below
+     legibility; a printed page can't scroll, so it shrinks to fit instead —
+     better than being silently clipped at the page edge. */
+  .diagram {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .caseStudyItem {
+    break-inside: avoid;
+  }
+
+  /* Same fix as Experience: force the collapsed case study open so it
+     isn't silently missing from a printed page. */
+  .panel {
+    grid-template-rows: 1fr !important;
+  }
+
+  .expandButton {
+    display: none;
+  }
+}

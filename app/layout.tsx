@@ -39,13 +39,17 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 // Derived from hero.title rather than duplicated as a literal, so the two
-// can't drift out of sync the way they just did.
-const heroRole = hero.title.split(" · ")[0];
-const metaTitle = `${hero.name} — ${heroRole}`;
+// can't drift out of sync the way they just did. Hyphen, not em dash — some
+// crawlers/clients render "—" as a mangled glyph in tab titles and previews.
+const metaTitle = `${hero.name} - ${hero.title}`;
 const metaDescription =
   "15+ years delivering infrastructure and digital platforms across telecom and multilateral development, taking platforms from pilot to national scale.";
 
 export const metadata: Metadata = {
+  // Without this, Next.js resolves the generated og:image/twitter:image
+  // URLs against http://localhost:3000 — the build warns about exactly
+  // this, and it would silently break every social preview in production.
+  metadataBase: new URL("https://norman-muhwezi-portfolio.vercel.app"),
   title: metaTitle,
   description: metaDescription,
   openGraph: {
@@ -53,6 +57,14 @@ export const metadata: Metadata = {
     description: metaDescription,
     type: "profile",
     locale: "en_US",
+  },
+  twitter: {
+    // "summary" renders a small square thumbnail; the branded card in
+    // opengraph-image.tsx/twitter-image.tsx is a 1200x630 wide format,
+    // which needs summary_large_image to actually display at that size.
+    card: "summary_large_image",
+    title: metaTitle,
+    description: metaDescription,
   },
 };
 

@@ -58,17 +58,17 @@
   color: var(--heading);
 }
 
-.sep {
-  color: var(--accent);
-  margin-inline: 0.6rem;
-}
-
-.credential {
-  font-family: var(--font-mono);
-  font-size: 0.8em;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  white-space: nowrap;
+/* A reflective aside rather than another headline — serif italic sets it
+   apart from the role line above and the CTAs below without competing
+   with either for attention. */
+.hook {
+  margin-top: 1.25rem;
+  max-width: 46ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--text);
 }
 
 /* ---------------------------------------------------------------- */
@@ -185,10 +185,6 @@
 }
 
 @media (max-width: 30rem) {
-  .credential {
-    white-space: normal;
-  }
-
   .primaryAction,
   .secondaryAction {
     flex: 1 1 auto;

@@ -5,13 +5,10 @@ import styles from "./Contact.module.css";
 const links = [
   {
     label: "Email",
-    value: contact.email,
+    // The address itself never appears as visible text, only as the mailto
+    // target — same rule the Hero CTA follows.
+    value: "Send an email",
     href: `mailto:${contact.email}`,
-  },
-  {
-    label: "Phone",
-    value: contact.phone,
-    href: `tel:${contact.phoneHref}`,
   },
   {
     label: "LinkedIn",

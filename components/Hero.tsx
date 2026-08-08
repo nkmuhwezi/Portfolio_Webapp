@@ -2,8 +2,6 @@ import { contact, hero, images, resumePath } from "@/lib/content";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
-  const [role, credential] = hero.title.split(" · ");
-
   return (
     <section className={styles.hero} id="top">
       <div className={`container ${styles.grid}`}>
@@ -13,28 +11,24 @@ export default function Hero() {
           <h1 className={styles.name}>{hero.name}</h1>
 
           <p className={styles.title}>
-            <span className={styles.role}>{role}</span>
-            {credential ? (
-              <>
-                <span className={styles.sep} aria-hidden="true">
-                  ·
-                </span>
-                <span className={styles.credential}>{credential}</span>
-              </>
-            ) : null}
+            <span className={styles.role}>{hero.title}</span>
           </p>
 
+          <p className={styles.hook}>{hero.hook}</p>
+
           <div className={styles.actions}>
-            {/* LinkedIn has no universal "compose message" link — this opens
-                the profile, where a visitor can message (if connected) or
-                connect first. */}
+            {/* The email address only ever appears as a mailto target, never
+                as visible text — see Contact for the same rule. */}
+            <a className={styles.primaryAction} href={`mailto:${contact.email}`}>
+              Get in touch
+            </a>
             <a
-              className={styles.primaryAction}
+              className={styles.secondaryAction}
               href={contact.linkedinUrl}
               target="_blank"
               rel="noreferrer noopener"
             >
-              Get in touch
+              LinkedIn
             </a>
             <a className={styles.secondaryAction} href={resumePath} download>
               Download CV

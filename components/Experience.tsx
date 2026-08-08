@@ -74,6 +74,13 @@ export default function Experience() {
                       </span>
                     </button>
 
+                    {/* Always visible, unlike the bullets below — a compressed
+                        scope summary or a personal aside, not detail that
+                        should be hidden behind a click. */}
+                    {entry.subtitle ? (
+                      <p className={styles.subtitle}>{entry.subtitle}</p>
+                    ) : null}
+
                     <div
                       className={styles.panel}
                       id={panelId}

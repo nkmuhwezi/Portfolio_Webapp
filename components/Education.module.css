@@ -59,3 +59,9 @@
     padding-top: 0;
   }
 }
+
+@media print {
+  .item {
+    break-inside: avoid;
+  }
+}

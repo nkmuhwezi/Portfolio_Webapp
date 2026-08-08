@@ -52,3 +52,12 @@
     font-size: 0.625rem;
   }
 }
+
+/* A fixed-position UI control has no place on a printed page — and printing
+   is always the light palette (see globals.css), so there's no theme left
+   to switch anyway. */
+@media print {
+  .toggle {
+    display: none;
+  }
+}

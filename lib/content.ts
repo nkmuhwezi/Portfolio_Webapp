@@ -28,9 +28,9 @@ export const resumePath = "/resume-placeholder.pdf";
 
 export const hero = {
   name: "Norman K. Muhwezi",
-  title:
-    "Digital Transformation & Innovation Leader · PRINCE2® Practitioner",
+  title: "Digital Transformation & Innovation Leader",
   location: "Addis Ababa, Ethiopia",
+  hook: "I've spent fifteen years turning ambitious ideas into infrastructure that works at scale: telecom towers, PPP-financed classrooms, platforms reaching over 12 million people. I'm now bringing that same delivery discipline to AI adoption.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -38,7 +38,7 @@ export const hero = {
 /* ------------------------------------------------------------------ */
 
 export const profile =
-  "15+ years delivering infrastructure and digital platforms across telecom (MTN Uganda & Sudan) and multilateral development (UNICEF Côte d'Ivoire, Sierra Leone, DRC), taking platforms from pilot to national scale across digital public infrastructure, financial inclusion, climate-resilient infrastructure financing, and civil registration/GovTech. Runs vendor evaluation and procurement for both digital platform builds (Nyaruka, ONA, YUX) and telecom infrastructure (Huawei, Ericsson, ZTE). PRINCE2® Practitioner and MBA holder, with a 2025 Cornell University AI Solutions certificate. Now applying that delivery discipline to AI adoption, advising organisations on AI adoption strategy and responsible deployment.";
+  "Senior digital transformation and innovation leader with 15+ years' experience setting up, launching, and scaling technology-enabled programmes across Africa, and structuring public-private partnerships that turn pilot ideas into infrastructure at scale. I have raised and managed multi-million-dollar portfolios, including a $12.6M public-private partnership that converted recycled plastic waste into 300+ classrooms for 15,000+ children, and directed digital public infrastructure reaching 12M+ users, including identity, registration, and payment-linked platforms, building the monitoring systems, quality assurance processes, and government and private-sector partnerships needed to sustain impact once a programme goes live. I am now applying that same delivery discipline to AI adoption, holding a Cornell University certificate in AI solution design and currently advising organisations on AI adoption strategy and responsible deployment. A telecom engineering foundation keeps my approach grounded in operational rigour as much as strategic vision.";
 
 export type Stat = { value: string; label: string };
 
@@ -46,11 +46,15 @@ export type Stat = { value: string; label: string };
 export const stats: Stat[] = [
   {
     value: "15+",
-    label: "Years across telecom infrastructure & multilateral digital delivery",
+    label: "Years across telecom infrastructure & digital transformation delivery",
   },
   {
     value: "$20M+",
     label: "Portfolio directed as Acting Section Chief, UNICEF DRC",
+  },
+  {
+    value: "1,500+",
+    label: "Tons of plastic waste converted into 300+ classrooms via the $12.6M PPP",
   },
   {
     value: "12.4M+",
@@ -70,7 +74,7 @@ export const stats: Stat[] = [
 export const flagship = {
   eyebrow: "Flagship achievement",
   /** Rendered verbatim. `highlight` below only wraps substrings — it never rewrites them. */
-  body: "Structured and managed a $12.6M public-private partnership with Conceptos Plasticos, converting 1,500+ tons of recycled plastic waste into 300+ classrooms serving 15,000+ children in Côte d'Ivoire, including construction-monitoring dashboards, toxicity/quality assurance, and $212,000 in government cost reimbursement.",
+  body: "Structured and managed a $12.6M public-private partnership with Conceptos Plasticos, converting 1,500+ tons of recycled plastic waste into 300+ classrooms serving 15,000+ children in Côte d'Ivoire. Built the real-time construction-monitoring dashboard, led toxicity/quality assurance with an independent testing lab, secured $212,000 in government cost reimbursement, and shared the model across five UNICEF Country Offices.",
   /** Exact substrings of `body` to visually emphasise. */
   highlight: [
     "$12.6M",
@@ -80,6 +84,33 @@ export const flagship = {
     "$212,000",
   ],
 };
+
+/** The flow diagram under the flagship text: input -> process -> process -> outcome. */
+export const flagshipFlow = [
+  { value: "1,500+ tons", label: "plastic diverted", tone: "neutral" as const },
+  { value: "$12.6M PPP", label: "structured & led", tone: "accent" as const },
+  { value: "300+ built", label: "classrooms", tone: "accent" as const },
+  { value: "15,000+", label: "children served", tone: "solid" as const },
+];
+
+/**
+ * Expandable case-study behind the flagship band. Drafted from verified
+ * CV facts — Norman may add first-hand texture before this goes live.
+ */
+export const flagshipCaseStudy = [
+  {
+    label: "The problem",
+    body: "Côte d'Ivoire needed classrooms fast, but conventional construction couldn't keep pace with demand, and the country was generating plastic waste with nowhere productive to go.",
+  },
+  {
+    label: "What I built",
+    body: "I structured and led a $12.6M partnership with Conceptos Plasticos to convert recycled plastic waste directly into modular classroom units. My role covered the full delivery chain: negotiating the partnership terms, building a real-time dashboard to monitor construction progress across sites, and running toxicity and quality assurance with an independent testing lab before any unit was approved for use with children.",
+  },
+  {
+    label: "The result",
+    body: "1,500+ tons of plastic waste became 300+ classrooms, reaching 15,000+ children. I also negotiated $212,000 in government cost reimbursement, and the delivery model was adopted by five other UNICEF Country Offices facing similar infrastructure gaps.",
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /* Experience                                                          */
@@ -98,6 +129,12 @@ export type ExperienceEntry = {
   defaultOpen?: boolean;
   /** Links the headline to the employer's site when set; plain text otherwise. */
   orgUrl?: string;
+  /**
+   * Always-visible context line, styled distinctly from bullets (not hidden
+   * behind the expand toggle). Used either as a compressed scope summary
+   * (DRC, MTN Uganda) or a personal bridge line (Professional Development).
+   */
+  subtitle?: string;
 };
 
 export const experience: ExperienceEntry[] = [
@@ -110,7 +147,7 @@ export const experience: ExperienceEntry[] = [
     defaultOpen: true,
     orgUrl: "https://www.unionbps.com/",
     bullets: [
-      "Advise a Kampala-based IT and consulting firm on AI adoption strategy and digital transformation roadmaps for enterprise clients.",
+      "Advise a Kampala-based IT and consulting firm on AI adoption strategy and digital transformation roadmaps for enterprise clients, applying platform delivery discipline built over 15 years in Africa.",
     ],
   },
   {
@@ -120,6 +157,8 @@ export const experience: ExperienceEntry[] = [
     location: "",
     dates: "Apr 2025–Dec 2025",
     defaultOpen: true,
+    subtitle:
+      "After fifteen years of taking platforms from pilot to national scale, I've learned the technology is usually the easy part. Delivery is what's hard. That's what I'm focused on now with AI adoption.",
     bullets: [
       "Career transition: completed Cornell University's Designing and Building AI Solutions certificate (2025) and an AI Agent Bootcamp (2026); currently completing an AI Product Management course (Coursera; expected August 2026).",
     ],
@@ -131,25 +170,27 @@ export const experience: ExperienceEntry[] = [
     location: "Kinshasa",
     dates: "Mar 2023–Mar 2025",
     orgUrl: "https://www.unicef.org/drcongo/en",
+    subtitle:
+      "Directed a $20M+ portfolio and a 20-person team; served as Acting Section Chief (OIC) for extended periods.",
     bullets: [
-      "Served three periods as Officer-in-Charge (approx. 6.5 months combined), directing a 20+ person team and budgets up to $20M.",
-      "Led vendor selection and procurement (Nyaruka/RapidPro, ONA, YUX) for the DRC digital platform portfolio, then directed FunDoo's end-to-end delivery to a 10,000-user beta launch.",
-      "Scaled U-Report DRC to 8.6M+ users across 150 clubs in every province, including 30+ girls-only clubs, connecting the platform to UNICEF's HOPE cash-transfer verification system.",
-      "Co-designed an AI-enabled misinformation-detection programme (Web Fact Checkers), training 700+ youth volunteers who addressed 100,000+ misinformation incidents.",
-      "Deployed the RapidPro-based Ebola-preparedness chatbot in DRC and secured $850K for accountability systems during Mpox, cholera, and M23 crisis response.",
+      "Built and led an AI-enabled misinformation-detection programme (Web Fact Checkers) to 700 trained youth volunteers, who documented 100,000+ counter-misinformation actions and grew the programme's reach to 3.4M+ people.",
+      "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 150 clubs in every province, including 30+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
+      "Led vendor selection and procurement (Nyaruka/RapidPro, ONA, YUX) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
+      "Built a RapidPro-based Ebola-preparedness chatbot for DRC, adopted as a UNICEF global template and replicated across 5+ country offices.",
+      "Chaired the DRC Accountability to Affected Populations (AAP) Committee, securing $850,000 for community feedback systems, and secured zero-rated data agreements with Orange, Vodacom, Airtel, and Africell to sustain platform growth.",
     ],
   },
   {
     id: "unicef-sierra-leone",
     primary: "UNICEF Sierra Leone",
-    secondary: "Innovation Manager (Stretch Assignment)",
+    secondary: "Innovation Manager (Short-Term Mission)",
     location: "Freetown",
     dates: "Jul–Oct 2022",
     orgUrl: "https://www.unicef.org/sierraleone/",
     bullets: [
-      "Led deployment of the Learning Passport digital education platform, training 87 Ministry of Education staff on system management.",
-      "Negotiated Project Giga's broadband vendor contracts, securing $500K in funding for school connectivity.",
-      "Restructured the Innovation Unit's project deployment process, raising fund utilisation from 35% to 84%.",
+      "Negotiated Project Giga's vendor contracts for a 6% cost reduction and helped secure $500K+ in funding to expand school internet connectivity across Sierra Leone.",
+      "Led digital entrepreneurship interventions under UNICEF's Generation Unlimited (GenU) youth initiative and trained 87 Ministry of Education staff on the Learning Passport digital-learning platform.",
+      "Restructured the Innovation Unit's project deployment process, improving fund-utilisation from 35% to 84%.",
     ],
   },
   {
@@ -160,10 +201,10 @@ export const experience: ExperienceEntry[] = [
     dates: "Dec 2016–Mar 2023",
     orgUrl: "https://www.unicef.org/cotedivoire/en",
     bullets: [
-      "Built a national SMS/WhatsApp digital birth registration system with the Ministry of Justice, running sprint planning and UAT cycles and training 50+ registration agents to pilot the system for government rollout.",
-      "Digitized mobile money payments for 30,000+ frontline workers, overseeing requirements, MNO integration, and transition to operations.",
-      "Designed and launched an Ebola-response RapidPro chatbot (2021), adopted as a UNICEF global template; led FunDoo's youth-engagement pilot (~10,000 users) and Yoma's regional rollout using the same UAT methodology.",
-      "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, managing MNO relationships and real-time reporting.",
+      "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, negotiating zero-rated SMS connectivity with MTN, Orange, and Moov to remove cost barriers to access.",
+      "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
+      "Developed Côte d'Ivoire's digital civil registration system with the Ministry of Justice and Child Protection, using RapidPro (UNICEF's SMS/chatbot engagement platform) and a Power BI dashboard to complement the paper-based birth registration process; trained 50+ registration agents for government rollout.",
+      "Launched and ran the national CORONA chatbot on RapidPro with the Ministry of Health, consulted 3M+ times and adopted by government for national radio and TV campaigns; later added a module for COVAX (the global COVID-19 vaccine-sharing initiative) and a separate Ebola information bot.",
     ],
   },
   {
@@ -175,7 +216,7 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.mtn.sd/",
     bullets: [
       "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
-      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
+      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and running risk-mitigation processes, including planned build pauses for subcontractor retraining, to protect network availability.",
     ],
   },
   {
@@ -185,10 +226,11 @@ export const experience: ExperienceEntry[] = [
     location: "Kampala",
     dates: "Sep 2009–Apr 2016",
     orgUrl: "https://www.mtn.co.ug/",
-    bullets: [
+    subtitle:
       "Started as a Radio Planning & Network Service Delivery Engineer before advancing to Project Manager & Senior Engineer.",
-      "Directed end-to-end RAN modernization across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), managing vendor integration (Huawei) and tower companies (ATC, Eaton).",
-      "Negotiated vendor and subcontractor contracts for $75,000+ in annual CAPEX savings, contributing to MTN Uganda's #1 national Quality of Service ranking (2014).",
+    bullets: [
+      "Directed end-to-end RAN modernisation across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), coordinating vendors (Huawei) and tower companies (ATC, Eaton) to deliver national coverage expansion with minimal service disruption.",
+      "Negotiated vendor and subcontractor contracts for $75,000+ in annual CAPEX savings, contributing to MTN Uganda's #1 national Quality-of-Service ranking.",
     ],
   },
 ];
@@ -210,17 +252,12 @@ export const education: Credential[] = [
     year: "2025",
   },
   {
-    credential: "AI Agent Bootcamp",
-    institution: "",
-    year: "2026",
-  },
-  {
-    credential: "PRINCE2® Practitioner Certification",
+    credential: "PRINCE2® Practitioner Certificate",
     institution: "APMG International, UK",
     year: "2011",
   },
   {
-    credential: "MBA",
+    credential: "Master of Business Administration (MBA)",
     institution: "East & Southern Africa Management Institute, Tanzania",
     year: "2015",
   },
@@ -236,22 +273,22 @@ export const education: Credential[] = [
 /* ------------------------------------------------------------------ */
 
 export const coreCompetencies = [
-  "Digital Public Infrastructure",
-  "Financial Inclusion & Payments",
-  "Climate-Resilient Infrastructure Financing",
-  "Civil Registration & GovTech",
-  "Vendor Evaluation & RFP",
-  "AI & Emerging Technology",
+  "Digital Public Infrastructure (DPI) & Platform Delivery",
+  "Public-Private Partnerships & Resource Mobilisation",
+  "Digital Transformation Strategy & Delivery",
+  "Programme Effectiveness & Impact Measurement",
+  "AI Adoption Strategy & Responsible Deployment",
+  "Vendor Evaluation & Procurement (RFP)",
+  "Multi-Country / Cross-Organisation Coordination",
 ];
 
 export const platformsAndTools = [
+  "n8n (AI Agent Workflows)",
   "RapidPro",
+  "Power BI",
   "U-Report",
-  "Yoma",
-  "Sprint Planning & UAT",
-  "Mobile Money Integration",
   "Real-time Dashboards",
-  "LTE / RAN Infrastructure",
+  "Sprint Planning & UAT",
 ];
 
 export const languages = [
@@ -265,10 +302,8 @@ export const languages = [
 
 export const contact = {
   opening:
-    "Open to conversations about digital transformation, digital health leadership, and AI Adoption roles and other opportunities where this experience adds value.",
+    "Open to conversations about digital transformation, innovation, and AI adoption roles across multilateral development, financial institutions, and the private sector.",
   email: "nkmuhwezi@gmail.com",
-  phone: "+251 97 819 1199",
-  phoneHref: "+251978191199",
   linkedinLabel: "linkedin.com/in/normanmuhwezi",
   linkedinUrl: "https://www.linkedin.com/in/normanmuhwezi",
   location: "Addis Ababa, Ethiopia",

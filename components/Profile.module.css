@@ -13,9 +13,12 @@
 /* Stats strip                                                       */
 /* ---------------------------------------------------------------- */
 
+/* auto-fit rather than a fixed column count: five cards don't split evenly
+   into 4 or 2, and this reflows cleanly (5, then 3+2, then 1-per-row)
+   without hand-tuned breakpoints tied to an exact item count. */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: clamp(1.75rem, 3vw, 2.5rem);
   margin: clamp(3rem, 6vw, 4.5rem) 0 0;
   padding-top: clamp(2rem, 4vw, 2.75rem);
@@ -46,7 +49,6 @@
 
 @media (max-width: 62rem) {
   .stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(2rem, 5vw, 2.75rem);
   }
 
@@ -74,5 +76,11 @@
   .statLabel {
     margin-top: 0;
     max-width: none;
+  }
+}
+
+@media print {
+  .stat {
+    break-inside: avoid;
   }
 }
