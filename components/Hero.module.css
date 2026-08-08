@@ -152,7 +152,10 @@
 .portrait {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  /* Matches the actual photo's crop — it's a square headshot, not the 4:5
+     portrait frame the placeholder used. Forcing 4:5 via object-fit:cover
+     on a square source would crop the crossed arms at the sides. */
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 2px;
   background-color: var(--bg-raised);

@@ -12,15 +12,16 @@
 /* ------------------------------------------------------------------ */
 
 /**
- * Swap in real photos by dropping files into `public/images/` and pointing
- * these paths at them. Nothing else needs to change.
+ * Two density variants of the same square crop (not two breakpoint sizes —
+ * the portrait's rendered width barely changes between mobile and desktop,
+ * so this is a 1x/2x srcset for pixel density, not a viewport-based one).
  */
 export const images = {
-  headshot: "/images/headshot-placeholder.svg",
+  headshot: "/images/headshot-800.jpg",
+  headshotLarge: "/images/headshot-1600.jpg",
 };
 
-/** Replace `public/resume-placeholder.pdf` with the real CV, then update this. */
-export const resumePath = "/resume-placeholder.pdf";
+export const resumePath = "/norman-muhwezi-cv.pdf";
 
 /* ------------------------------------------------------------------ */
 /* Hero                                                                */

@@ -40,14 +40,14 @@ export default function Hero() {
         </div>
 
         <div className={styles.portraitWrap}>
-          {/* Swap the file at `images.headshot` in lib/content.ts. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className={styles.portrait}
             src={images.headshot}
+            srcSet={`${images.headshot} 1x, ${images.headshotLarge} 2x`}
             alt={`Portrait of ${hero.name}`}
             width={800}
-            height={1000}
+            height={800}
           />
         </div>
       </div>
