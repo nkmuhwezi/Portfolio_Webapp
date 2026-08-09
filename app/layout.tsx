@@ -5,14 +5,19 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { hero } from "@/lib/content";
 import "./globals.css";
 
-// Runs before hydration so a returning visitor who chose the dark mode
-// doesn't see a flash of the light default first. Light is now the default,
-// matching the reference this identity is built from — the theme only
-// changes when a choice was explicitly stored, never inferred from OS
-// preference, since this is the site's own brand identity.
+// Runs before hydration so the page never flashes the wrong theme. A stored
+// choice (the visitor has clicked Lumen or Vast before) always wins; with
+// no stored choice yet, this defaults to the OS/browser's own
+// prefers-color-scheme rather than a fixed brand default — see ThemeToggle
+// for the live-update half of this (system changes while no manual choice
+// has been made yet).
 const THEME_INIT_SCRIPT = `
   try {
-    if (localStorage.getItem("theme") === "dark") {
+    var stored = localStorage.getItem("theme");
+    var wantsDark = stored
+      ? stored === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (wantsDark) {
       document.documentElement.setAttribute("data-theme", "dark");
     }
   } catch (e) {}
