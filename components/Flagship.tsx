@@ -15,6 +15,33 @@ const BOX_Y = 20;
 const VIEW_HEIGHT = 96;
 
 /**
+ * One color family stepping from lightest to darkest/most-saturated across
+ * the four boxes, rather than three unrelated treatments — each value is
+ * how much `--accent` to mix into `--bg-raised`. Built from the site's own
+ * palette variables, so it re-derives correctly for Lumen and Vast rather
+ * than assuming which theme's accent is the "dark" end (Lumen's is a dark
+ * maroon; Vast's is a bright amber — the ramp still reads as ascending
+ * visual weight in both because it's relative to each theme's own bg-raised
+ * and accent, not to a fixed hex ramp). Stays under ~45% for every step but
+ * the last so --heading text keeps safe contrast; only the final, fully
+ * saturated step switches to --bg text, mirroring the previous "solid" box.
+ */
+const RAMP_PERCENT = [10, 28, 45, 100];
+
+function stepColors(index: number) {
+  const fillPercent = RAMP_PERCENT[index];
+  const strokePercent = Math.min(fillPercent + 20, 100);
+  const isFinal = fillPercent === 100;
+
+  return {
+    fill: `color-mix(in srgb, var(--accent) ${fillPercent}%, var(--bg-raised))`,
+    stroke: `color-mix(in srgb, var(--accent) ${strokePercent}%, var(--bg-raised))`,
+    text: isFinal ? "var(--bg)" : "var(--heading)",
+    label: isFinal ? "var(--bg)" : "var(--muted)",
+  };
+}
+
+/**
  * The tokens this reads (--bg-raised, --rule, --heading, --muted, --accent,
  * --accent-wash, --accent-rule, --bg) are inline SVG presentation
  * attributes, not a separate image file — that's what lets them resolve
@@ -66,26 +93,8 @@ function FlowDiagram({
         {flagshipFlow.map((step, index) => {
           const x = MARGIN_X + index * (BOX_WIDTH + GAP);
           const cx = x + BOX_WIDTH / 2;
-
-          const fill =
-            step.tone === "solid"
-              ? "var(--accent)"
-              : step.tone === "accent"
-                ? "var(--accent-wash)"
-                : "var(--bg-raised)";
-          const stroke =
-            step.tone === "solid"
-              ? "var(--accent)"
-              : step.tone === "accent"
-                ? "var(--accent-rule)"
-                : "var(--rule)";
-          const valueColor = step.tone === "solid" ? "var(--bg)" : "var(--heading)";
-          const labelColor =
-            step.tone === "solid"
-              ? "var(--bg)"
-              : step.tone === "accent"
-                ? "var(--accent)"
-                : "var(--muted)";
+          const { fill, stroke, text: valueColor, label: labelColor } =
+            stepColors(index);
 
           const isActive = activeIndex === index;
 
@@ -129,7 +138,7 @@ function FlowDiagram({
                   rx="8"
                   fill={fill}
                   stroke={stroke}
-                  strokeWidth="0.5"
+                  strokeWidth="0.75"
                 />
                 <text
                   x={cx}
@@ -192,6 +201,12 @@ export default function Flagship() {
           ])}
         </p>
 
+        {/* Nothing else on the page signals "clickable" for an SVG shape,
+            so a plain-language cue does that job instead of relying on
+            cursor:pointer and hover states alone to be discovered. */}
+        <p className={`eyebrow ${styles.diagramCaption}`}>
+          Tap a step for details
+        </p>
         <FlowDiagram activeIndex={activeStep} onSelect={selectStep} />
 
         {/* Reserves its height even when empty so revealing a detail

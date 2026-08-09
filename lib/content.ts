@@ -89,36 +89,34 @@ export const flagship = {
 /**
  * The flow diagram under the flagship text: input -> process -> process -> outcome.
  * `detail` is the line revealed when a step is tapped — paraphrased from
- * `flagship.body` / `flagshipCaseStudy` only, never new claims.
+ * `flagship.body` / `flagshipCaseStudy` only, never new claims. The
+ * five-Country-Office fact stays out of here deliberately: it's a "shared
+ * with," not a confirmed "adopted by," and belongs only in flagship.body's
+ * own wording, not restated (or overstated) in a second place.
  */
 export const flagshipFlow = [
   {
     value: "1,500+ tons",
     label: "plastic diverted",
-    tone: "neutral" as const,
     detail:
       "Recycled plastic waste with nowhere productive to go, converted directly into modular classroom units.",
   },
   {
     value: "$12.6M PPP",
     label: "structured & led",
-    tone: "accent" as const,
     detail:
       "Structured with Conceptos Plasticos, including construction-monitoring dashboards and independent toxicity/quality assurance.",
   },
   {
     value: "300+ built",
     label: "classrooms",
-    tone: "accent" as const,
     detail:
       "Delivered fast enough to meet demand that conventional construction couldn't keep pace with.",
   },
   {
     value: "15,000+",
     label: "children served",
-    tone: "solid" as const,
-    detail:
-      "$212,000 in government cost reimbursement secured, and the model adopted by five other UNICEF Country Offices.",
+    detail: "$212,000 in government cost reimbursement secured along the way.",
   },
 ];
 
@@ -137,7 +135,7 @@ export const flagshipCaseStudy = [
   },
   {
     label: "The result",
-    body: "1,500+ tons of plastic waste became 300+ classrooms, reaching 15,000+ children. I also negotiated $212,000 in government cost reimbursement, and the delivery model was adopted by five other UNICEF Country Offices facing similar infrastructure gaps.",
+    body: "1,500+ tons of plastic waste became 300+ classrooms, reaching 15,000+ children. I also negotiated $212,000 in government cost reimbursement, and shared the delivery model across five other UNICEF Country Offices facing similar infrastructure gaps.",
   },
 ];
 
