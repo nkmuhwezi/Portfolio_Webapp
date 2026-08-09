@@ -2,8 +2,10 @@
 
 import { useId, useState } from "react";
 import { flagship, flagshipCaseStudy, flagshipFlow } from "@/lib/content";
-import { highlight } from "@/lib/highlight";
+import { annotate, linkify } from "@/lib/highlight";
 import styles from "./Flagship.module.css";
+
+const CONCEPTOS_PLASTICOS_URL = "https://conceptosplasticos.com/";
 
 const BOX_WIDTH = 135;
 const BOX_HEIGHT = 56;
@@ -175,7 +177,19 @@ export default function Flagship() {
       <div className={`container ${styles.inner}`}>
         <p className={`eyebrow ${styles.eyebrow}`}>{flagship.eyebrow}</p>
         <p className={styles.body}>
-          {highlight(flagship.body, flagship.highlight, styles.figure)}
+          {annotate(flagship.body, [
+            ...flagship.highlight.map((term) => ({
+              term,
+              type: "mark" as const,
+              className: styles.figure,
+            })),
+            {
+              term: "Conceptos Plasticos",
+              type: "link" as const,
+              href: CONCEPTOS_PLASTICOS_URL,
+              className: styles.inlineLink,
+            },
+          ])}
         </p>
 
         <FlowDiagram activeIndex={activeStep} onSelect={selectStep} />
@@ -188,7 +202,12 @@ export default function Flagship() {
               <span className={styles.stepDetailLabel}>
                 {flagshipFlow[activeStep].label}
               </span>
-              {flagshipFlow[activeStep].detail}
+              {linkify(
+                flagshipFlow[activeStep].detail,
+                "Conceptos Plasticos",
+                CONCEPTOS_PLASTICOS_URL,
+                styles.inlineLink,
+              )}
             </>
           ) : (
             <span className={styles.stepDetailHint}>
@@ -224,7 +243,14 @@ export default function Flagship() {
               {flagshipCaseStudy.map((section) => (
                 <div className={styles.caseStudyItem} key={section.label}>
                   <dt className={styles.caseStudyLabel}>{section.label}</dt>
-                  <dd className={styles.caseStudyBody}>{section.body}</dd>
+                  <dd className={styles.caseStudyBody}>
+                    {linkify(
+                      section.body,
+                      "Conceptos Plasticos",
+                      CONCEPTOS_PLASTICOS_URL,
+                      styles.inlineLink,
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
