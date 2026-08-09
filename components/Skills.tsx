@@ -22,7 +22,7 @@ export default function Skills() {
 
           <div className={styles.group}>
             <h3 className={styles.groupTitle}>Platforms & Tools</h3>
-            <ul className={`${styles.flow} ${styles.flowMono}`}>
+            <ul className={styles.flow}>
               {platformsAndTools.map((item) => (
                 <li className={styles.flowItem} key={item}>
                   {item}

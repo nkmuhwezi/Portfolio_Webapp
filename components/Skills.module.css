@@ -32,10 +32,13 @@
 /* ---------------------------------------------------------------- */
 
 /* Set as a running line rather than boxed chips — these are terms in a
-   list, and the brief itself writes them separated by middots. */
+   list, and the brief itself writes them separated by middots. Same
+   sans body type as the rest of the page for every group here — mono
+   is reserved elsewhere for small uppercase labels, not reading-size
+   content, so a technical-tools list doesn't get its own treatment. */
 .flow {
   font-size: 1.0625rem;
-  line-height: 1.9;
+  line-height: 1.6;
   color: var(--text);
 }
 
@@ -46,15 +49,7 @@
 .flowItem:not(:last-child)::after {
   content: "·";
   color: var(--accent);
-  margin-inline: 0.7em;
-}
-
-/* Technical stack labels carry the mono treatment. */
-.flowMono {
-  font-family: var(--font-mono);
-  font-size: 0.9375rem;
-  letter-spacing: 0.01em;
-  line-height: 2;
+  margin-inline: 0.45em;
 }
 
 /* ---------------------------------------------------------------- */
