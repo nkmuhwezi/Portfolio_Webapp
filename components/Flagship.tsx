@@ -20,7 +20,13 @@ const VIEW_HEIGHT = 96;
  * automatically. An <img src="diagram.svg"> can't do this: an externally
  * loaded SVG has no access to the parent document's CSS.
  */
-function FlowDiagram() {
+function FlowDiagram({
+  activeIndex,
+  onSelect,
+}: {
+  activeIndex: number | null;
+  onSelect: (index: number) => void;
+}) {
   const n = flagshipFlow.length;
   const totalWidth = MARGIN_X * 2 + n * BOX_WIDTH + (n - 1) * GAP;
   const arrowId = useId();
@@ -79,6 +85,8 @@ function FlowDiagram() {
                 ? "var(--accent)"
                 : "var(--muted)";
 
+          const isActive = activeIndex === index;
+
           return (
             <g key={step.label}>
               {index > 0 ? (
@@ -93,39 +101,58 @@ function FlowDiagram() {
                 />
               ) : null}
 
-              <rect
-                x={x}
-                y={BOX_Y}
-                width={BOX_WIDTH}
-                height={BOX_HEIGHT}
-                rx="8"
-                fill={fill}
-                stroke={stroke}
-                strokeWidth="0.5"
-              />
-              <text
-                x={cx}
-                y={BOX_Y + 18}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fontFamily="var(--font-sans)"
-                fontSize="14"
-                fontWeight="500"
-                fill={valueColor}
+              {/* A real focusable, clickable group rather than a <div> with a
+                  mouse-only handler — Enter/Space fire the same onSelect a
+                  click would. */}
+              <g
+                className={`${styles.step} ${isActive ? styles.stepActive : ""}`}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isActive}
+                aria-label={`${step.value} ${step.label}`}
+                onClick={() => onSelect(index)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    onSelect(index);
+                  }
+                }}
               >
-                {step.value}
-              </text>
-              <text
-                x={cx}
-                y={BOX_Y + 40}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fontFamily="var(--font-sans)"
-                fontSize="12"
-                fill={labelColor}
-              >
-                {step.label}
-              </text>
+                <rect
+                  className={styles.stepRect}
+                  x={x}
+                  y={BOX_Y}
+                  width={BOX_WIDTH}
+                  height={BOX_HEIGHT}
+                  rx="8"
+                  fill={fill}
+                  stroke={stroke}
+                  strokeWidth="0.5"
+                />
+                <text
+                  x={cx}
+                  y={BOX_Y + 18}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontFamily="var(--font-sans)"
+                  fontSize="14"
+                  fontWeight="500"
+                  fill={valueColor}
+                >
+                  {step.value}
+                </text>
+                <text
+                  x={cx}
+                  y={BOX_Y + 40}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontFamily="var(--font-sans)"
+                  fontSize="12"
+                  fill={labelColor}
+                >
+                  {step.label}
+                </text>
+              </g>
             </g>
           );
         })}
@@ -136,7 +163,12 @@ function FlowDiagram() {
 
 export default function Flagship() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeStep, setActiveStep] = useState<number | null>(null);
   const panelId = "flagship-case-study";
+
+  const selectStep = (index: number) => {
+    setActiveStep((current) => (current === index ? null : index));
+  };
 
   return (
     <aside className={styles.band}>
@@ -146,7 +178,24 @@ export default function Flagship() {
           {highlight(flagship.body, flagship.highlight, styles.figure)}
         </p>
 
-        <FlowDiagram />
+        <FlowDiagram activeIndex={activeStep} onSelect={selectStep} />
+
+        {/* Reserves its height even when empty so revealing a detail
+            doesn't shift the "Read the full story" control below it. */}
+        <p className={styles.stepDetail} aria-live="polite">
+          {activeStep !== null ? (
+            <>
+              <span className={styles.stepDetailLabel}>
+                {flagshipFlow[activeStep].label}
+              </span>
+              {flagshipFlow[activeStep].detail}
+            </>
+          ) : (
+            <span className={styles.stepDetailHint}>
+              Tap a step above for more detail.
+            </span>
+          )}
+        </p>
 
         <button
           type="button"

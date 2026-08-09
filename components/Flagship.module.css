@@ -55,6 +55,68 @@
   max-width: 42rem;
 }
 
+/* Each flow step is a focusable SVG <g> (role="button") — transform-box
+   lets a CSS scale transform use the box's own bounds as its origin
+   instead of the SVG viewport's, so it grows in place. */
+.step {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur) var(--ease);
+}
+
+.step:hover {
+  transform: scale(1.03);
+}
+
+.step:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.stepActive {
+  transform: scale(1.05);
+}
+
+.stepRect {
+  transition:
+    stroke var(--dur) var(--ease),
+    stroke-width var(--dur) var(--ease);
+}
+
+.stepActive .stepRect {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+/* ---------------------------------------------------------------- */
+/* Step detail (revealed by tapping a flow step)                     */
+/* ---------------------------------------------------------------- */
+
+.stepDetail {
+  margin: 0;
+  min-height: 1.5em;
+  max-width: var(--measure-text);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.stepDetailLabel {
+  margin-right: 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.stepDetailHint {
+  color: var(--muted);
+}
+
 /* ---------------------------------------------------------------- */
 /* Case-study expand control                                         */
 /* ---------------------------------------------------------------- */
@@ -176,6 +238,12 @@
 
   .caseStudyItem {
     break-inside: avoid;
+  }
+
+  /* An on-screen tap affordance, meaningless on paper — and its detail
+     text is already covered by the full case study, forced open below. */
+  .stepDetail {
+    display: none;
   }
 
   /* Same fix as Experience: force the collapsed case study open so it
