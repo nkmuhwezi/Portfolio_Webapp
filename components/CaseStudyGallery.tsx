@@ -2,6 +2,7 @@
 
 import { useState, type KeyboardEvent } from "react";
 import type { CaseStudyImage } from "@/lib/content";
+import CaseStudyPhoto from "./CaseStudyPhoto";
 import styles from "./CaseStudyGallery.module.css";
 
 type Props = {
@@ -50,19 +51,8 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
       tabIndex={hasMultiple ? 0 : undefined}
       onKeyDown={hasMultiple ? onKeyDown : undefined}
     >
-      <figure className={styles.figure}>
-        {current.src ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img className={styles.media} src={current.src} alt={current.alt} />
-        ) : (
-          <div
-            className={styles.placeholder}
-            role="img"
-            aria-label={current.alt || current.label}
-          >
-            <span className={styles.placeholderLabel}>{current.label}</span>
-          </div>
-        )}
+      <div className={styles.mediaWrap}>
+        <CaseStudyPhoto image={current} />
 
         {hasMultiple ? (
           <>
@@ -84,7 +74,7 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
             </button>
           </>
         ) : null}
-      </figure>
+      </div>
 
       <div className={styles.meta}>
         {/* Announces the swap for screen-reader users without a separate

@@ -69,9 +69,24 @@ export const caseStudyImages: Record<
   ],
   coteDIvoire: [
     {
-      src: null,
-      alt: "",
+      src: "/images/case-studies/civ-construction-site.jpg",
+      alt: "A person wearing a yellow hard hat and safety glasses uses a rubber mallet to fit a recycled-plastic building block into place at a classroom construction site in Cote d'Ivoire.",
       label: "Cote d'Ivoire project photo",
+      caption:
+        "On-site construction work during the recycled-plastic classroom programme in Cote d'Ivoire.",
+    },
+    {
+      src: "/images/case-studies/civ-production-plant.jpg",
+      alt: "Stacks of black recycled-plastic building components on pallets inside a production facility, with a forklift moving a pallet in the foreground.",
+      label: "Cote d'Ivoire project photo",
+      caption: "Recycled-plastic building components prepared for classroom construction.",
+    },
+    {
+      src: "/images/case-studies/civ-classroom-before-after.jpg",
+      alt: "Side-by-side comparison showing a completed grey recycled-plastic classroom building on the left and an older palm-leaf-roofed structure on the right, at a school site in Cote d'Ivoire.",
+      label: "Cote d'Ivoire project photo",
+      caption:
+        "Before and after: the new recycled-plastic classroom beside the older palm-leaf structure in Cote d'Ivoire.",
     },
   ],
   telecom: [
