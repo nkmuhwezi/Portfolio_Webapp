@@ -43,7 +43,7 @@ export function renderSocialImage() {
               fontWeight: 600,
             }}
           >
-            {hero.location}
+            {hero.eyebrow}
           </span>
         </div>
 

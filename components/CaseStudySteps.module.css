@@ -1,0 +1,128 @@
+.wrap {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.caption {
+  margin: 0 0 0.5rem;
+}
+
+.diagramScroll {
+  /* The diagram never distorts by shrinking below legibility on narrow
+     screens — it scrolls horizontally instead, same rule as any wide
+     table or code block. */
+  overflow-x: auto;
+}
+
+.diagram {
+  display: block;
+  min-width: 32rem;
+  max-width: 42rem;
+}
+
+/* Each step is a focusable SVG <g> (role="button") — transform-box lets a
+   CSS scale transform use the box's own bounds as its origin instead of
+   the SVG viewport's, so it grows in place. */
+.step {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur) var(--ease);
+}
+
+.step:hover {
+  transform: scale(1.03);
+}
+
+.step:hover .stepRect {
+  stroke-width: 1.5;
+}
+
+.step:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.stepActive {
+  transform: scale(1.05);
+}
+
+.stepRect {
+  transition:
+    stroke var(--dur) var(--ease),
+    stroke-width var(--dur) var(--ease);
+}
+
+.stepActive .stepRect {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+/* ---------------------------------------------------------------- */
+/* Step detail (revealed by tapping a step)                          */
+/* ---------------------------------------------------------------- */
+
+/* All four items live in the DOM at all times (see the component comment);
+   on screen only the active one is shown. */
+.stepDetailList {
+  margin: 0.75rem 0 0;
+  min-height: 1.5em;
+  max-width: var(--measure-text);
+}
+
+.stepDetailItem {
+  display: none;
+}
+
+.stepDetailItem[data-active="true"] {
+  display: block;
+}
+
+.stepDetailLabel {
+  margin: 0 0.5em 0 0;
+  display: inline;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.stepDetailBody {
+  margin: 0;
+  display: inline;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.stepDetailHint {
+  margin: 0.75rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.wrap[data-has-active="true"] .stepDetailHint {
+  display: none;
+}
+
+@media print {
+  .diagram {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* An on-screen tap affordance, meaningless on paper — but the step
+     detail itself is real content, so every item is forced open rather
+     than silently dropped from a printed page. */
+  .caption,
+  .stepDetailHint {
+    display: none;
+  }
+
+  .stepDetailItem {
+    display: block !important;
+    margin-bottom: 0.5rem;
+  }
+}

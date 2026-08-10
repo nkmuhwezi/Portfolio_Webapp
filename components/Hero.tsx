@@ -6,7 +6,7 @@ export default function Hero() {
     <section className={styles.hero} id="top">
       <div className={`container ${styles.grid}`}>
         <div className={styles.body}>
-          <p className={styles.location}>{hero.location}</p>
+          <p className={styles.eyebrow}>{hero.eyebrow}</p>
 
           <h1 className={styles.name}>{hero.name}</h1>
 
@@ -14,27 +14,26 @@ export default function Hero() {
             <span className={styles.role}>{hero.title}</span>
           </p>
 
-          <p className={styles.hook}>{hero.hook}</p>
+          <p className={styles.copy}>{hero.copy}</p>
 
           <div className={styles.actions}>
-            {/* The email address only ever appears as a mailto target, never
-                as visible text — see Contact for the same rule. */}
-            <a className={styles.primaryAction} href={`mailto:${contact.email}`}>
-              Get in touch
-            </a>
-            <a
-              className={styles.secondaryAction}
-              href={contact.linkedinUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              LinkedIn
+            <a className={styles.primaryAction} href="#work">
+              View Selected Work
             </a>
             <a className={styles.secondaryAction} href={resumePath} download>
               Download CV
               <span className={styles.arrow} aria-hidden="true">
                 ↓
               </span>
+            </a>
+            <a
+              className={styles.tertiaryLink}
+              href={contact.linkedinUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              LinkedIn
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>

@@ -23,121 +23,268 @@ export const images = {
 
 export const resumePath = "/norman-muhwezi-cv.pdf";
 
+/**
+ * Case-study image placeholders. `src: null` renders a neutral editorial
+ * placeholder block instead of a photo — swapping in the real asset later
+ * is a one-line edit here (set `src`, update `alt`), no component or layout
+ * changes required.
+ */
+export type CaseStudyImage = {
+  src: string | null;
+  alt: string;
+  label: string;
+};
+
+export const caseStudyImages: Record<
+  "drc" | "coteDIvoire" | "telecom",
+  CaseStudyImage
+> = {
+  drc: {
+    src: null,
+    alt: "",
+    label: "DRC project photo",
+  },
+  coteDIvoire: {
+    src: null,
+    alt: "",
+    label: "Cote d'Ivoire project photo",
+  },
+  telecom: {
+    src: null,
+    alt: "",
+    label: "Telecom project visual",
+  },
+};
+
 /* ------------------------------------------------------------------ */
 /* Hero                                                                */
 /* ------------------------------------------------------------------ */
 
 export const hero = {
+  eyebrow: "Africa & Emerging Markets · Based in Addis Ababa",
   name: "Norman K. Muhwezi",
-  title: "Digital Transformation & Innovation Leader",
-  location: "Addis Ababa, Ethiopia",
-  hook: "I've spent fifteen years turning ambitious ideas into infrastructure that works at scale: telecom towers, PPP-financed classrooms, platforms reaching over 12 million people. I'm now bringing that same delivery discipline to AI adoption.",
+  title: "Digital Transformation Leader",
+  copy: "I've spent 15 years turning ambitious technology ideas into systems that work at scale, including telecom networks, digital platforms used by millions, and a $12.6M public-private partnership. I now bring that same delivery experience to AI adoption advisory work.",
 };
 
 /* ------------------------------------------------------------------ */
-/* Profile                                                             */
+/* Career trajectory                                                   */
 /* ------------------------------------------------------------------ */
 
-export const profile =
-  "Senior digital transformation and innovation leader with 15+ years' experience setting up, launching, and scaling technology-enabled programmes across Africa, and structuring public-private partnerships that turn pilot ideas into infrastructure at scale. I have raised and managed multi-million-dollar portfolios, including a $12.6M public-private partnership that converted recycled plastic waste into 300+ classrooms for 15,000+ children, and directed digital public infrastructure reaching 12M+ users, including identity, registration, and payment-linked platforms, building the monitoring systems, quality assurance processes, and government and private-sector partnerships needed to sustain impact once a programme goes live. I am now applying that same delivery discipline to AI adoption, holding a Cornell University certificate in AI solution design and currently advising organisations on AI adoption strategy and responsible deployment. A telecom engineering foundation keeps my approach grounded in operational rigour as much as strategic vision.";
-
-export type Stat = { value: string; label: string };
-
-/** Ordered by priority — if space is ever constrained, the last one goes first. */
-export const stats: Stat[] = [
-  {
-    value: "15+",
-    label: "Years across telecom infrastructure & digital transformation delivery",
-  },
-  {
-    value: "$20M+",
-    label: "Portfolio directed as Acting Section Chief, UNICEF DRC",
-  },
-  {
-    value: "1,500+",
-    label: "Tons of plastic waste converted into 300+ classrooms via the $12.6M PPP",
-  },
-  {
-    value: "12.4M+",
-    label:
-      "Combined U-Report users: DRC (8.6M+, #1 globally) & Côte d'Ivoire (3.8M+, #2 globally)",
-  },
-  {
-    value: "5+",
-    label: "Countries where RapidPro workflows were replicated at scale",
-  },
-];
-
-/* ------------------------------------------------------------------ */
-/* Flagship achievement                                                */
-/* ------------------------------------------------------------------ */
-
-export const flagship = {
-  eyebrow: "Flagship achievement",
-  /** Rendered verbatim. `highlight` below only wraps substrings — it never rewrites them. */
-  body: "Structured and managed a $12.6M public-private partnership with Conceptos Plasticos, converting 1,500+ tons of recycled plastic waste into 300+ classrooms serving 15,000+ children in Côte d'Ivoire. Built the real-time construction-monitoring dashboard, led toxicity/quality assurance with an independent testing lab, secured $212,000 in government cost reimbursement, and shared the model across five UNICEF Country Offices.",
-  /** Exact substrings of `body` to visually emphasise. */
-  highlight: [
-    "$12.6M",
-    "1,500+ tons",
-    "300+ classrooms",
-    "15,000+ children",
-    "$212,000",
-  ],
+export type CareerStage = {
+  year: string;
+  stage: string;
+  body: string;
 };
 
-/**
- * The flow diagram under the flagship text: input -> process -> process -> outcome.
- * `detail` is the line revealed when a step is tapped — paraphrased from
- * `flagship.body` / `flagshipCaseStudy` only, never new claims. The
- * five-Country-Office fact stays out of here deliberately: it's a "shared
- * with," not a confirmed "adopted by," and belongs only in flagship.body's
- * own wording, not restated (or overstated) in a second place.
- */
-export const flagshipFlow = [
+export const careerStages: CareerStage[] = [
   {
-    value: "1,500+ tons",
-    label: "plastic diverted",
-    detail:
-      "Recycled plastic waste with nowhere productive to go, converted directly into modular classroom units.",
+    year: "2009",
+    stage: "Networks",
+    body: "Planning and delivering telecom infrastructure at scale.",
   },
   {
-    value: "$12.6M PPP",
-    label: "structured & led",
-    detail:
-      "Structured with Conceptos Plasticos, including construction-monitoring dashboards and independent toxicity/quality assurance.",
+    year: "2016",
+    stage: "Platforms",
+    body: "Building digital services that reached millions of people.",
   },
   {
-    value: "300+ built",
-    label: "classrooms",
-    detail:
-      "Delivered fast enough to meet demand that conventional construction couldn't keep pace with.",
+    year: "2020s",
+    stage: "Scale",
+    body: "Bringing together funding, partners and teams to move proven ideas into wider use.",
   },
   {
-    value: "15,000+",
-    label: "children served",
-    detail: "$212,000 in government cost reimbursement secured along the way.",
+    year: "Now",
+    stage: "AI",
+    body: "Applying my delivery experience to practical AI adoption.",
   },
 ];
 
-/**
- * Expandable case-study behind the flagship band. Drafted from verified
- * CV facts — Norman may add first-hand texture before this goes live.
- */
-export const flagshipCaseStudy = [
+/* ------------------------------------------------------------------ */
+/* Impact metrics                                                      */
+/* ------------------------------------------------------------------ */
+
+export type Metric = { value: string; label: string };
+
+/** Exactly four — a fifth alone on its own row reads as an afterthought. */
+export const impactMetrics: Metric[] = [
+  { value: "15+", label: "Years across technology & transformation" },
+  { value: "12.4M+", label: "Users reached through scaled digital platforms" },
+  { value: "$20M+", label: "Portfolio leadership" },
+  { value: "1,000+", label: "Telecom sites delivered / modernised" },
+];
+
+/* ------------------------------------------------------------------ */
+/* Selected transformation stories                                     */
+/* ------------------------------------------------------------------ */
+
+export type CaseStudyStep = {
+  number: string;
+  label: string;
+  body: string;
+};
+
+export type CaseStudy = {
+  id: "drc" | "coteDIvoire" | "telecom";
+  eyebrow: string;
+  headline: string;
+  supportingLine: string;
+  /** Short, scannable evidence — visible without opening anything. */
+  proofPoints: string[];
+  steps: CaseStudyStep[];
+  /** Caption shown above the interactive step diagram. */
+  stepsCta: string;
+  /** Exact substrings of headline/supportingLine/proofPoints to accent. */
+  highlight: string[];
+};
+
+export const caseStudies: CaseStudy[] = [
   {
-    label: "The problem",
-    body: "Côte d'Ivoire needed classrooms fast, but conventional construction couldn't keep pace with demand, and the country was generating plastic waste with nowhere productive to go.",
+    id: "drc",
+    eyebrow: "Digital platform at national scale",
+    headline: "Scaling U-Report to 8.6M users across DRC.",
+    supportingLine:
+      "The partnerships, localisation and delivery choices behind U-Report's growth across the Democratic Republic of Congo.",
+    proofPoints: [
+      "8.6M+ users across every province",
+      "150+ community clubs, including 30+ girls-only clubs",
+      "Zero-rated data agreements with Orange, Vodacom, Airtel and Africell",
+      "Connected to UNICEF's HOPE cash-transfer verification system",
+    ],
+    steps: [
+      {
+        number: "01",
+        label: "Context",
+        body: "U-Report was growing across a large, multilingual country with different local realities and partners.",
+      },
+      {
+        number: "02",
+        label: "Model",
+        body: "The platform, local partnerships, language choices, communication channels and governance needed to support growth.",
+      },
+      {
+        number: "03",
+        label: "Delivery",
+        body: "Working with partners, connecting the platform to programme delivery, tracking use and improving the service over time.",
+      },
+      {
+        number: "04",
+        label: "Scale",
+        body: "8.6M+ users reached across the country.",
+      },
+    ],
+    stepsCta: "Tap a step for details",
+    highlight: ["8.6M", "8.6M+"],
   },
   {
-    label: "What I built",
-    body: "I structured and led a $12.6M partnership with Conceptos Plasticos to convert recycled plastic waste directly into modular classroom units. My role covered the full delivery chain: negotiating the partnership terms, building a real-time dashboard to monitor construction progress across sites, and running toxicity and quality assurance with an independent testing lab before any unit was approved for use with children.",
+    id: "coteDIvoire",
+    eyebrow: "From pilot to operating model",
+    headline: "Building a $12.6M partnership around recycled-plastic classrooms.",
+    supportingLine:
+      "How the idea moved from an early concept to more than 300 classrooms, backed by financing, quality testing and real-time construction monitoring.",
+    proofPoints: [
+      "$12.6M public-private partnership with Conceptos Plasticos",
+      "1,500+ tons of recycled plastic converted into 300+ classrooms",
+      "15,000+ children served",
+      "$212,000 in government cost reimbursement secured",
+    ],
+    steps: [
+      {
+        number: "01",
+        label: "Context",
+        body: "The classroom concept needed a clear route from early testing to dependable construction at scale.",
+      },
+      {
+        number: "02",
+        label: "Model",
+        body: "I helped structure the partnership, financing arrangements and government engagement around the programme.",
+      },
+      {
+        number: "03",
+        label: "Delivery",
+        body: "We put independent testing, quality checks and real-time construction monitoring in place as delivery expanded.",
+      },
+      {
+        number: "04",
+        label: "Scale",
+        body: "300+ classrooms built, serving 15,000+ children, with the model shared for wider use.",
+      },
+    ],
+    stepsCta: "Explore the delivery model",
+    highlight: ["$12.6M", "1,500+ tons", "300+ classrooms", "15,000+ children", "$212,000"],
   },
   {
-    label: "The result",
-    body: "1,500+ tons of plastic waste became 300+ classrooms, reaching 15,000+ children. I also negotiated $212,000 in government cost reimbursement, and shared the delivery model across five other UNICEF Country Offices facing similar infrastructure gaps.",
+    id: "telecom",
+    eyebrow: "Infrastructure at scale",
+    headline: "Delivering telecom infrastructure at scale.",
+    supportingLine:
+      "My years at MTN built the delivery habits I still use today: careful planning, vendor coordination, service quality and close attention to performance.",
+    proofPoints: [
+      "1,000+ sites modernised in Uganda (300+ GSM, 200+ WCDMA, 80+ LTE)",
+      "830+ 2G/3G sites swapped and 450+ new LTE sites commissioned in Sudan",
+      "$75,000+ in annual CAPEX savings negotiated with vendors",
+      "Contributed to MTN Uganda's #1 national Quality-of-Service ranking",
+    ],
+    steps: [
+      {
+        number: "01",
+        label: "Complexity",
+        body: "Large network programmes spread across many sites, teams and vendors.",
+      },
+      {
+        number: "02",
+        label: "Execution",
+        body: "Planning the rollout, coordinating vendors and keeping delivery on track.",
+      },
+      {
+        number: "03",
+        label: "Performance",
+        body: "Protecting service quality while improving network performance.",
+      },
+      {
+        number: "04",
+        label: "Transferable lesson",
+        body: "The strongest results came when the technology, teams and day-to-day operating processes worked together.",
+      },
+    ],
+    stepsCta: "Tap a step for details",
+    highlight: ["1,000+", "830+", "450+", "$75,000+"],
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Approach                                                             */
+/* ------------------------------------------------------------------ */
+
+export type ApproachBlock = { number: string; title: string; body: string };
+
+export const approach = {
+  eyebrow: "How I work",
+  leadStatement:
+    "My approach starts with the outcome and stays close to how the work will actually be delivered.",
+  blocks: [
+    {
+      number: "01",
+      title: "Start with the outcome",
+      body: "I get clear on what needs to improve and how we will know it has worked.",
+    },
+    {
+      number: "02",
+      title: "Make ownership clear",
+      body: "I define who owns the work, how decisions are made and how the process will run day to day.",
+    },
+    {
+      number: "03",
+      title: "Build for the real setting",
+      body: "I design with the people, infrastructure, regulation and procurement environment in mind.",
+    },
+    {
+      number: "04",
+      title: "Learn, improve and scale",
+      body: "I track what is working, improve the model and expand it with evidence.",
+    },
+  ] as ApproachBlock[],
+};
 
 /* ------------------------------------------------------------------ */
 /* Experience                                                          */
@@ -151,15 +298,16 @@ export type ExperienceEntry = {
   secondary: string;
   location: string;
   dates: string;
+  /** Always-visible, dot-separated scan line — visible even when collapsed. */
+  proof: string;
   bullets: string[];
   /** The two most recent entries open on load; the rest start collapsed. */
   defaultOpen?: boolean;
   /** Links the headline to the employer's site when set; plain text otherwise. */
   orgUrl?: string;
   /**
-   * Always-visible context line, styled distinctly from bullets (not hidden
-   * behind the expand toggle). Used either as a compressed scope summary
-   * (DRC, MTN Uganda) or a personal bridge line (Professional Development).
+   * Always-visible italic aside, distinct from `proof` — used for narrative
+   * color (a role's internal progression) rather than scannable evidence.
    */
   subtitle?: string;
 };
@@ -173,21 +321,9 @@ export const experience: ExperienceEntry[] = [
     dates: "2026–present",
     defaultOpen: true,
     orgUrl: "https://www.unionbps.com/",
+    proof: "AI adoption advisory · digital transformation · enterprise advisory",
     bullets: [
       "Advise a Kampala-based IT and consulting firm on AI adoption strategy and digital transformation roadmaps for enterprise clients, applying platform delivery discipline built over 15 years in Africa.",
-    ],
-  },
-  {
-    id: "professional-development",
-    primary: "Professional Development: AI & Digital Transformation",
-    secondary: "Cornell University / AI Agent Bootcamp / DataCamp",
-    location: "",
-    dates: "Apr 2025–Dec 2025",
-    defaultOpen: true,
-    subtitle:
-      "After fifteen years of taking platforms from pilot to national scale, I've learned the technology is usually the easy part. Delivery is what's hard. That's what I'm focused on now with AI adoption.",
-    bullets: [
-      "Career transition: completed Cornell University's Designing and Building AI Solutions certificate (2025) and an AI Agent Bootcamp (2026); currently completing an AI Product Management course (Coursera; expected August 2026).",
     ],
   },
   {
@@ -196,11 +332,12 @@ export const experience: ExperienceEntry[] = [
     secondary: "Innovation Manager & Acting SBC Section Chief",
     location: "Kinshasa",
     dates: "Mar 2023–Mar 2025",
+    defaultOpen: true,
     orgUrl: "https://www.unicef.org/drcongo/en",
-    subtitle:
-      "Directed a $20M+ portfolio and a 20-person team; served as Acting Section Chief (OIC) for extended periods.",
+    proof: "8.6M-user platform · $20M+ portfolio · 20-person team",
     bullets: [
-      "Built and led an AI-enabled misinformation-detection programme (Web Fact Checkers) to 700 trained youth volunteers, who documented 100,000+ counter-misinformation actions and grew the programme's reach to 3.4M+ people.",
+      "Directed a $20M+ portfolio and a 20-person team; served as Acting SBC Section Chief (OIC) for extended periods.",
+      "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
       "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 150 clubs in every province, including 30+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
       "Led vendor selection and procurement (Nyaruka/RapidPro, ONA, YUX) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
       "Built a RapidPro-based Ebola-preparedness chatbot for DRC, adopted as a UNICEF global template and replicated across 5+ country offices.",
@@ -214,6 +351,7 @@ export const experience: ExperienceEntry[] = [
     location: "Freetown",
     dates: "Jul–Oct 2022",
     orgUrl: "https://www.unicef.org/sierraleone/",
+    proof: "School connectivity · Giga · government and ISP coordination",
     bullets: [
       "Negotiated Project Giga's vendor contracts for a 6% cost reduction and helped secure $500K+ in funding to expand school internet connectivity across Sierra Leone.",
       "Led digital entrepreneurship interventions under UNICEF's Generation Unlimited (GenU) youth initiative and trained 87 Ministry of Education staff on the Learning Passport digital-learning platform.",
@@ -227,6 +365,7 @@ export const experience: ExperienceEntry[] = [
     location: "Abidjan",
     dates: "Dec 2016–Mar 2023",
     orgUrl: "https://www.unicef.org/cotedivoire/en",
+    proof: "Digital platforms · $12.6M PPP · multi-partner delivery",
     bullets: [
       "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, negotiating zero-rated SMS connectivity with MTN, Orange, and Moov to remove cost barriers to access.",
       "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
@@ -241,6 +380,7 @@ export const experience: ExperienceEntry[] = [
     location: "Khartoum",
     dates: "May–Dec 2016",
     orgUrl: "https://www.mtn.sd/",
+    proof: "Network modernisation · rollout execution · vendor coordination",
     bullets: [
       "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
       "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and running risk-mitigation processes, including planned build pauses for subcontractor retraining, to protect network availability.",
@@ -253,6 +393,7 @@ export const experience: ExperienceEntry[] = [
     location: "Kampala",
     dates: "Sep 2009–Apr 2016",
     orgUrl: "https://www.mtn.co.ug/",
+    proof: "Large-scale network delivery · performance · infrastructure modernisation",
     subtitle:
       "Started as a Radio Planning & Network Service Delivery Engineer before advancing to Project Manager & Senior Engineer.",
     bullets: [
@@ -263,7 +404,47 @@ export const experience: ExperienceEntry[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Education & certifications                                          */
+/* AI in Practice                                                       */
+/* ------------------------------------------------------------------ */
+
+export type AIPracticeEntry = { title: string; tag: string; body: string };
+
+export const aiInPractice = {
+  intro:
+    "For AI work, I start with the job that needs to be done. I look at where AI can improve the workflow and add value, who owns the decision, what should stay with people, and how results will be measured. I test the approach before scaling it.",
+  entries: [
+    {
+      title: "Enterprise AI Adoption",
+      tag: "Current advisory work: UTBP",
+      body: "I work with a Kampala-based advisory firm on AI adoption for enterprise clients: identifying where AI fits into existing workflows, redesigning processes around it, and building practical adoption roadmaps with responsible deployment built in.",
+    },
+    {
+      title: "AI Solution Design",
+      tag: "Cornell University coursework",
+      body: "Coursework in designing AI solutions from the ground up: framing the use case, working through data and model choices, and building in the human oversight a responsible deployment needs.",
+    },
+  ] as AIPracticeEntry[],
+};
+
+/* ------------------------------------------------------------------ */
+/* About                                                                */
+/* ------------------------------------------------------------------ */
+
+export const about = {
+  /** Exact substrings to render with emphasis. */
+  emphasis: [
+    "I started my career as a telecom engineer and have spent the past 15 years leading technology programmes across Africa.",
+    "digital transformation and AI adoption advisory work",
+  ],
+  paragraphs: [
+    "I started my career as a telecom engineer and have spent the past 15 years leading technology programmes across Africa. My work has grown from network infrastructure into digital platforms, partnerships and large-scale programme delivery.",
+    "That mix of engineering and programme leadership still shapes how I work. I pay attention to the technology, the people using it, the partners around it and what it takes to keep the system working after launch.",
+    "Today, I bring that experience to digital transformation and AI adoption advisory work, with a focus on practical use cases, clear ownership and measurable results.",
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Education & Professional Development                                */
 /* ------------------------------------------------------------------ */
 
 export type Credential = {
@@ -273,16 +454,6 @@ export type Credential = {
 };
 
 export const education: Credential[] = [
-  {
-    credential: "Designing and Building AI Solutions",
-    institution: "Cornell University, USA",
-    year: "2025",
-  },
-  {
-    credential: "PRINCE2® Practitioner Certificate",
-    institution: "APMG International, UK",
-    year: "2011",
-  },
   {
     credential: "Master of Business Administration (MBA)",
     institution: "East & Southern Africa Management Institute, Tanzania",
@@ -295,27 +466,78 @@ export const education: Credential[] = [
   },
 ];
 
+export const professionalDevelopment: Credential[] = [
+  {
+    credential: "AI Agent Bootcamp",
+    institution: "",
+    year: "2026",
+  },
+  {
+    credential: "Designing and Building AI Solutions",
+    institution: "Cornell University, USA",
+    year: "2025",
+  },
+  {
+    credential: "PRINCE2® Practitioner Certificate",
+    institution: "APMG International, UK",
+    year: "2011",
+  },
+];
+
 /* ------------------------------------------------------------------ */
-/* Skills                                                              */
+/* Capabilities                                                        */
 /* ------------------------------------------------------------------ */
 
-export const coreCompetencies = [
-  "Digital Public Infrastructure (DPI) & Platform Delivery",
-  "Public-Private Partnerships & Resource Mobilisation",
-  "Digital Transformation Strategy & Delivery",
-  "Programme Effectiveness & Impact Measurement",
-  "AI Adoption Strategy & Responsible Deployment",
-  "Vendor Evaluation & Procurement (RFP)",
-  "Multi-Country / Cross-Organisation Coordination",
+export type CapabilityGroup = { title: string; items: string[] };
+
+export const capabilities: CapabilityGroup[] = [
+  {
+    title: "Transformation Strategy",
+    items: [
+      "Digital strategy",
+      "transformation roadmaps",
+      "operating models",
+      "technology investment priorities",
+    ],
+  },
+  {
+    title: "AI Adoption",
+    items: [
+      "Use-case prioritisation",
+      "workflow redesign",
+      "responsible deployment",
+      "human oversight",
+    ],
+  },
+  {
+    title: "Delivery at Scale",
+    items: [
+      "Programme leadership",
+      "procurement",
+      "vendor management",
+      "UAT",
+      "implementation governance",
+      "performance",
+    ],
+  },
+  {
+    title: "Partnerships & Ecosystems",
+    items: [
+      "Government",
+      "telecom operators",
+      "technology partners",
+      "public-private partnerships",
+      "multi-country coordination",
+    ],
+  },
 ];
 
 export const platformsAndTools = [
-  "n8n (AI Agent Workflows)",
   "RapidPro",
   "Power BI",
+  "n8n",
   "U-Report",
-  "Real-time Dashboards",
-  "Sprint Planning & UAT",
+  "analytics dashboards",
 ];
 
 export const languages = [
@@ -329,11 +551,13 @@ export const languages = [
 
 export const contact = {
   opening:
-    "Open to conversations about digital transformation, innovation, and AI adoption roles across multilateral development, financial institutions, and the private sector.",
+    "I'm interested in senior roles and advisory work in digital transformation, technology delivery and AI adoption across Africa and emerging markets.",
   email: "nkmuhwezi@gmail.com",
   linkedinLabel: "linkedin.com/in/normanmuhwezi",
   linkedinUrl: "https://www.linkedin.com/in/normanmuhwezi",
   location: "Addis Ababa, Ethiopia",
+  supportingLine:
+    "Based in Addis Ababa · open to regional, remote and relocation opportunities",
 };
 
 /* ------------------------------------------------------------------ */
@@ -341,9 +565,9 @@ export const contact = {
 /* ------------------------------------------------------------------ */
 
 export const sections = [
-  { id: "profile", label: "Profile" },
+  { id: "work", label: "Work" },
+  { id: "approach", label: "Approach" },
   { id: "experience", label: "Experience" },
-  { id: "education", label: "Education" },
-  { id: "skills", label: "Skills" },
+  { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];

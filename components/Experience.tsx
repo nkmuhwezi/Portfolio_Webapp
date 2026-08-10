@@ -74,9 +74,12 @@ export default function Experience() {
                       </span>
                     </button>
 
-                    {/* Always visible, unlike the bullets below — a compressed
-                        scope summary or a personal aside, not detail that
-                        should be hidden behind a click. */}
+                    {/* Scannable evidence, visible without opening the row —
+                        a recruiter reading collapsed rows still sees this. */}
+                    <p className={styles.proof}>{entry.proof}</p>
+
+                    {/* Always visible, unlike the bullets below — a personal
+                        aside, not detail that should be hidden behind a click. */}
                     {entry.subtitle ? (
                       <p className={styles.subtitle}>{entry.subtitle}</p>
                     ) : null}

@@ -1,0 +1,18 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: var(--measure-text);
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.emphasis {
+  font-weight: 500;
+  color: var(--heading);
+}

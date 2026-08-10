@@ -1,0 +1,87 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+/* Strongest visual weight on the page's remaining sections after Selected
+   Work — serif headings, not the small mono labels the old Skills groups
+   used, per the brief's "give leadership capabilities the strongest
+   visual weight" instruction. */
+.groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.group {
+  min-width: 0;
+}
+
+.groupTitle {
+  font-size: clamp(1.125rem, 2vw, 1.3125rem);
+}
+
+.items {
+  margin-top: 0.6rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- */
+/* Tools — quieter, secondary                                        */
+/* ---------------------------------------------------------------- */
+
+.tools {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.toolsLabel {
+  margin-right: 0.75em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* Languages                                                         */
+/* ---------------------------------------------------------------- */
+
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem 3rem;
+  margin-top: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.language {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.languageName {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--heading);
+}
+
+.languageLevel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+@media (max-width: 40rem) {
+  .groups {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+}

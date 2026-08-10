@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { EB_Garamond, Figtree, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import ThemeToggle from "@/components/ThemeToggle";
-import { hero } from "@/lib/content";
 import "./globals.css";
 
 // Runs before hydration so the page never flashes the wrong theme. A stored
@@ -43,12 +42,12 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-// Derived from hero.title rather than duplicated as a literal, so the two
-// can't drift out of sync the way they just did. Hyphen, not em dash — some
-// crawlers/clients render "—" as a mangled glyph in tab titles and previews.
-const metaTitle = `${hero.name} - ${hero.title}`;
+// The brief's exact V2 title/description — "Norman Muhwezi" here (no
+// middle initial) is a deliberate, shorter SEO string, distinct from the
+// on-page display name in hero.name.
+const metaTitle = "Norman Muhwezi | Digital Transformation Leader";
 const metaDescription =
-  "15+ years delivering infrastructure and digital platforms across telecom and multilateral development, taking platforms from pilot to national scale.";
+  "Digital transformation leader with 15+ years delivering telecom infrastructure, digital platforms and technology programmes at scale across Africa and emerging markets, now advising on AI adoption.";
 
 export const metadata: Metadata = {
   // Without this, Next.js resolves the generated og:image/twitter:image

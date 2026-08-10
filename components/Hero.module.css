@@ -18,8 +18,8 @@
   min-width: 0;
 }
 
-/* The page's opening dateline — same device that anchors every role below. */
-.location {
+/* The page's opening line — same device that anchors every role below. */
+.eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
@@ -31,7 +31,7 @@
   gap: 0.75rem;
 }
 
-.location::before {
+.eyebrow::before {
   content: "";
   width: 2rem;
   height: 1px;
@@ -58,16 +58,13 @@
   color: var(--heading);
 }
 
-/* A reflective aside rather than another headline — serif italic sets it
-   apart from the role line above and the CTAs below without competing
-   with either for attention. */
-.hook {
+/* A full paragraph, not a short aside — plain body type rather than
+   italic serif, which the site reserves for short editorial emphasis. */
+.copy {
   margin-top: 1.25rem;
-  max-width: 46ch;
-  font-family: var(--font-serif);
-  font-style: italic;
+  max-width: 52ch;
   font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--text);
 }
 
@@ -127,6 +124,25 @@
 
 .secondaryAction:hover .arrow {
   transform: translateY(2px);
+}
+
+/* A plain text link, not a bordered button — third in the hierarchy,
+   so it reads as lighter-weight than the two CTAs beside it. */
+.tertiaryLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-block: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: color var(--dur) var(--ease);
+}
+
+.tertiaryLink:hover {
+  color: var(--heading);
 }
 
 /* ---------------------------------------------------------------- */

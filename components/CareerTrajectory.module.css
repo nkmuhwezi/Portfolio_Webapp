@@ -1,0 +1,104 @@
+.section {
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* One line running behind all four stages, rather than four separate
+   connectors — reads as a single continuous progression. */
+.row::before {
+  content: "";
+  position: absolute;
+  top: 0.3rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--rule);
+}
+
+.stage {
+  position: relative;
+  padding-top: 1.5rem;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+}
+
+.revealed .stage {
+  opacity: 1;
+  transform: none;
+}
+
+.stage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.stageName {
+  margin-top: 0.35rem;
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+}
+
+.body {
+  margin-top: 0.5rem;
+  max-width: 24ch;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+@media (max-width: 48rem) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+
+  .row::before {
+    display: none;
+  }
+
+  .stage {
+    padding-top: 0;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  .stage::before {
+    top: 0.35em;
+    left: -0.25rem;
+  }
+
+  .body {
+    max-width: none;
+  }
+}
+
+@media print {
+  .stage {
+    opacity: 1;
+    transform: none;
+    break-inside: avoid;
+  }
+}

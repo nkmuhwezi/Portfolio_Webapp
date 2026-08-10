@@ -114,6 +114,16 @@
   color: var(--heading);
 }
 
+/* Dot-separated evidence line, same mono treatment as the Skills/
+   Capabilities term lists — deliberately terse, unlike .subtitle below. */
+.proof {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
 /* A compressed scope line or personal aside — italic serif sets it apart
    from the sans-serif role line above and the bullet list below, so it
    reads as commentary rather than another list item. */

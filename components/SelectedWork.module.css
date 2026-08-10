@@ -1,0 +1,8 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}

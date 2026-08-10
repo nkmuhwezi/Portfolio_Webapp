@@ -5,7 +5,7 @@ import { renderSocialImage, socialImageSize } from "@/lib/social-image";
 // rather than inferred.
 export const dynamic = "force-static";
 
-export const alt = `${hero.name} — ${hero.title}`;
+export const alt = `${hero.name} - ${hero.title}`;
 export const size = socialImageSize;
 export const contentType = "image/png";
 

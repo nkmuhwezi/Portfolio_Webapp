@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { sections } from "@/lib/content";
+import { resumePath, sections } from "@/lib/content";
 import styles from "./Nav.module.css";
 
 export default function Nav() {
@@ -63,6 +63,14 @@ export default function Nav() {
               </a>
             </li>
           ))}
+          <li>
+            {/* Distinct from the section links: not part of the on-page
+                scroll, so it isn't tracked by the active-section observer. */}
+            <a className={styles.cv} href={resumePath} download>
+              CV
+              <span aria-hidden="true">↓</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </header>

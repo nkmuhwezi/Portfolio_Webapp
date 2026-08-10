@@ -103,6 +103,31 @@
   transform: scaleX(1);
 }
 
+/* Understated but distinct from the section links: a hairline border marks
+   it as a different kind of action (a download, not a scroll) without
+   competing with the primary hero CTA for visual weight. */
+.cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transition:
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.cv:hover {
+  color: var(--accent);
+  border-color: var(--accent-rule);
+}
+
 @media (max-width: 40rem) {
   /* The name leads the hero directly below, so the monogram is redundant here
      and the space is better spent fitting all five links without scrolling. */
@@ -121,6 +146,13 @@
   }
 
   .link {
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+  }
+
+  .cv {
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
     font-size: 0.625rem;
     letter-spacing: 0.06em;
   }
