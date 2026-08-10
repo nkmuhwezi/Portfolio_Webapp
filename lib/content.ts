@@ -37,55 +37,50 @@ export type CaseStudyImage = {
 };
 
 /**
- * `lead` is the large editorial image every story reserves space for.
- * `supporting`/`optional` are extra evidence images a story can add once
- * real photography exists for it — a story with only `lead` renders exactly
- * as before.
+ * One ordered array per story, shown through a single manual carousel in
+ * the lead-image position — not fixed lead/supporting/optional slots at
+ * different points on the page. A one-image array renders as a plain
+ * photo with no carousel controls; controls only appear once there's
+ * something to switch between.
  */
-export type CaseStudyImageSet = {
-  lead: CaseStudyImage;
-  supporting?: CaseStudyImage;
-  optional?: CaseStudyImage;
-};
-
 export const caseStudyImages: Record<
   "drc" | "coteDIvoire" | "telecom",
-  CaseStudyImageSet
+  CaseStudyImage[]
 > = {
-  drc: {
-    lead: {
+  drc: [
+    {
       src: "/images/case-studies/drc-ureport-group.jpg",
       alt: "A group of U-Report DRC volunteers in matching black \"U-Report par UNICEF\" T-shirts, posing and cheering together on a street during a community clean-up.",
       label: "DRC project photo",
       caption: "U-Report community engagement in DRC.",
     },
-    supporting: {
+    {
       src: "/images/case-studies/drc-ureport-megaphone.jpg",
       alt: "A U-Report DRC volunteer wearing a \"U-Report par UNICEF\" T-shirt speaks into a megaphone to mobilise the community at a local market.",
-      label: "DRC supporting photo",
+      label: "DRC project photo",
       caption: "Community mobilisation through U-Report in DRC.",
     },
-    optional: {
+    {
       src: "/images/case-studies/drc-ureport-cleanup.jpg",
       alt: "Two U-Report DRC volunteers in branded T-shirts collect litter into bags along a riverbank as part of a community clean-up drive.",
-      label: "DRC optional photo",
+      label: "DRC project photo",
       caption: "U-Report volunteers taking part in a community clean-up drive, DRC.",
     },
-  },
-  coteDIvoire: {
-    lead: {
+  ],
+  coteDIvoire: [
+    {
       src: null,
       alt: "",
       label: "Cote d'Ivoire project photo",
     },
-  },
-  telecom: {
-    lead: {
+  ],
+  telecom: [
+    {
       src: null,
       alt: "",
       label: "Telecom project visual",
     },
-  },
+  ],
 };
 
 /* ------------------------------------------------------------------ */

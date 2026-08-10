@@ -76,29 +76,9 @@
   opacity: 0.7;
 }
 
-/* ---------------------------------------------------------------- */
-/* Supporting / optional images                                      */
-/* ---------------------------------------------------------------- */
-
-/* Deliberately narrower than the lead image and its own block below the
-   steps, not beside them — reads as supplementary evidence, not a second
-   lead photograph competing for the same attention. */
-.supportingMedia {
-  max-width: 26rem;
-  margin-top: clamp(2rem, 4vw, 3rem);
-}
-
-.supportingMedia + .supportingMedia {
-  margin-top: clamp(1.5rem, 3vw, 2rem);
-}
-
 @media (max-width: 48rem) {
   .body {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .supportingMedia {
-    max-width: none;
   }
 }
 
