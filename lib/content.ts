@@ -70,10 +70,9 @@ export const caseStudyImages: Record<
   coteDIvoire: [
     {
       src: "/images/case-studies/civ-construction-site.jpg",
-      alt: "A person wearing a yellow hard hat and safety glasses uses a rubber mallet to fit a recycled-plastic building block into place at a classroom construction site in Cote d'Ivoire.",
+      alt: "A person wearing a yellow hard hat and safety glasses uses a rubber mallet to fit a recycled-plastic building block into place during construction of the first recycled-plastic classroom in Cote d'Ivoire.",
       label: "Cote d'Ivoire project photo",
-      caption:
-        "On-site construction work during the recycled-plastic classroom programme in Cote d'Ivoire.",
+      caption: "On-site construction of Cote d'Ivoire's first recycled-plastic classroom.",
     },
     {
       src: "/images/case-studies/civ-production-plant.jpg",
@@ -303,7 +302,7 @@ export type ApproachBlock = { number: string; title: string; body: string };
 export const approach = {
   eyebrow: "How I work",
   leadStatement:
-    "My approach starts with the outcome and stays close to how the work will actually be delivered.",
+    "I start with the desired outcome, then work backward to figure out how it actually gets delivered.",
   blocks: [
     {
       number: "01",
