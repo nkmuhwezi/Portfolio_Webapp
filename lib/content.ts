@@ -339,8 +339,8 @@ export const experience: ExperienceEntry[] = [
       "Directed a $20M+ portfolio and a 20-person team; served as Acting SBC Section Chief (OIC) for extended periods.",
       "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
       "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 150 clubs in every province, including 30+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
-      "Led vendor selection and procurement (Nyaruka/RapidPro, ONA, YUX) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
-      "Built a RapidPro-based Ebola-preparedness chatbot for DRC, adopted as a UNICEF global template and replicated across 5+ country offices.",
+      "Led vendor selection and procurement (Nyaruka/RapidPro, GoInnovation) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
+      "Adapted the Ebola-response RapidPro chatbot for DRC, originally designed at Côte d'Ivoire in 2021 and since adopted as a UNICEF global template across 5+ country offices.",
       "Chaired the DRC Accountability to Affected Populations (AAP) Committee, securing $850,000 for community feedback systems, and secured zero-rated data agreements with Orange, Vodacom, Airtel, and Africell to sustain platform growth.",
     ],
   },
@@ -353,9 +353,9 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.unicef.org/sierraleone/",
     proof: "School connectivity · Giga · government and ISP coordination",
     bullets: [
-      "Negotiated Project Giga's vendor contracts for a 6% cost reduction and helped secure $500K+ in funding to expand school internet connectivity across Sierra Leone.",
-      "Led digital entrepreneurship interventions under UNICEF's Generation Unlimited (GenU) youth initiative and trained 87 Ministry of Education staff on the Learning Passport digital-learning platform.",
-      "Restructured the Innovation Unit's project deployment process, improving fund-utilisation from 35% to 84%.",
+      "Led deployment of the Learning Passport digital education platform, training 87 Ministry of Education staff on system management.",
+      "Negotiated Project Giga's broadband vendor contracts for a 6% cost reduction, securing $500K in funding for school connectivity.",
+      "Restructured the Innovation Unit's project deployment process, raising fund utilisation from 35% to 84%.",
     ],
   },
   {
@@ -367,10 +367,12 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.unicef.org/cotedivoire/en",
     proof: "Digital platforms · $12.6M PPP · multi-partner delivery",
     bullets: [
-      "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, negotiating zero-rated SMS connectivity with MTN, Orange, and Moov to remove cost barriers to access.",
-      "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
-      "Developed Côte d'Ivoire's digital civil registration system with the Ministry of Justice and Child Protection, using RapidPro (UNICEF's SMS/chatbot engagement platform) and a Power BI dashboard to complement the paper-based birth registration process; trained 50+ registration agents for government rollout.",
-      "Launched and ran the national CORONA chatbot on RapidPro with the Ministry of Health, consulted 3M+ times and adopted by government for national radio and TV campaigns; later added a module for COVAX (the global COVID-19 vaccine-sharing initiative) and a separate Ebola information bot.",
+      "Built a national SMS/WhatsApp digital birth registration system with the Ministry of Justice and ONA, running sprint planning and UAT cycles and training 50+ registration agents to pilot the system for government rollout.",
+      "Digitized mobile money payments for 30,000+ frontline workers, overseeing requirements, MNO integration, and transition to operations.",
+      "Designed and launched an Ebola-response RapidPro chatbot (2021), adopted as a UNICEF global template.",
+      "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), working with YUX Design on platform customisation, integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
+      "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, managing MNO relationships and real-time reporting.",
+      "Launched and ran the national CORONA chatbot on RapidPro with the Ministry of Health, consulted 3M+ times and adopted by government for national radio and TV campaigns; later added a module for COVAX (the global COVID-19 vaccine-sharing initiative).",
     ],
   },
   {
@@ -383,7 +385,7 @@ export const experience: ExperienceEntry[] = [
     proof: "Network modernisation · rollout execution · vendor coordination",
     bullets: [
       "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
-      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and running risk-mitigation processes, including planned build pauses for subcontractor retraining, to protect network availability.",
+      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
     ],
   },
   {
@@ -397,8 +399,8 @@ export const experience: ExperienceEntry[] = [
     subtitle:
       "Started as a Radio Planning & Network Service Delivery Engineer before advancing to Project Manager & Senior Engineer.",
     bullets: [
-      "Directed end-to-end RAN modernisation across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), coordinating vendors (Huawei) and tower companies (ATC, Eaton) to deliver national coverage expansion with minimal service disruption.",
-      "Negotiated vendor and subcontractor contracts for $75,000+ in annual CAPEX savings, contributing to MTN Uganda's #1 national Quality-of-Service ranking.",
+      "Directed end-to-end RAN modernisation across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), managing vendor integration (Huawei) and tower companies (ATC, Eaton).",
+      "Negotiated vendor and subcontractor contracts for $75,000+ in annual CAPEX savings, contributing to MTN Uganda's #1 national Quality-of-Service ranking (2014).",
     ],
   },
 ];
@@ -416,7 +418,7 @@ export const aiInPractice = {
     {
       title: "Enterprise AI Adoption",
       tag: "Current advisory work: UTBP",
-      body: "I work with a Kampala-based advisory firm on AI adoption for enterprise clients: identifying where AI fits into existing workflows, redesigning processes around it, and building practical adoption roadmaps with responsible deployment built in.",
+      body: "I work with a Kampala-based advisory firm on AI adoption for enterprise clients, looking at where AI fits into existing workflows and redesigning processes around it. From there, I build practical adoption roadmaps with responsible deployment built in.",
     },
     {
       title: "AI Solution Design",
