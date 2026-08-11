@@ -5,7 +5,9 @@ export default function Approach() {
   return (
     <section className={styles.section} id="approach">
       <div className="container">
-        <p className={`eyebrow ${styles.eyebrow}`}>{approach.eyebrow}</p>
+        {/* A real heading, not a styled paragraph — otherwise the four
+            block titles below are h3s with no h2 parent in the outline. */}
+        <h2 className={`eyebrow ${styles.eyebrow}`}>{approach.eyebrow}</h2>
 
         <p className={styles.lead}>{approach.leadStatement}</p>
 

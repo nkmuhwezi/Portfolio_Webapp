@@ -29,8 +29,16 @@ export default function CareerTrajectory() {
   }, []);
 
   return (
-    <section className={styles.section} aria-label="Career trajectory">
+    <section className={styles.section} aria-labelledby="career-trajectory-heading">
       <div className="container">
+        {/* Visually hidden — the section has no visible title by design,
+            but the four stage names below are h3s and need an h2 parent
+            in the document outline. Labels the section landmark too, so
+            there's one accessible name instead of a redundant aria-label. */}
+        <h2 id="career-trajectory-heading" className="srOnly">
+          Career trajectory
+        </h2>
+
         <ol className={`${styles.row} ${revealed ? styles.revealed : ""}`} ref={rowRef}>
           {careerStages.map((item, index) => (
             <li
