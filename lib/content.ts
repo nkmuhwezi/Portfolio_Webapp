@@ -387,7 +387,7 @@ export type ApproachBlock = { number: string; title: string; body: string };
 export const approach = {
   eyebrow: "How I work",
   leadStatement:
-    "I start with the desired outcome, then work backward to figure out how it actually gets delivered.",
+    "I start with the desired outcome, then work backwards to figure out how it actually gets delivered.",
   blocks: [
     {
       number: "01",
