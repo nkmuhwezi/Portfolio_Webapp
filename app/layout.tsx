@@ -47,7 +47,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 // on-page display name in hero.name.
 const metaTitle = "Norman Muhwezi | Digital Transformation Leader";
 const metaDescription =
-  "Digital transformation leader with 15+ years delivering telecom infrastructure, digital platforms and technology programmes at scale across Africa and emerging markets, now advising on AI adoption.";
+  "Digital transformation leader with 15+ years delivering telecom infrastructure, digital platforms and technology programmes at scale across Africa, now advising on AI adoption.";
 
 export const metadata: Metadata = {
   // Without this, Next.js resolves the generated og:image/twitter:image
