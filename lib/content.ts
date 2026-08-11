@@ -102,7 +102,7 @@ export const caseStudyImages: Record<
 /* ------------------------------------------------------------------ */
 
 export const hero = {
-  eyebrow: "Africa & Emerging Markets · Based in Addis Ababa",
+  eyebrow: "Based in Addis Ababa",
   name: "Norman K. Muhwezi",
   title: "Digital Transformation Leader",
   copy: "I've spent 15 years turning ambitious technology ideas into systems that work at scale, including telecom networks, digital platforms used by millions, and a $12.6M public-private partnership. I now bring that same delivery experience to AI adoption advisory work.",
@@ -679,7 +679,7 @@ export const languages = [
 
 export const contact = {
   opening:
-    "I'm interested in senior roles and advisory work in digital transformation, technology delivery and AI adoption across Africa and emerging markets.",
+    "Open to conversations about senior roles and advisory work in digital transformation and AI adoption, drawing on 15 years delivering telecom and public-sector technology programmes at scale across Africa.",
   email: "nkmuhwezi@gmail.com",
   linkedinLabel: "linkedin.com/in/normanmuhwezi",
   linkedinUrl: "https://www.linkedin.com/in/normanmuhwezi",
