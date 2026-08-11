@@ -269,12 +269,12 @@ export const caseStudies: CaseStudy[] = [
     steps: [
       {
         number: "01",
-        label: "Complexity",
+        label: "Network",
         body: "Large network programmes spread across many sites, teams and vendors.",
       },
       {
         number: "02",
-        label: "Execution",
+        label: "Rollout",
         body: "Planning the rollout, coordinating vendors and keeping delivery on track.",
       },
       {
@@ -284,7 +284,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         number: "04",
-        label: "Transferable lesson",
+        label: "Foundation",
         body: "The strongest results came when the technology, teams and day-to-day operating processes worked together.",
       },
     ],
@@ -292,6 +292,91 @@ export const caseStudies: CaseStudy[] = [
     highlight: ["1,000+", "830+", "450+", "$75,000+"],
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Telecom case study: network modernisation schematic                 */
+/* ------------------------------------------------------------------ */
+
+export type SchematicStage = { number: string; label: string; detail: string };
+export type EvidenceMetric = { value: string; label: string; primary?: boolean };
+export type Discipline = { label: string; body: string };
+export type GeographyNote = { place: string; body: string };
+
+/**
+ * No photography exists for this story, and none is faked — this data
+ * drives a custom HTML/CSS engineering schematic instead. Every value
+ * here is a verified fact already present in `experience`/`caseStudies`
+ * above; nothing here is invented network topology or site data.
+ */
+export const telecomSchematic = {
+  stages: [
+    {
+      number: "01",
+      label: "Network base",
+      detail: "Existing 2G/3G infrastructure",
+    },
+    {
+      number: "02",
+      label: "Modernisation",
+      detail: "830+ 2G/3G sites swapped",
+    },
+    {
+      number: "03",
+      label: "Expansion",
+      detail: "450+ new LTE sites",
+    },
+    {
+      number: "04",
+      label: "Migration",
+      detail: "TDM to IP RAN migration",
+    },
+    {
+      number: "05",
+      label: "Performance",
+      detail: "Service quality, optimisation and operational performance",
+    },
+  ] as SchematicStage[],
+  evidence: [
+    {
+      value: "1,000+",
+      label: "Telecom sites delivered / modernised",
+      primary: true,
+    },
+    { value: "830+", label: "2G/3G sites swapped" },
+    { value: "450+", label: "New LTE sites" },
+    { value: "$75K+", label: "CAPEX savings" },
+    { value: "QoS #1", label: "UCC, 2014" },
+  ] as EvidenceMetric[],
+  /**
+   * The 1,000+/830+/450+ figures come from two different roles (Uganda
+   * and Sudan), not one deployment — this note keeps that distinction
+   * explicit rather than letting the visual imply a single project.
+   */
+  evidenceNote:
+    "Across network modernisation and rollout programmes in Uganda and Sudan.",
+  disciplines: [
+    {
+      label: "Plan",
+      body: "Translate coverage and capacity needs into rollout priorities.",
+    },
+    {
+      label: "Vendors",
+      body: "Coordinate equipment, delivery teams and implementation schedules.",
+    },
+    {
+      label: "Rollout",
+      body: "Move large numbers of sites through deployment and acceptance.",
+    },
+    {
+      label: "Migrate",
+      body: "Upgrade network infrastructure while protecting service continuity.",
+    },
+    {
+      label: "Optimise",
+      body: "Track performance and improve network quality after deployment.",
+    },
+  ] as Discipline[],
+};
 
 /* ------------------------------------------------------------------ */
 /* Approach                                                             */
