@@ -1,0 +1,21 @@
+{
+  "name": "Norman Muhwezi | Digital Transformation Leader",
+  "short_name": "Norman Muhwezi",
+  "description": "Digital transformation leader with 15+ years delivering telecom infrastructure, digital platforms and technology programmes at scale across Africa, now advising on AI adoption.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffeb",
+  "theme_color": "#7f1c34",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { EB_Garamond, Figtree, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import ThemeToggle from "@/components/ThemeToggle";
+import { contact, education, experience, hero } from "@/lib/content";
 import "./globals.css";
 
 // Runs before hydration so the page never flashes the wrong theme. A stored
@@ -62,6 +63,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  manifest: "/manifest.json",
   openGraph: {
     title: metaTitle,
     description: metaDescription,
@@ -81,6 +83,47 @@ export const metadata: Metadata = {
 
 export const viewport = {
   themeColor: "#ffffeb",
+};
+
+/**
+ * schema.org Person structured data — every field is sourced from
+ * lib/content.ts, the same single source of truth the page itself reads
+ * from, so this can't drift out of sync with what's actually on the page.
+ * Deliberately excludes an email field: the site's own convention is that
+ * the address never appears as scrapable text (only as a mailto target),
+ * and a machine-readable JSON-LD field is exactly the kind of scrapable
+ * text that convention exists to avoid.
+ */
+const currentRole = experience[0];
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: hero.name,
+  url: "https://www.normanmuhwezi.com",
+  image: "https://www.normanmuhwezi.com/images/headshot-1600.jpg",
+  jobTitle: hero.title,
+  description: metaDescription,
+  worksFor: {
+    "@type": "Organization",
+    name: currentRole.primary,
+    url: currentRole.orgUrl,
+  },
+  alumniOf: education.map((item) => {
+    const [name, country] = item.institution.split(", ");
+    return {
+      "@type": "CollegeOrUniversity",
+      name,
+      ...(country
+        ? { address: { "@type": "PostalAddress", addressCountry: country } }
+        : {}),
+    };
+  }),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Addis Ababa",
+    addressCountry: "Ethiopia",
+  },
+  sameAs: [contact.linkedinUrl],
 };
 
 export default function RootLayout({
@@ -104,6 +147,16 @@ export default function RootLayout({
           id="theme-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
+        {/* Structured data — search engines parse this anywhere in the
+            document, so it doesn't need to live in <head>. `<` is escaped
+            defensively so no future content string could ever prematurely
+            close the script tag. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
+          }}
         />
         {children}
         <ThemeToggle />
