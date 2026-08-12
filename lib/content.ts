@@ -152,7 +152,7 @@ export const impactMetrics: Metric[] = [
   { value: "15+", label: "Years across technology & transformation" },
   { value: "12.4M+", label: "Users reached through scaled digital platforms" },
   { value: "$20M+", label: "Portfolio leadership" },
-  { value: "1,000+", label: "Telecom sites delivered / modernised" },
+  { value: "2,000+", label: "Telecom sites delivered / modernised across Uganda and Sudan" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -261,7 +261,7 @@ export const caseStudies: CaseStudy[] = [
     supportingLine:
       "My years at MTN built the delivery habits I still use today: careful planning, vendor coordination, service quality and close attention to performance.",
     proofPoints: [
-      "1,000+ sites modernised in Uganda (300+ GSM, 200+ WCDMA, 80+ LTE)",
+      "1,000+ sites modernised in Uganda (700+ GSM, 300+ WCDMA, 80+ LTE)",
       "830+ 2G/3G sites swapped and 450+ new LTE sites commissioned in Sudan",
       "$75,000+ in annual CAPEX savings negotiated with vendors",
       "Contributed to MTN Uganda's #1 national Quality-of-Service ranking",
@@ -338,8 +338,8 @@ export const telecomSchematic = {
   ] as SchematicStage[],
   evidence: [
     {
-      value: "1,000+",
-      label: "Telecom sites delivered / modernised",
+      value: "2,000+",
+      label: "Telecom sites delivered / modernised across Uganda and Sudan",
       primary: true,
     },
     { value: "830+", label: "2G/3G sites swapped" },
@@ -348,7 +348,7 @@ export const telecomSchematic = {
     { value: "QoS #1", label: "UCC, 2014" },
   ] as EvidenceMetric[],
   /**
-   * The 1,000+/830+/450+ figures come from two different roles (Uganda
+   * The 2,000+/830+/450+ figures come from two different roles (Uganda
    * and Sudan), not one deployment — this note keeps that distinction
    * explicit rather than letting the visual imply a single project.
    */
@@ -477,10 +477,9 @@ export const experience: ExperienceEntry[] = [
     location: "Freetown",
     dates: "Jul–Oct 2022",
     orgUrl: "https://www.unicef.org/sierraleone/",
-    proof: "School connectivity · Giga · government and ISP coordination",
+    proof: "84% fund utilisation · School connectivity · Giga · government and ISP coordination",
     bullets: [
-      "Led deployment of the Learning Passport digital education platform, training 87 Ministry of Education staff on system management.",
-      "Negotiated Project Giga's broadband vendor contracts for a 6% cost reduction, securing $500K in funding for school connectivity.",
+      "Negotiated Project Giga's broadband vendor contracts for a 6% cost reduction, securing $500K in funding for school connectivity, and led deployment of the Learning Passport platform, training 87 Ministry of Education staff.",
       "Restructured the Innovation Unit's project deployment process, raising fund utilisation from 35% to 84%.",
     ],
   },
@@ -510,7 +509,7 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.mtn.sd/",
     proof: "Network modernisation · rollout execution · vendor coordination",
     bullets: [
-      "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+.",
+      "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+, and combined telecom infrastructure delivery across Uganda and Sudan to 2,000+ sites.",
       "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
     ],
   },
@@ -525,7 +524,7 @@ export const experience: ExperienceEntry[] = [
     subtitle:
       "Started as a Radio Planning & Network Service Delivery Engineer before advancing to Project Manager & Senior Engineer.",
     bullets: [
-      "Directed end-to-end RAN modernisation across 1,000+ sites (300+ GSM, 200+ WCDMA, 80+ LTE), managing vendor integration (Huawei) and tower companies (ATC, Eaton).",
+      "Directed end-to-end RAN modernisation across 1,000+ sites (700+ GSM, 300+ WCDMA, 80+ LTE), managing vendor integration (Huawei) and tower companies (ATC, Eaton).",
       "Negotiated vendor and subcontractor contracts for $75,000+ in annual CAPEX savings, contributing to MTN Uganda's #1 national Quality-of-Service ranking (2014).",
     ],
   },
@@ -544,7 +543,7 @@ export const aiInPractice = {
     {
       title: "Enterprise AI Adoption",
       tag: "Current advisory work: UTBP",
-      body: "I work with a Kampala-based advisory firm on AI adoption for enterprise clients, looking at where AI fits into existing workflows and redesigning processes around it. From there, I build practical adoption roadmaps with responsible deployment built in.",
+      body: "I help a Kampala-based IT and security firm find where AI or technology genuinely fits into their work for banks, government, healthcare and fintech clients, and where it doesn't. Often the better answer is redesigning a process, not adding AI. I focus on value the client can actually see.",
     },
     {
       title: "AI Solution Design",
