@@ -123,6 +123,19 @@ function StepDiagram({
                   }
                 }}
               >
+                {/* Invisible, larger than the visible box it sits behind —
+                    widens the tap target on touch devices without
+                    changing anything a reader actually sees. Fully
+                    transparent fills are still hit-tested in SVG (unlike
+                    fill="none"), so this alone makes the whole padded
+                    area clickable. */}
+                <rect
+                  x={x - 6}
+                  y={BOX_Y - 15}
+                  width={BOX_WIDTH + 12}
+                  height={BOX_HEIGHT + 30}
+                  fill="transparent"
+                />
                 <rect
                   className={styles.stepRect}
                   x={x}

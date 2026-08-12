@@ -12,13 +12,19 @@
 /* ------------------------------------------------------------------ */
 
 /**
- * Two density variants of the same square crop (not two breakpoint sizes —
- * the portrait's rendered width barely changes between mobile and desktop,
- * so this is a 1x/2x srcset for pixel density, not a viewport-based one).
+ * `headshot` is the <picture> fallback for browsers without WebP support;
+ * `headshotWebp` are width-tagged WebP variants (see
+ * scripts/optimize-images.mjs) used as the srcset. The portrait's rendered
+ * width barely changes between mobile and desktop, so these widths cover
+ * pixel density (1x/2x/3x at ~320-420px), not distinct breakpoint sizes.
  */
 export const images = {
   headshot: "/images/headshot-800.jpg",
-  headshotLarge: "/images/headshot-1600.jpg",
+  headshotWebp: [
+    { src: "/images/headshot-400.webp", width: 400 },
+    { src: "/images/headshot-800.webp", width: 800 },
+    { src: "/images/headshot-1200.webp", width: 1200 },
+  ],
 };
 
 export const resumePath = "/norman-muhwezi-cv.pdf";

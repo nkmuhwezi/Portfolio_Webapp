@@ -78,6 +78,15 @@
   color: var(--muted);
 }
 
+/* Invisible tap-target expansion: grows the clickable area on touch
+   devices without touching the visible glyph, padding, or layout gap —
+   the on-screen link looks identical, it's just easier to hit. */
+.link::before {
+  content: "";
+  position: absolute;
+  inset: -0.7rem -0.4rem;
+}
+
 .link::after {
   content: "";
   position: absolute;
@@ -107,6 +116,7 @@
    it as a different kind of action (a download, not a scroll) without
    competing with the primary hero CTA for visual weight. */
 .cv {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -121,6 +131,12 @@
   transition:
     border-color var(--dur) var(--ease),
     color var(--dur) var(--ease);
+}
+
+.cv::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
 }
 
 .cv:hover {

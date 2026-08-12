@@ -39,15 +39,29 @@ export default function Hero() {
         </div>
 
         <div className={styles.portraitWrap}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className={styles.portrait}
-            src={images.headshot}
-            srcSet={`${images.headshot} 1x, ${images.headshotLarge} 2x`}
-            alt={`Portrait of ${hero.name}`}
-            width={800}
-            height={800}
-          />
+          {/* The portrait is the LCP element on most viewports, so it loads
+              eagerly at high priority — everything else on the page can
+              wait behind it, not the other way round. WebP source with a
+              right-sized JPEG fallback for the handful of browsers without
+              WebP support (see scripts/optimize-images.mjs). */}
+          <picture>
+            <source
+              type="image/webp"
+              srcSet={images.headshotWebp
+                .map((variant) => `${variant.src} ${variant.width}w`)
+                .join(", ")}
+              sizes="(max-width: 56rem) 320px, 420px"
+            />
+            <img
+              className={styles.portrait}
+              src={images.headshot}
+              alt={`Portrait of ${hero.name}`}
+              width={800}
+              height={800}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
         </div>
       </div>
     </section>

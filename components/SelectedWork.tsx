@@ -1,7 +1,7 @@
 import { caseStudies } from "@/lib/content";
 import CaseStudyFeature from "./CaseStudyFeature";
 import SectionHeading from "./SectionHeading";
-import TelecomCaseStudy from "./TelecomCaseStudy";
+import TelecomCaseStudy from "./TelecomCaseStudyLazy";
 import styles from "./SelectedWork.module.css";
 
 export default function SelectedWork() {

@@ -47,6 +47,14 @@
   color: var(--bg);
 }
 
+/* Invisible tap-target expansion — the visible circle stays 2.25rem,
+   only the clickable area grows past it. */
+.control::before {
+  content: "";
+  position: absolute;
+  inset: -0.4rem;
+}
+
 .prev {
   left: 0.75rem;
 }
@@ -86,11 +94,21 @@
 }
 
 .dot {
+  position: relative;
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
   background-color: var(--rule);
   transition: background-color var(--dur) var(--ease);
+}
+
+/* Invisible tap-target expansion, kept tight horizontally (the dots sit
+   only 0.5rem apart) so neighbouring dots' expanded zones don't swallow
+   each other. */
+.dot::before {
+  content: "";
+  position: absolute;
+  inset: -0.85rem -0.2rem;
 }
 
 .dot:hover {

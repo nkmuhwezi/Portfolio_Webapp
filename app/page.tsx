@@ -5,7 +5,7 @@ import Capabilities from "@/components/Capabilities";
 import CareerTrajectory from "@/components/CareerTrajectory";
 import Contact from "@/components/Contact";
 import Education from "@/components/Education";
-import Experience from "@/components/Experience";
+import Experience from "@/components/ExperienceLazy";
 import Hero from "@/components/Hero";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import Nav from "@/components/Nav";

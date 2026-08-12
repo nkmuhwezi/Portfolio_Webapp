@@ -21,12 +21,23 @@
 }
 
 .option {
+  position: relative;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
   transition: color var(--dur) var(--ease);
+}
+
+/* Invisible tap-target expansion — the visible label stays exactly the
+   same size, only the clickable area grows. Kept modest horizontally so
+   the two options' expanded zones don't swallow each other across the
+   narrow divider between them. */
+.option::before {
+  content: "";
+  position: absolute;
+  inset: -0.85rem -0.4rem;
 }
 
 .option:hover {

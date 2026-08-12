@@ -1,8 +1,8 @@
 import type { CaseStudy } from "@/lib/content";
 import { caseStudyImages } from "@/lib/content";
 import { highlight } from "@/lib/highlight";
-import CaseStudyGallery from "./CaseStudyGallery";
-import CaseStudySteps from "./CaseStudySteps";
+import CaseStudyGallery from "./CaseStudyGalleryLazy";
+import CaseStudySteps from "./CaseStudyStepsLazy";
 import styles from "./CaseStudyFeature.module.css";
 
 export default function CaseStudyFeature({ story }: { story: CaseStudy }) {
