@@ -1,5 +1,11 @@
+/* Deliberately less than --section-gap: the case study feature this
+   section always follows already carries its own bottom padding-block
+   (needed when one case study leads into another) — stacking a full
+   section-gap on top of that here, uniquely among this page's section
+   boundaries, read as an oversized, undivided gap with nothing marking
+   it as intentional the way the case-study-to-case-study hairline does. */
 .section {
-  padding-top: var(--section-gap);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .eyebrow {
