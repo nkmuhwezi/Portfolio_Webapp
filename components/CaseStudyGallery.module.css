@@ -92,14 +92,36 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* gap grew from 0.5rem: with each dot now a real 24px hit target (below),
+   the old 0.5rem gap left adjacent targets' hit areas overlapping, which
+   Lighthouse's target-size audit treats as each one being "obscured" by
+   its neighbor — a distinct failure from plain undersizing, and the one
+   part of this fix that couldn't stay purely invisible. This is the
+   minimum gap that clears it: three real 24px circles, edges just short
+   of touching. */
 .dots {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.1875rem;
   flex-shrink: 0;
 }
 
+/* Lighthouse's target-size audit measures the button's own bounding box,
+   not an overlaid pseudo-element (an inset::before trick, tried first,
+   still measured 8x8 and kept failing). The button itself is a real
+   1.5rem (24px) box now — the accessibility minimum — with the visible
+   marker unchanged at 0.5rem via the ::before below. */
 .dot {
   position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot::before {
+  content: "";
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
@@ -107,20 +129,11 @@
   transition: background-color var(--dur) var(--ease);
 }
 
-/* Invisible tap-target expansion, kept tight horizontally (the dots sit
-   only 0.5rem apart) so neighbouring dots' expanded zones don't swallow
-   each other. */
-.dot::before {
-  content: "";
-  position: absolute;
-  inset: -0.85rem -0.2rem;
-}
-
-.dot:hover {
+.dot:hover::before {
   background-color: var(--accent-rule);
 }
 
-.dotActive {
+.dotActive::before {
   background-color: var(--accent);
 }
 

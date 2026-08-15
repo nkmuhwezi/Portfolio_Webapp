@@ -22,6 +22,7 @@ export const images = {
   headshot: "/images/headshot-800.jpg",
   headshotWebp: [
     { src: "/images/headshot-400.webp", width: 400 },
+    { src: "/images/headshot-600.webp", width: 600 },
     { src: "/images/headshot-800.webp", width: 800 },
     { src: "/images/headshot-1200.webp", width: 1200 },
   ],

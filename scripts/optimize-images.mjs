@@ -37,14 +37,22 @@ async function makeVariants(
 }
 
 console.log("Headshot (displays at ~320-420px CSS width):");
+// 600w fills the gap PageSpeed flagged: at common mobile DPRs the portrait
+// needs ~560-600px, which used to force the browser up to the 800w file
+// (wasting ~54KB) since 400w wasn't enough — this tier lets it stop closer
+// to what's actually needed.
 await makeVariants(path.join(imagesDir, "headshot-800.jpg"), {
-  widths: [400, 800, 1200],
+  widths: [400, 600, 800, 1200],
   jpegFallbackWidth: 800,
   quality: 82,
   outputBase: "headshot",
 });
 
 console.log("\nCase study photos (display at ~380-560px CSS width):");
+// quality 72, down from 78 — PageSpeed's image-delivery audit flagged one
+// of these (a busier, high-detail crowd photo) purely on compression
+// efficiency, not wrong sizing. A uniform step down keeps every photo on
+// the same setting rather than special-casing just that one file.
 const caseStudyFiles = (await readdir(caseStudiesDir)).filter((f) =>
   f.endsWith(".jpg"),
 );
@@ -53,7 +61,7 @@ for (const file of caseStudyFiles) {
   await makeVariants(path.join(caseStudiesDir, file), {
     widths: [480, 900, 1300],
     jpegFallbackWidth: 900,
-    quality: 78,
+    quality: 72,
   });
 }
 
