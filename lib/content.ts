@@ -511,7 +511,7 @@ export const experience: ExperienceEntry[] = [
     primary: "MTN Sudan",
     secondary: "Wireless Project Manager",
     location: "Khartoum",
-    dates: "May–Dec 2016",
+    dates: "May–Nov 2016",
     orgUrl: "https://www.mtn.sd/",
     proof: "Network modernisation · rollout execution · vendor coordination",
     bullets: [

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent, type TouchEvent } from "react";
 import type { CaseStudyImage } from "@/lib/content";
 import CaseStudyPhoto from "./CaseStudyPhoto";
 import styles from "./CaseStudyGallery.module.css";
@@ -11,16 +11,21 @@ type Props = {
   storyLabel: string;
 };
 
+/** Minimum horizontal travel, in px, before a touch drag counts as a
+ * deliberate swipe rather than a finger wobble mid-scroll. */
+const SWIPE_THRESHOLD = 40;
+
 /**
  * A single image slot that cycles through `images` — arrow buttons, dot
- * jump-to controls, and left/right arrow keys, never on a timer. A
- * one-image story renders as a plain photo: no controls, nothing to
- * switch between.
+ * jump-to controls, left/right arrow keys, and touch swipe, never on a
+ * timer. A one-image story renders as a plain photo: no controls, nothing
+ * to switch between.
  */
 export default function CaseStudyGallery({ images, storyLabel }: Props) {
   const [index, setIndex] = useState(0);
   const hasMultiple = images.length > 1;
   const current = images[index];
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const go = (delta: number) => {
     setIndex((current) => (current + delta + images.length) % images.length);
@@ -42,6 +47,38 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     }
   };
 
+  // touchmove is never preventDefault'd, so the page keeps scrolling
+  // natively the whole time — the swipe only ever fires as a side effect
+  // read off the start/end coordinates on lift, not by hijacking the
+  // gesture. That's also why a diagonal drag with more vertical than
+  // horizontal travel is treated as a scroll, not a swipe.
+  const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+
+    if (Math.abs(deltaX) < SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    // Swipe left (negative deltaX) reveals what's next, matching every
+    // native photo gallery's convention.
+    go(deltaX < 0 ? 1 : -1);
+  };
+
+  const onTouchCancel = () => {
+    touchStart.current = null;
+  };
+
   return (
     <div
       className={styles.wrap}
@@ -51,7 +88,12 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
       tabIndex={hasMultiple ? 0 : undefined}
       onKeyDown={hasMultiple ? onKeyDown : undefined}
     >
-      <div className={styles.mediaWrap}>
+      <div
+        className={styles.mediaWrap}
+        onTouchStart={hasMultiple ? onTouchStart : undefined}
+        onTouchEnd={hasMultiple ? onTouchEnd : undefined}
+        onTouchCancel={hasMultiple ? onTouchCancel : undefined}
+      >
         <CaseStudyPhoto image={current} />
 
         {hasMultiple ? (

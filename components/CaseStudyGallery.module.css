@@ -9,9 +9,14 @@
 
 /* CaseStudyPhoto renders the actual figure/media/placeholder; this just
    needs to be a positioning context for the prev/next buttons overlaid
-   on top of it. */
+   on top of it. touch-action: pan-y hands vertical scrolling to the
+   browser's native (compositor-thread) handling and leaves horizontal
+   drags free for the swipe listener in CaseStudyGallery.tsx — the touch
+   handlers never call preventDefault, so this is what keeps page scroll
+   smooth rather than that being an accident of omission. */
 .mediaWrap {
   position: relative;
+  touch-action: pan-y;
 }
 
 /* ---------------------------------------------------------------- */
