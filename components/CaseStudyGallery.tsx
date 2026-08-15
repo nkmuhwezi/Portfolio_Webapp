@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent, type TouchEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type TouchEvent } from "react";
 import type { CaseStudyImage } from "@/lib/content";
-import CaseStudyPhoto from "./CaseStudyPhoto";
+import CaseStudyPhoto, {
+  CASE_STUDY_IMAGE_SIZES,
+  webpSrcSet,
+} from "./CaseStudyPhoto";
 import styles from "./CaseStudyGallery.module.css";
 
 type Props = {
@@ -11,9 +14,16 @@ type Props = {
   storyLabel: string;
 };
 
-/** Minimum horizontal travel, in px, before a touch drag counts as a
- * deliberate swipe rather than a finger wobble mid-scroll. */
+/** Minimum horizontal travel, in px, before a slow drag counts as a
+ * deliberate swipe rather than a finger wobble mid-scroll. A fast flick
+ * doesn't need to cover this much ground — see FAST_SWIPE_* below. */
 const SWIPE_THRESHOLD = 40;
+
+/** A quick flick registers past this much shorter distance, as long as
+ * it also clears the velocity bar — matches how native photo galleries
+ * treat speed, not just travel, as swipe intent. */
+const FAST_SWIPE_MIN_DISTANCE = 18;
+const FAST_SWIPE_VELOCITY = 0.45; // px/ms
 
 /**
  * A single image slot that cycles through `images` — arrow buttons, dot
@@ -25,11 +35,42 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
   const [index, setIndex] = useState(0);
   const hasMultiple = images.length > 1;
   const current = images[index];
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const touchStart = useRef<{ x: number; y: number; time: number } | null>(
+    null,
+  );
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   const go = (delta: number) => {
     setIndex((current) => (current + delta + images.length) % images.length);
   };
+
+  // Once this gallery is on screen, warm the browser's cache for every
+  // slide, not just the current one — otherwise swiping to a slide that's
+  // still loading="lazy" and never been requested means a real network
+  // fetch sits between the gesture and the photo appearing, which reads
+  // as the swipe itself being slow even though it fired instantly.
+  useEffect(() => {
+    if (!hasMultiple) return;
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        for (const image of images) {
+          if (!image.src) continue;
+          const preload = new Image();
+          preload.srcset = webpSrcSet(image.src);
+          preload.sizes = CASE_STUDY_IMAGE_SIZES;
+        }
+        observer.disconnect();
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(wrap);
+    return () => observer.disconnect();
+  }, [hasMultiple, images]);
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
@@ -54,7 +95,7 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
   // horizontal travel is treated as a scroll, not a swipe.
   const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
-    touchStart.current = { x: touch.clientX, y: touch.clientY };
+    touchStart.current = { x: touch.clientX, y: touch.clientY, time: Date.now() };
   };
 
   const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
@@ -65,8 +106,15 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - start.x;
     const deltaY = touch.clientY - start.y;
+    const absDeltaX = Math.abs(deltaX);
+    const elapsed = Math.max(Date.now() - start.time, 1);
+    const velocity = absDeltaX / elapsed;
 
-    if (Math.abs(deltaX) < SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) {
+    const clearsSlowDrag = absDeltaX >= SWIPE_THRESHOLD;
+    const clearsFastFlick =
+      absDeltaX >= FAST_SWIPE_MIN_DISTANCE && velocity >= FAST_SWIPE_VELOCITY;
+
+    if ((!clearsSlowDrag && !clearsFastFlick) || absDeltaX <= Math.abs(deltaY)) {
       return;
     }
 
@@ -82,6 +130,7 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
   return (
     <div
       className={styles.wrap}
+      ref={wrapRef}
       role={hasMultiple ? "group" : undefined}
       aria-roledescription={hasMultiple ? "carousel" : undefined}
       aria-label={hasMultiple ? `${storyLabel} photos` : undefined}
