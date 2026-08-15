@@ -602,7 +602,7 @@ export const education: Credential[] = [
 export const professionalDevelopment: Credential[] = [
   {
     credential: "AI Agent Bootcamp",
-    institution: "",
+    institution: "Lonely Octopus",
     year: "2026",
   },
   {
