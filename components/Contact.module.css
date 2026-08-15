@@ -3,10 +3,24 @@
   padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
-.opening {
+/* Same headline/supporting-line pairing as the case-study features —
+   reusing the system's existing "confident statement" typography rather
+   than introducing a new scale for this section. */
+.openingHeadline {
+  max-width: 34ch;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--heading);
+}
+
+.openingSupport {
+  margin-top: 1rem;
   max-width: 52ch;
-  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
-  line-height: 1.7;
+  font-size: clamp(1rem, 1.4vw, 1.0625rem);
+  line-height: 1.65;
   color: var(--text);
 }
 

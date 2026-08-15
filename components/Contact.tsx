@@ -8,7 +8,8 @@ export default function Contact() {
       <div className="container">
         <SectionHeading title="Contact" />
 
-        <p className={styles.opening}>{contact.opening}</p>
+        <p className={styles.openingHeadline}>{contact.openingHeadline}</p>
+        <p className={styles.openingSupport}>{contact.openingSupport}</p>
 
         <div className={styles.actions}>
           <a className={styles.primaryAction} href={`mailto:${contact.email}`}>

@@ -683,14 +683,14 @@ export const languages = [
 /* ------------------------------------------------------------------ */
 
 export const contact = {
-  opening:
-    "Open to conversations about senior roles and advisory work in digital transformation and AI adoption, drawing on 15 years delivering telecom and public-sector technology programmes at scale across Africa.",
+  openingHeadline: "For leadership opportunities and professional enquiries",
+  openingSupport:
+    "Digital transformation, technology delivery and AI adoption across Africa and emerging markets.",
   email: "nkmuhwezi@gmail.com",
   linkedinLabel: "linkedin.com/in/normanmuhwezi",
   linkedinUrl: "https://www.linkedin.com/in/normanmuhwezi",
   location: "Addis Ababa, Ethiopia",
-  supportingLine:
-    "Based in Addis Ababa · open to regional, remote and relocation opportunities",
+  supportingLine: "Based in Addis Ababa · Open to work across Africa and emerging markets",
 };
 
 /* ------------------------------------------------------------------ */
