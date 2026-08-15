@@ -9,6 +9,7 @@ import Experience from "@/components/ExperienceLazy";
 import Hero from "@/components/Hero";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import Nav from "@/components/Nav";
+import OtherSystems from "@/components/OtherSystems";
 import SelectedWork from "@/components/SelectedWork";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
         <CareerTrajectory />
         <ImpactMetrics />
         <SelectedWork />
+        <OtherSystems />
         <Approach />
         <Experience />
         <AIInPractice />

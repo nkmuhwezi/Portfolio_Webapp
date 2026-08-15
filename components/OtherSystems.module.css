@@ -1,0 +1,68 @@
+.section {
+  padding-top: var(--section-gap);
+}
+
+.eyebrow {
+  margin: 0;
+}
+
+/* Three-up, not the four-column ImpactMetrics strip — visibly quieter:
+   smaller serif numerals, muted rather than accent-colored, no top rule
+   competing with the eyebrow directly above it. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.metric {
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+}
+
+.revealed .metric {
+  opacity: 1;
+  transform: none;
+}
+
+.value {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--heading);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.label {
+  margin: 0.6rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 24ch;
+}
+
+@media (max-width: 40rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .label {
+    max-width: none;
+  }
+}
+
+@media print {
+  .metric {
+    opacity: 1;
+    transform: none;
+    break-inside: avoid;
+  }
+}

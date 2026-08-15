@@ -43,12 +43,11 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-// The brief's exact V2 title/description — "Norman Muhwezi" here (no
-// middle initial) is a deliberate, shorter SEO string, distinct from the
-// on-page display name in hero.name.
-const metaTitle = "Norman Muhwezi | Digital Transformation Leader";
+// "Norman Muhwezi" here (no middle initial) is a deliberate, shorter SEO
+// string, distinct from the on-page display name in hero.name.
+const metaTitle = "Norman Muhwezi | Digital Transformation & AI Adoption";
 const metaDescription =
-  "Digital transformation leader with 15+ years delivering telecom infrastructure, digital platforms and technology programmes at scale across Africa, now advising on AI adoption.";
+  "Digital transformation and AI adoption leader with 15+ years delivering telecom infrastructure, digital platforms and technology programmes at scale across Africa and emerging markets.";
 
 export const metadata: Metadata = {
   // Without this, Next.js resolves the generated og:image/twitter:image
@@ -95,8 +94,9 @@ export const viewport = {
  * text that convention exists to avoid.
  */
 const currentRole = experience[0];
+// No "@context" here — this is only ever embedded as profilePageSchema's
+// mainEntity below, never emitted as its own standalone JSON-LD block.
 const personSchema = {
-  "@context": "https://schema.org",
   "@type": "Person",
   name: hero.name,
   url: "https://www.normanmuhwezi.com",
@@ -124,6 +124,19 @@ const personSchema = {
     addressCountry: "Ethiopia",
   },
   sameAs: [contact.linkedinUrl],
+};
+
+/**
+ * Wraps the Person above as the page's mainEntity — the shape Google's
+ * structured-data guidance recommends for a personal profile/portfolio
+ * page, rather than emitting Person as an unrelated top-level block.
+ */
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  name: metaTitle,
+  url: "https://www.normanmuhwezi.com",
+  mainEntity: personSchema,
 };
 
 export default function RootLayout({
@@ -155,7 +168,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(profilePageSchema).replace(/</g, "\\u003c"),
           }}
         />
         {children}

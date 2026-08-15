@@ -97,16 +97,6 @@
   color: var(--text);
 }
 
-.stepDetailHint {
-  margin: 0.75rem 0 0;
-  font-size: 0.9375rem;
-  color: var(--muted);
-}
-
-.wrap[data-has-active="true"] .stepDetailHint {
-  display: none;
-}
-
 @media print {
   .diagram {
     min-width: 0;
@@ -116,8 +106,7 @@
   /* An on-screen tap affordance, meaningless on paper — but the step
      detail itself is real content, so every item is forced open rather
      than silently dropped from a printed page. */
-  .caption,
-  .stepDetailHint {
+  .caption {
     display: none;
   }
 

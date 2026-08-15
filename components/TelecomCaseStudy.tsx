@@ -84,19 +84,6 @@ function Evidence() {
   );
 }
 
-function Disciplines() {
-  return (
-    <ol className={styles.disciplines}>
-      {telecomSchematic.disciplines.map((item) => (
-        <li className={styles.discipline} key={item.label}>
-          <p className={styles.disciplineLabel}>{item.label}</p>
-          <p className={styles.disciplineBody}>{item.body}</p>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
 export default function TelecomCaseStudy() {
   return (
     <article className={featureStyles.feature}>
@@ -116,11 +103,6 @@ export default function TelecomCaseStudy() {
       <div className={styles.schematicPanel}>
         <p className={styles.panelCaption}>Evidence</p>
         <Evidence />
-      </div>
-
-      <div className={styles.schematicPanel}>
-        <p className={styles.panelCaption}>Operating disciplines</p>
-        <Disciplines />
       </div>
 
       <CaseStudySteps steps={story.steps} cta={story.stepsCta} />

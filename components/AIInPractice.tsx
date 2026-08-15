@@ -16,6 +16,12 @@ export default function AIInPractice() {
               <p className={styles.tag}>{entry.tag}</p>
               <h3 className={styles.title}>{entry.title}</h3>
               <p className={styles.body}>{entry.body}</p>
+              {entry.list ? (
+                <p className={styles.list}>
+                  <span className={styles.listLabel}>{entry.list.label}</span>
+                  {entry.list.items.join(" · ")}
+                </p>
+              ) : null}
             </li>
           ))}
         </ul>

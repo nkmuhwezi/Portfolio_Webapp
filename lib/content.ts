@@ -108,9 +108,9 @@ export const caseStudyImages: Record<
 /* ------------------------------------------------------------------ */
 
 export const hero = {
-  eyebrow: "Based in Addis Ababa",
+  eyebrow: "Africa & emerging markets · Based in Addis Ababa",
   name: "Norman K. Muhwezi",
-  title: "Digital Transformation Leader",
+  title: "Digital Transformation Leader · AI Adoption Advisor",
   copy: "I've spent 15 years turning ambitious technology ideas into systems that work at scale, including telecom networks, digital platforms used by millions, and a $12.6M public-private partnership. I now bring that same delivery experience to AI adoption advisory work.",
 };
 
@@ -194,7 +194,7 @@ export const caseStudies: CaseStudy[] = [
       "The partnerships, localisation and delivery choices behind U-Report's growth across the Democratic Republic of Congo.",
     proofPoints: [
       "8.6M+ users across every province",
-      "150+ community clubs, including 30+ girls-only clubs",
+      "300+ U-Report community clubs, including 120+ girls-only clubs",
       "Zero-rated data agreements with Orange, Vodacom, Airtel and Africell",
       "Connected to UNICEF's HOPE cash-transfer verification system",
     ],
@@ -220,7 +220,7 @@ export const caseStudies: CaseStudy[] = [
         body: "8.6M+ users reached across the country.",
       },
     ],
-    stepsCta: "Tap a step for details",
+    stepsCta: "Explore each step.",
     highlight: ["8.6M", "8.6M+"],
   },
   {
@@ -244,17 +244,17 @@ export const caseStudies: CaseStudy[] = [
       {
         number: "02",
         label: "Model",
-        body: "I helped structure the partnership, financing arrangements and government engagement around the programme.",
+        body: "I led the partnership's structuring, financing arrangements and government engagement.",
       },
       {
         number: "03",
         label: "Delivery",
-        body: "We put independent testing, quality checks and real-time construction monitoring in place as delivery expanded.",
+        body: "I established quarterly independent quality and toxicity testing alongside real-time construction monitoring as delivery expanded.",
       },
       {
         number: "04",
         label: "Scale",
-        body: "300+ classrooms built, serving 15,000+ children, with the model shared for wider use.",
+        body: "300+ classrooms built, serving 15,000+ children. I shared the model with other UNICEF country offices for replication.",
       },
     ],
     stepsCta: "Explore the delivery model",
@@ -294,7 +294,7 @@ export const caseStudies: CaseStudy[] = [
         body: "The strongest results came when the technology, teams and day-to-day operating processes worked together.",
       },
     ],
-    stepsCta: "Tap a step for details",
+    stepsCta: "Explore each step.",
     highlight: ["1,000+", "830+", "450+", "$75,000+"],
   },
 ];
@@ -305,7 +305,6 @@ export const caseStudies: CaseStudy[] = [
 
 export type SchematicStage = { number: string; label: string; detail: string };
 export type EvidenceMetric = { value: string; label: string; primary?: boolean };
-export type Discipline = { label: string; body: string };
 export type GeographyNote = { place: string; body: string };
 
 /**
@@ -360,29 +359,24 @@ export const telecomSchematic = {
    */
   evidenceNote:
     "Across network modernisation and rollout programmes in Uganda and Sudan.",
-  disciplines: [
-    {
-      label: "Plan",
-      body: "Translate coverage and capacity needs into rollout priorities.",
-    },
-    {
-      label: "Vendors",
-      body: "Coordinate equipment, delivery teams and implementation schedules.",
-    },
-    {
-      label: "Rollout",
-      body: "Move large numbers of sites through deployment and acceptance.",
-    },
-    {
-      label: "Migrate",
-      body: "Upgrade network infrastructure while protecting service continuity.",
-    },
-    {
-      label: "Optimise",
-      body: "Track performance and improve network quality after deployment.",
-    },
-  ] as Discipline[],
 };
+
+/* ------------------------------------------------------------------ */
+/* Other systems delivered                                             */
+/* ------------------------------------------------------------------ */
+
+export type OtherSystemMetric = { value: string; label: string };
+
+/**
+ * A quieter breadth strip, not another case study — three additional
+ * delivery facts already covered elsewhere (Sierra Leone, Côte d'Ivoire
+ * Experience entries) surfaced here as evidence rather than narrative.
+ */
+export const otherSystems: OtherSystemMetric[] = [
+  { value: "30,000+", label: "Frontline worker payments digitised" },
+  { value: "3M+", label: "Consultations through the national COVID chatbot" },
+  { value: "50+", label: "Civil-registration agents trained" },
+];
 
 /* ------------------------------------------------------------------ */
 /* Approach                                                             */
@@ -455,7 +449,7 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.unionbps.com/",
     proof: "AI adoption advisory · digital transformation · enterprise advisory",
     bullets: [
-      "Advise a Kampala-based IT and consulting firm on AI adoption strategy and digital transformation roadmaps for enterprise clients, applying platform delivery discipline built over 15 years in Africa.",
+      "Advise a Kampala-based IT and security firm on practical AI opportunities and digital transformation priorities across banking, government, healthcare and fintech, translating priority use cases into clearer workflows, ownership and adoption plans.",
     ],
   },
   {
@@ -470,7 +464,7 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       "Directed a $20M+ portfolio and a 20-person team; served as Acting SBC Section Chief (OIC) for extended periods.",
       "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
-      "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 150 clubs in every province, including 30+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
+      "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 300+ U-Report community clubs in every province, including 120+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
       "Led vendor selection and procurement (Nyaruka/RapidPro, GoInnovation) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
       "Adapted the Ebola-response RapidPro chatbot for DRC, originally designed at Côte d'Ivoire in 2021 and since adopted as a UNICEF global template across 5+ country offices.",
       "Chaired the DRC Accountability to Affected Populations (AAP) Committee, securing $850,000 for community feedback systems, and secured zero-rated data agreements with Orange, Vodacom, Airtel, and Africell to sustain platform growth.",
@@ -498,8 +492,8 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.unicef.org/cotedivoire/en",
     proof: "Digital platforms · $12.6M PPP · multi-partner delivery",
     bullets: [
-      "Built a national SMS/WhatsApp digital birth registration system with the Ministry of Justice and ONA, running sprint planning and UAT cycles and training 50+ registration agents to pilot the system for government rollout.",
-      "Digitized mobile money payments for 30,000+ frontline workers, overseeing requirements, MNO integration, and transition to operations.",
+      "Led UNICEF's RapidPro component for digital civil registration with the Ministry of Justice and ONA, co-designing the workflows, managing implementation and UAT, and building the capacity of 50+ registration agents for the government pilot.",
+      "Led the digitisation of mobile-money payments for 30,000+ frontline workers, defining requirements, coordinating MNO integration and taking the solution through transition to operations.",
       "Designed and launched an Ebola-response RapidPro chatbot (2021), adopted as a UNICEF global template.",
       "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), working with YUX Design on platform customisation, integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
       "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, managing MNO relationships and real-time reporting.",
@@ -516,7 +510,7 @@ export const experience: ExperienceEntry[] = [
     proof: "Network modernisation · rollout execution · vendor coordination",
     bullets: [
       "Oversaw a RAN equipment swap across 830+ 2G/3G sites (Ericsson/ZTE to Huawei) and commissioned 450+ new LTE sites, bringing total sites managed in-country to 1,000+, and combined telecom infrastructure delivery across Uganda and Sudan to 2,000+ sites.",
-      "Led the transmission network's migration from TDM to IP RAN, managing Huawei's delivery and risk mitigation to protect network availability.",
+      "Led the transmission network migration from TDM to IP RAN, managing Huawei's delivery and risk controls to complete the upgrade while protecting network availability.",
     ],
   },
   {
@@ -540,7 +534,13 @@ export const experience: ExperienceEntry[] = [
 /* AI in Practice                                                       */
 /* ------------------------------------------------------------------ */
 
-export type AIPracticeEntry = { title: string; tag: string; body: string };
+export type AIPracticeEntry = {
+  title: string;
+  tag: string;
+  body: string;
+  /** Optional labelled list, used only by the Cornell entry for now. */
+  list?: { label: string; items: string[] };
+};
 
 export const aiInPractice = {
   intro:
@@ -549,12 +549,21 @@ export const aiInPractice = {
     {
       title: "Enterprise AI Adoption",
       tag: "Current advisory work: UTBP",
-      body: "I help a Kampala-based IT and security firm find where AI or technology genuinely fits into their work for banks, government, healthcare and fintech clients, and where it doesn't. Often the better answer is redesigning a process, not adding AI. I focus on value the client can actually see.",
+      body: "I help a Kampala-based IT and security firm identify practical AI opportunities across banking, government, healthcare and fintech, then shape the workflow, ownership and adoption plan around the strongest use cases. The focus is on improvements clients can see and measure.",
     },
     {
       title: "AI Solution Design",
       tag: "Cornell University coursework",
       body: "Coursework in designing AI solutions from the ground up: framing the use case, working through data and model choices, and building in the human oversight a responsible deployment needs.",
+      list: {
+        label: "Selected coursework projects",
+        items: [
+          "SME AI Growth Co-Pilot",
+          "Youth Engagement Classifier",
+          "Misinformation Detection",
+          "Localized Digital Insights",
+        ],
+      },
     },
   ] as AIPracticeEntry[],
 };

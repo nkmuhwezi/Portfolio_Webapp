@@ -192,48 +192,6 @@
   }
 }
 
-/* ---------------------------------------------------------------- */
-/* Operating disciplines                                              */
-/* ---------------------------------------------------------------- */
-
-.disciplines {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 1.75rem);
-}
-
-.discipline {
-  min-width: 0;
-}
-
-.disciplineLabel {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.disciplineBody {
-  margin-top: 0.5rem;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  color: var(--text);
-}
-
-@media (max-width: 56rem) {
-  .disciplines {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 26rem) {
-  .disciplines {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 @media print {
   .stage {
     opacity: 1;

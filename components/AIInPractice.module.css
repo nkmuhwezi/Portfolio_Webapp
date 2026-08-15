@@ -43,6 +43,23 @@
   color: var(--text);
 }
 
+/* Same quiet, labelled dot-list treatment as Capabilities' "Platforms &
+   tools" line — secondary evidence, not another headline. */
+.list {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.listLabel {
+  margin-right: 0.75em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 @media (max-width: 48rem) {
   .entries {
     grid-template-columns: minmax(0, 1fr);

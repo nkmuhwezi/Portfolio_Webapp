@@ -222,7 +222,6 @@ export default function CaseStudySteps({
           </div>
         ))}
       </dl>
-      <p className={styles.stepDetailHint}>Tap a step above for detail.</p>
     </div>
   );
 }
