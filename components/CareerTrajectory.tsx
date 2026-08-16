@@ -1,32 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { careerStages } from "@/lib/content";
+import { useRevealOnScroll } from "@/lib/useRevealOnScroll";
 import styles from "./CareerTrajectory.module.css";
 
 export default function CareerTrajectory() {
-  const rowRef = useRef<HTMLOListElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return;
-
-    // Reveals once, the first time the row enters view — not a repeating
-    // effect on every scroll past it.
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(row);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: rowRef, revealed } = useRevealOnScroll<HTMLOListElement>();
 
   return (
     <section className={styles.section} aria-labelledby="career-trajectory-heading">

@@ -1,37 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { otherSystems } from "@/lib/content";
+import { useRevealOnScroll } from "@/lib/useRevealOnScroll";
 import styles from "./OtherSystems.module.css";
 
 /**
  * A quieter breadth strip between Selected Transformation Stories and How
  * I Work — evidence, not another case study. Same reveal-once-on-scroll
- * pattern as CareerTrajectory and the MTN schematic, and the same
- * eyebrow-as-heading trick Approach uses: the visible label doubles as the
- * section's accessible name instead of a redundant hidden h2 beside it.
+ * pattern as CareerTrajectory and the MTN schematic (see
+ * lib/useRevealOnScroll), and the same eyebrow-as-heading trick Approach
+ * uses: the visible label doubles as the section's accessible name
+ * instead of a redundant hidden h2 beside it.
  */
 export default function OtherSystems() {
-  const rowRef = useRef<HTMLDListElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(row);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: rowRef, revealed } = useRevealOnScroll<HTMLDListElement>();
 
   return (
     <section className={styles.section} aria-labelledby="other-systems-heading">

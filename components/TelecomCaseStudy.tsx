@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { caseStudies, telecomSchematic } from "@/lib/content";
 import { highlight } from "@/lib/highlight";
+import { useRevealOnScroll } from "@/lib/useRevealOnScroll";
 import CaseStudySteps from "./CaseStudySteps";
 import featureStyles from "./CaseStudyFeature.module.css";
 import styles from "./TelecomCaseStudy.module.css";
@@ -18,26 +18,7 @@ const story = caseStudies.find((s) => s.id === "telecom")!;
  * up without color and without JavaScript.
  */
 function Schematic() {
-  const rowRef = useRef<HTMLOListElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(row);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: rowRef, revealed } = useRevealOnScroll<HTMLOListElement>();
 
   return (
     <ol
