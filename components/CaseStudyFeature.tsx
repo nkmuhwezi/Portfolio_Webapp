@@ -6,7 +6,11 @@ import CaseStudySteps from "./CaseStudyStepsLazy";
 import styles from "./CaseStudyFeature.module.css";
 
 export default function CaseStudyFeature({ story }: { story: CaseStudy }) {
-  const images = caseStudyImages[story.id];
+  // caseStudyImages only has photography for the two photographed stories
+  // (SelectedWork renders "telecom" through TelecomCaseStudy instead, which
+  // never calls this component), so this cast reflects a real invariant
+  // enforced by the caller, not an unchecked assumption.
+  const images = caseStudyImages[story.id as "drc" | "coteDIvoire"];
 
   return (
     <article className={styles.feature}>

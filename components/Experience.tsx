@@ -61,7 +61,7 @@ export default function Experience() {
                       className={styles.head}
                       aria-expanded={isOpen}
                       aria-controls={panelId}
-                      aria-label={`${isOpen ? "Collapse" : "Expand"} details for ${entry.primary}`}
+                      aria-label={`${isOpen ? "Collapse" : "Expand"} details for ${entry.primary}: ${entry.secondary}`}
                       onClick={() => toggle(entry.id)}
                     >
                       <span className={styles.secondary}>{entry.secondary}</span>

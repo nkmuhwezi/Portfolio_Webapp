@@ -108,13 +108,17 @@ function StepDiagram({
 
               {/* A real focusable, clickable group rather than a <div> with a
                   mouse-only handler — Enter/Space fire the same onSelect a
-                  click would. */}
+                  click would. No aria-label: the two <text> children below
+                  ("01", "Context") already give this its accessible name by
+                  content, and a manually-written label ("01: Context") can
+                  never literally match that concatenated text — screen
+                  readers and voice control then hear two different labels
+                  for what's visibly one control. */}
               <g
                 className={`${styles.step} ${isActive ? styles.stepActive : ""}`}
                 role="button"
                 tabIndex={0}
                 aria-pressed={isActive}
-                aria-label={`${step.number}: ${step.label}`}
                 onClick={() => onSelect(index)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {

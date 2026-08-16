@@ -66,7 +66,7 @@ export default function ThemeToggle() {
         type="button"
         className={styles.option}
         aria-pressed={theme === "light"}
-        aria-label="Switch to light theme"
+        aria-label="Lumen: switch to light theme"
         onClick={() => choose("light")}
       >
         Lumen
@@ -76,7 +76,7 @@ export default function ThemeToggle() {
         type="button"
         className={styles.option}
         aria-pressed={theme === "dark"}
-        aria-label="Switch to dark theme"
+        aria-label="Vast: switch to dark theme"
         onClick={() => choose("dark")}
       >
         Vast

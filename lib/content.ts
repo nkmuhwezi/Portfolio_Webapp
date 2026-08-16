@@ -50,10 +50,7 @@ export type CaseStudyImage = {
  * photo with no carousel controls; controls only appear once there's
  * something to switch between.
  */
-export const caseStudyImages: Record<
-  "drc" | "coteDIvoire" | "telecom",
-  CaseStudyImage[]
-> = {
+export const caseStudyImages: Record<"drc" | "coteDIvoire", CaseStudyImage[]> = {
   drc: [
     {
       src: "/images/case-studies/drc-ureport-group.jpg",
@@ -93,13 +90,6 @@ export const caseStudyImages: Record<
       label: "Cote d'Ivoire project photo",
       caption:
         "Before and after: the new recycled-plastic classroom beside the older palm-leaf structure in Cote d'Ivoire.",
-    },
-  ],
-  telecom: [
-    {
-      src: null,
-      alt: "",
-      label: "Telecom project visual",
     },
   ],
 };
@@ -306,7 +296,6 @@ export const caseStudies: CaseStudy[] = [
 
 export type SchematicStage = { number: string; label: string; detail: string };
 export type EvidenceMetric = { value: string; label: string; primary?: boolean };
-export type GeographyNote = { place: string; body: string };
 
 /**
  * No photography exists for this story, and none is faked — this data
@@ -697,9 +686,7 @@ export const contact = {
   openingSupport:
     "Digital transformation, technology delivery and AI adoption across Africa and emerging markets.",
   email: "nkmuhwezi@gmail.com",
-  linkedinLabel: "linkedin.com/in/normanmuhwezi",
   linkedinUrl: "https://www.linkedin.com/in/normanmuhwezi",
-  location: "Addis Ababa, Ethiopia",
   supportingLine: "Based in Addis Ababa · Open to work across Africa and emerging markets",
 };
 

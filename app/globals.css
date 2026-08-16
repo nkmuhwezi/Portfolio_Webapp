@@ -27,7 +27,6 @@
      fathom on contrast too (9.80:1 vs 9.39:1). */
   --bg: #ffffeb;
   --bg-raised: #ffffff;
-  --bg-sunken: #f0d7ff;
   --text: #1a1a1a;
   --heading: #000000;
   --muted: #666666;
@@ -35,7 +34,6 @@
 
   /* Derived surfaces */
   --rule: rgba(26, 26, 26, 0.1);
-  --rule-soft: rgba(26, 26, 26, 0.05);
   --accent-rule: rgba(127, 28, 52, 0.35);
   --accent-wash: rgba(127, 28, 52, 0.06);
 
@@ -64,14 +62,12 @@
 :root[data-theme="dark"] {
   --bg: #1a1a1a;
   --bg-raised: #222222;
-  --bg-sunken: #111111;
   --text: #ffffeb;
   --heading: #ffffff;
   --muted: #aaaaaa;
   --accent: #ffa946;
 
   --rule: rgba(255, 255, 235, 0.11);
-  --rule-soft: rgba(255, 255, 235, 0.06);
   --accent-rule: rgba(255, 169, 70, 0.32);
   --accent-wash: rgba(255, 169, 70, 0.06);
 }
@@ -258,7 +254,6 @@ button {
   :root {
     --bg: #ffffff;
     --bg-raised: #ffffff;
-    --bg-sunken: #ffffff;
     --text: #1a1a1a;
     --heading: #000000;
     --muted: #666666;
