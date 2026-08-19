@@ -220,6 +220,16 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
   useEffect(() => cancelSettle, []);
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    // The prev/next buttons live inside mediaWrap, so a click on either
+    // bubbles up to this handler too. Leave those alone entirely — once
+    // setPointerCapture below redirects a pointer to mediaWrap, mouseup
+    // (and the click synthesized from it) retargets to the capturing
+    // element instead of the button, silently killing the button's click
+    // on any mouse-driven viewport (touch's tap gesture doesn't route
+    // through that same retargeting, which is why this only ever showed
+    // up with a mouse).
+    if ((event.target as HTMLElement).closest("button")) return;
+
     // Only the primary mouse button starts a drag — a right-click or a
     // hover-only pointermove (no button held) should never engage this.
     // Touch and pen contacts don't carry a meaningful button state, so
