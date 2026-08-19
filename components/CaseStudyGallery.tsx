@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
   type KeyboardEvent,
-  type TouchEvent,
+  type PointerEvent,
 } from "react";
 import type { CaseStudyImage } from "@/lib/content";
 import { projectMomentum, springConstants, springStep } from "@/lib/spring";
@@ -23,18 +23,18 @@ type Props = {
 };
 
 /** Minimum horizontal travel, in px, before a slow drag counts as a
- * deliberate swipe rather than a finger wobble mid-scroll. A fast flick
- * doesn't need to cover this much ground — see FAST_SWIPE_* below. Used
- * only by the reduced-motion fallback path, which keeps the exact
- * threshold logic this site shipped with before the spring rewrite. */
+ * deliberate swipe rather than a wobble mid-scroll. A fast flick doesn't
+ * need to cover this much ground — see FAST_SWIPE_* below. Used only by
+ * the reduced-motion fallback path, which keeps the exact threshold logic
+ * this site shipped with before the spring rewrite. */
 const SWIPE_THRESHOLD = 40;
 const FAST_SWIPE_MIN_DISTANCE = 18;
 const FAST_SWIPE_VELOCITY = 0.45; // px/ms
 
-/** How far a touch has to travel before it commits to being a horizontal
- * swipe or a vertical scroll — see apple-design skill §10. Below this,
- * nothing happens: no preventDefault, no transform, so a tap or the start
- * of a scroll is indistinguishable from today. */
+/** How far a pointer has to travel before it commits to being a
+ * horizontal swipe or a vertical scroll — see apple-design skill §10.
+ * Below this, nothing happens: no preventDefault, no transform, so a tap
+ * or the start of a scroll is indistinguishable from today. */
 const DIRECTION_HYSTERESIS = 10; // px
 
 /** Exponential-decay momentum model, matches native scroll deceleration
@@ -49,8 +49,8 @@ const SETTLE_RESPONSE = 0.32; // seconds
 const SETTLE_DAMPING_REJECT = 1;
 const SETTLE_DAMPING_COMMIT = 0.86;
 
-/** Touch history kept for release-velocity smoothing, so one jittery
- * sample right at lift-off can't dominate the read. */
+/** Pointer position history kept for release-velocity smoothing, so one
+ * jittery sample right at lift-off can't dominate the read. */
 const VELOCITY_SAMPLE_WINDOW = 100; // ms
 
 type DragState = {
@@ -70,9 +70,10 @@ type Peek = { index: number; direction: 1 | -1 };
 
 /**
  * A single image slot that cycles through `images` — arrow buttons, dot
- * jump-to controls, left/right arrow keys, and touch swipe, never on a
- * timer. A one-image story renders as a plain photo: no controls, nothing
- * to switch between.
+ * jump-to controls, left/right arrow keys, and a drag/swipe gesture (touch,
+ * mouse, or pen, via the Pointer Events API), never on a timer. A
+ * one-image story renders as a plain photo: no controls, nothing to
+ * switch between.
  */
 export default function CaseStudyGallery({ images, storyLabel }: Props) {
   const [index, setIndex] = useState(0);
@@ -218,8 +219,20 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
 
   useEffect(() => cancelSettle, []);
 
-  const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches[0];
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    // Only the primary mouse button starts a drag — a right-click or a
+    // hover-only pointermove (no button held) should never engage this.
+    // Touch and pen contacts don't carry a meaningful button state, so
+    // they're unaffected by this check.
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    // Stops the browser from starting its own native image-drag ghost on
+    // a click-and-drag over the photo — pointer capture below is what
+    // keeps tracking the gesture instead.
+    if (event.pointerType === "mouse") event.preventDefault();
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const wasSettling = rafRef.current !== null;
 
@@ -235,13 +248,13 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
 
     dragRef.current = {
       reducedMotion,
-      startX: touch.clientX,
-      startY: touch.clientY,
+      startX: event.clientX,
+      startY: event.clientY,
       startTime: performance.now(),
       baseX: xRef.current,
       committed: resuming ? "x" : null,
       peekDirection: resuming ? peek!.direction : null,
-      history: [{ x: touch.clientX, time: performance.now() }],
+      history: [{ x: event.clientX, time: performance.now() }],
     };
   };
 
@@ -250,13 +263,12 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     const el = mediaWrapRef.current;
     if (!el) return;
 
-    const handleTouchMove = (event: globalThis.TouchEvent) => {
+    const handlePointerMove = (event: globalThis.PointerEvent) => {
       const drag = dragRef.current;
       if (!drag || drag.reducedMotion) return;
 
-      const touch = event.touches[0];
-      const dx = touch.clientX - drag.startX;
-      const dy = touch.clientY - drag.startY;
+      const dx = event.clientX - drag.startX;
+      const dy = event.clientY - drag.startY;
 
       if (drag.committed === null) {
         if (Math.max(Math.abs(dx), Math.abs(dy)) < DIRECTION_HYSTERESIS) return;
@@ -277,7 +289,7 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
       event.preventDefault();
 
       const now = performance.now();
-      drag.history.push({ x: touch.clientX, time: now });
+      drag.history.push({ x: event.clientX, time: now });
       while (drag.history.length > 1 && now - drag.history[0].time > VELOCITY_SAMPLE_WINDOW) {
         drag.history.shift();
       }
@@ -297,8 +309,8 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
       applyTransform(proposed, direction);
     };
 
-    el.addEventListener("touchmove", handleTouchMove, { passive: false });
-    return () => el.removeEventListener("touchmove", handleTouchMove);
+    el.addEventListener("pointermove", handlePointerMove, { passive: false });
+    return () => el.removeEventListener("pointermove", handlePointerMove);
   }, [hasMultiple, images, index]);
 
   const settleToRest = (direction: 1 | -1) => {
@@ -310,16 +322,15 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     });
   };
 
-  const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+  const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current;
     dragRef.current = null;
     if (!drag) return;
 
     if (drag.reducedMotion) {
       // Exactly today's instant, unanimated threshold check.
-      const touch = event.changedTouches[0];
-      const deltaX = touch.clientX - drag.startX;
-      const deltaY = touch.clientY - drag.startY;
+      const deltaX = event.clientX - drag.startX;
+      const deltaY = event.clientY - drag.startY;
       const absDeltaX = Math.abs(deltaX);
       const elapsed = Math.max(performance.now() - drag.startTime, 1);
       const velocity = absDeltaX / elapsed;
@@ -367,7 +378,7 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     }
   };
 
-  const onTouchCancel = () => {
+  const onPointerCancel = () => {
     const drag = dragRef.current;
     dragRef.current = null;
     if (!drag || drag.reducedMotion || drag.committed !== "x" || drag.peekDirection === null) {
@@ -389,9 +400,9 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
       <div
         className={styles.mediaWrap}
         ref={mediaWrapRef}
-        onTouchStart={hasMultiple ? onTouchStart : undefined}
-        onTouchEnd={hasMultiple ? onTouchEnd : undefined}
-        onTouchCancel={hasMultiple ? onTouchCancel : undefined}
+        onPointerDown={hasMultiple ? onPointerDown : undefined}
+        onPointerUp={hasMultiple ? onPointerUp : undefined}
+        onPointerCancel={hasMultiple ? onPointerCancel : undefined}
       >
         <div className={styles.slide} ref={currentSlideRef}>
           <CaseStudyPhoto image={current} />

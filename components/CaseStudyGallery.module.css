@@ -11,11 +11,12 @@
    children are positioned absolutely for the swipe drag and can no
    longer contribute their intrinsic height the way a single in-flow
    photo used to. touch-action: pan-y hands vertical scrolling to the
-   browser's native (compositor-thread) handling; CaseStudyGallery.tsx
-   only calls preventDefault once a drag has confirmed itself as
-   horizontal, so a vertical drag never reaches this element's touchmove
-   listener with anything suppressed. overflow: hidden clips the
-   off-screen neighbour photo that slides in alongside the current one. */
+   browser's native (compositor-thread) handling on touchscreens;
+   CaseStudyGallery.tsx only calls preventDefault once a drag has
+   confirmed itself as horizontal, so a vertical touch drag never reaches
+   this element's pointermove listener with anything suppressed.
+   overflow: hidden clips the off-screen neighbour photo that slides in
+   alongside the current one. */
 .mediaWrap {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -25,12 +26,17 @@
 
 /* The current photo and, only while a horizontal drag is in progress,
    its incoming neighbour — both positioned by CaseStudyGallery.tsx via
-   direct style.transform writes on every touchmove/animation frame,
+   direct style.transform writes on every pointermove/animation frame,
    never a CSS transition (see apple-design skill §3, §11: gesture-driven
-   motion should never fight a declarative animation for control). */
+   motion should never fight a declarative animation for control).
+   user-drag/user-select: none stop a mouse click-drag from starting the
+   browser's native "drag this image" ghost or selecting text instead of
+   driving the swipe. */
 .slide {
   position: absolute;
   inset: 0;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* ---------------------------------------------------------------- */
