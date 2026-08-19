@@ -1,7 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent, type TouchEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type TouchEvent,
+} from "react";
 import type { CaseStudyImage } from "@/lib/content";
+import { projectMomentum, springConstants, springStep } from "@/lib/spring";
 import CaseStudyPhoto, {
   CASE_STUDY_IMAGE_SIZES,
   webpSrcSet,
@@ -16,14 +24,49 @@ type Props = {
 
 /** Minimum horizontal travel, in px, before a slow drag counts as a
  * deliberate swipe rather than a finger wobble mid-scroll. A fast flick
- * doesn't need to cover this much ground — see FAST_SWIPE_* below. */
+ * doesn't need to cover this much ground — see FAST_SWIPE_* below. Used
+ * only by the reduced-motion fallback path, which keeps the exact
+ * threshold logic this site shipped with before the spring rewrite. */
 const SWIPE_THRESHOLD = 40;
-
-/** A quick flick registers past this much shorter distance, as long as
- * it also clears the velocity bar — matches how native photo galleries
- * treat speed, not just travel, as swipe intent. */
 const FAST_SWIPE_MIN_DISTANCE = 18;
 const FAST_SWIPE_VELOCITY = 0.45; // px/ms
+
+/** How far a touch has to travel before it commits to being a horizontal
+ * swipe or a vertical scroll — see apple-design skill §10. Below this,
+ * nothing happens: no preventDefault, no transform, so a tap or the start
+ * of a scroll is indistinguishable from today. */
+const DIRECTION_HYSTERESIS = 10; // px
+
+/** Exponential-decay momentum model, matches native scroll deceleration
+ * (apple-design skill §6). */
+const DECELERATION_RATE = 0.998;
+
+/** Spring settle timing. Critical damping (no bounce) when the gesture is
+ * rejected and the photo returns to rest; a touch of underdamped give
+ * only when real release velocity carried the swipe past the midpoint —
+ * bounce is reserved for momentum, never used on a plain drag. */
+const SETTLE_RESPONSE = 0.32; // seconds
+const SETTLE_DAMPING_REJECT = 1;
+const SETTLE_DAMPING_COMMIT = 0.86;
+
+/** Touch history kept for release-velocity smoothing, so one jittery
+ * sample right at lift-off can't dominate the read. */
+const VELOCITY_SAMPLE_WINDOW = 100; // ms
+
+type DragState = {
+  reducedMotion: boolean;
+  startX: number;
+  startY: number;
+  startTime: number;
+  /** Live translateX at the moment this gesture began — lets a re-grab
+   * mid-settle continue from the on-screen position instead of resetting. */
+  baseX: number;
+  committed: "x" | "y" | null;
+  peekDirection: 1 | -1 | null;
+  history: { x: number; time: number }[];
+};
+
+type Peek = { index: number; direction: 1 | -1 };
 
 /**
  * A single image slot that cycles through `images` — arrow buttons, dot
@@ -33,12 +76,21 @@ const FAST_SWIPE_VELOCITY = 0.45; // px/ms
  */
 export default function CaseStudyGallery({ images, storyLabel }: Props) {
   const [index, setIndex] = useState(0);
+  const [peek, setPeek] = useState<Peek | null>(null);
   const hasMultiple = images.length > 1;
   const current = images[index];
-  const touchStart = useRef<{ x: number; y: number; time: number } | null>(
-    null,
-  );
+
   const wrapRef = useRef<HTMLDivElement>(null);
+  const mediaWrapRef = useRef<HTMLDivElement>(null);
+  const currentSlideRef = useRef<HTMLDivElement>(null);
+  const peekSlideRef = useRef<HTMLDivElement>(null);
+
+  const dragRef = useRef<DragState | null>(null);
+  const xRef = useRef(0);
+  const velocityRef = useRef(0); // px/s
+  const rafRef = useRef<number | null>(null);
+  const lastFrameTimeRef = useRef(0);
+  const containerWidthRef = useRef(0);
 
   const go = (delta: number) => {
     setIndex((current) => (current + delta + images.length) % images.length);
@@ -88,43 +140,240 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     }
   };
 
-  // touchmove is never preventDefault'd, so the page keeps scrolling
-  // natively the whole time — the swipe only ever fires as a side effect
-  // read off the start/end coordinates on lift, not by hijacking the
-  // gesture. That's also why a diagonal drag with more vertical than
-  // horizontal travel is treated as a scroll, not a swipe.
+  const applyTransform = (x: number, direction: 1 | -1) => {
+    if (currentSlideRef.current) {
+      currentSlideRef.current.style.transform = `translateX(${x}px)`;
+    }
+    if (peekSlideRef.current) {
+      const base = direction === 1 ? containerWidthRef.current : -containerWidthRef.current;
+      peekSlideRef.current.style.transform = `translateX(${x + base}px)`;
+    }
+  };
+
+  const cancelSettle = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+  };
+
+  // Positions a freshly-mounted peek slide correctly on its very first
+  // paint — without this, it would briefly render at transform: none
+  // (fully overlapping the current photo) for one frame before the next
+  // touchmove gets a chance to place it off to the side.
+  useLayoutEffect(() => {
+    if (!peek) return;
+    if (currentSlideRef.current) {
+      currentSlideRef.current.style.transform = `translateX(${xRef.current}px)`;
+    }
+    if (peekSlideRef.current) {
+      const base = peek.direction === 1 ? containerWidthRef.current : -containerWidthRef.current;
+      peekSlideRef.current.style.transform = `translateX(${xRef.current + base}px)`;
+    }
+  }, [peek]);
+
+  // Whenever the visible index changes — from a completed swipe as much
+  // as from the arrow buttons, dots, or keyboard — the current slide's
+  // transform (left over from a swipe that just finished) needs clearing
+  // synchronously before paint, or the newly-current photo would render
+  // wherever the outgoing one last sat.
+  useLayoutEffect(() => {
+    if (currentSlideRef.current) {
+      currentSlideRef.current.style.transform = "";
+    }
+  }, [index]);
+
+  const runSettle = (
+    target: number,
+    dampingRatio: number,
+    direction: 1 | -1,
+    onComplete: () => void,
+  ) => {
+    cancelSettle();
+    const { stiffness, damping } = springConstants(dampingRatio, SETTLE_RESPONSE);
+    lastFrameTimeRef.current = performance.now();
+
+    const step = (now: number) => {
+      const dt = Math.min(Math.max((now - lastFrameTimeRef.current) / 1000, 0), 0.032);
+      lastFrameTimeRef.current = now;
+
+      const next = springStep(xRef.current, velocityRef.current, target, stiffness, damping, dt);
+      xRef.current = next.position;
+      velocityRef.current = next.velocity;
+      applyTransform(xRef.current, direction);
+
+      const settled = Math.abs(next.position - target) < 0.5 && Math.abs(next.velocity) < 20;
+      if (settled) {
+        xRef.current = target;
+        velocityRef.current = 0;
+        rafRef.current = null;
+        onComplete();
+      } else {
+        rafRef.current = requestAnimationFrame(step);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+  };
+
+  useEffect(() => cancelSettle, []);
+
   const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
-    touchStart.current = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const wasSettling = rafRef.current !== null;
+
+    if (!reducedMotion) {
+      // Interrupt an in-flight settle rather than letting it fight the new
+      // gesture — the drag continues from wherever the photo actually is
+      // on screen right now (xRef), never from a reset position.
+      cancelSettle();
+      containerWidthRef.current = mediaWrapRef.current?.getBoundingClientRect().width ?? 0;
+    }
+
+    const resuming = !reducedMotion && wasSettling && peek !== null;
+
+    dragRef.current = {
+      reducedMotion,
+      startX: touch.clientX,
+      startY: touch.clientY,
+      startTime: performance.now(),
+      baseX: xRef.current,
+      committed: resuming ? "x" : null,
+      peekDirection: resuming ? peek!.direction : null,
+      history: [{ x: touch.clientX, time: performance.now() }],
+    };
+  };
+
+  useEffect(() => {
+    if (!hasMultiple) return;
+    const el = mediaWrapRef.current;
+    if (!el) return;
+
+    const handleTouchMove = (event: globalThis.TouchEvent) => {
+      const drag = dragRef.current;
+      if (!drag || drag.reducedMotion) return;
+
+      const touch = event.touches[0];
+      const dx = touch.clientX - drag.startX;
+      const dy = touch.clientY - drag.startY;
+
+      if (drag.committed === null) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < DIRECTION_HYSTERESIS) return;
+        drag.committed = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+        if (drag.committed === "x") {
+          const direction: 1 | -1 = dx < 0 ? 1 : -1;
+          drag.peekDirection = direction;
+          const nextIndex = (index + direction + images.length) % images.length;
+          setPeek({ index: nextIndex, direction });
+        }
+      }
+
+      if (drag.committed !== "x" || drag.peekDirection === null) return;
+
+      // Only ever suppressed once a horizontal swipe is confirmed — a
+      // vertical drag never reaches this line, so native scroll is
+      // untouched for it.
+      event.preventDefault();
+
+      const now = performance.now();
+      drag.history.push({ x: touch.clientX, time: now });
+      while (drag.history.length > 1 && now - drag.history[0].time > VELOCITY_SAMPLE_WINDOW) {
+        drag.history.shift();
+      }
+
+      const width = containerWidthRef.current || 1;
+      const direction = drag.peekDirection;
+      let proposed = drag.baseX + dx;
+      // Clamp to the single slide's worth of travel in the committed
+      // direction — reversing past the resting point just re-reveals the
+      // current photo, it doesn't chain into the opposite neighbour
+      // within the same gesture.
+      proposed = direction === 1
+        ? Math.min(Math.max(proposed, -width), 0)
+        : Math.max(Math.min(proposed, width), 0);
+
+      xRef.current = proposed;
+      applyTransform(proposed, direction);
+    };
+
+    el.addEventListener("touchmove", handleTouchMove, { passive: false });
+    return () => el.removeEventListener("touchmove", handleTouchMove);
+  }, [hasMultiple, images, index]);
+
+  const settleToRest = (direction: 1 | -1) => {
+    runSettle(0, SETTLE_DAMPING_REJECT, direction, () => {
+      if (currentSlideRef.current) currentSlideRef.current.style.transform = "";
+      setPeek(null);
+      xRef.current = 0;
+      velocityRef.current = 0;
+    });
   };
 
   const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    const start = touchStart.current;
-    touchStart.current = null;
-    if (!start) return;
+    const drag = dragRef.current;
+    dragRef.current = null;
+    if (!drag) return;
 
-    const touch = event.changedTouches[0];
-    const deltaX = touch.clientX - start.x;
-    const deltaY = touch.clientY - start.y;
-    const absDeltaX = Math.abs(deltaX);
-    const elapsed = Math.max(Date.now() - start.time, 1);
-    const velocity = absDeltaX / elapsed;
+    if (drag.reducedMotion) {
+      // Exactly today's instant, unanimated threshold check.
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - drag.startX;
+      const deltaY = touch.clientY - drag.startY;
+      const absDeltaX = Math.abs(deltaX);
+      const elapsed = Math.max(performance.now() - drag.startTime, 1);
+      const velocity = absDeltaX / elapsed;
 
-    const clearsSlowDrag = absDeltaX >= SWIPE_THRESHOLD;
-    const clearsFastFlick =
-      absDeltaX >= FAST_SWIPE_MIN_DISTANCE && velocity >= FAST_SWIPE_VELOCITY;
+      const clearsSlowDrag = absDeltaX >= SWIPE_THRESHOLD;
+      const clearsFastFlick =
+        absDeltaX >= FAST_SWIPE_MIN_DISTANCE && velocity >= FAST_SWIPE_VELOCITY;
 
-    if ((!clearsSlowDrag && !clearsFastFlick) || absDeltaX <= Math.abs(deltaY)) {
+      if ((!clearsSlowDrag && !clearsFastFlick) || absDeltaX <= Math.abs(deltaY)) {
+        return;
+      }
+      go(deltaX < 0 ? 1 : -1);
       return;
     }
 
-    // Swipe left (negative deltaX) reveals what's next, matching every
-    // native photo gallery's convention.
-    go(deltaX < 0 ? 1 : -1);
+    if (drag.committed !== "x" || drag.peekDirection === null) {
+      // Never crossed into a horizontal swipe — nothing was ever mounted
+      // or transformed, so there's nothing to settle.
+      return;
+    }
+
+    const direction = drag.peekDirection;
+    const width = containerWidthRef.current || 1;
+
+    const recent = drag.history;
+    const first = recent[0];
+    const last = recent[recent.length - 1];
+    const dt = Math.max(last.time - first.time, 1);
+    const releaseVelocity = ((last.x - first.x) / dt) * 1000; // px/s
+    velocityRef.current = releaseVelocity;
+
+    const projected = xRef.current + projectMomentum(releaseVelocity, DECELERATION_RATE);
+    const pastHalfway = direction === 1 ? projected <= -width / 2 : projected >= width / 2;
+
+    if (pastHalfway) {
+      const target = direction === 1 ? -width : width;
+      runSettle(target, SETTLE_DAMPING_COMMIT, direction, () => {
+        go(direction);
+        setPeek(null);
+        xRef.current = 0;
+        velocityRef.current = 0;
+      });
+    } else {
+      settleToRest(direction);
+    }
   };
 
   const onTouchCancel = () => {
-    touchStart.current = null;
+    const drag = dragRef.current;
+    dragRef.current = null;
+    if (!drag || drag.reducedMotion || drag.committed !== "x" || drag.peekDirection === null) {
+      return;
+    }
+    settleToRest(drag.peekDirection);
   };
 
   return (
@@ -139,11 +388,20 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     >
       <div
         className={styles.mediaWrap}
+        ref={mediaWrapRef}
         onTouchStart={hasMultiple ? onTouchStart : undefined}
         onTouchEnd={hasMultiple ? onTouchEnd : undefined}
         onTouchCancel={hasMultiple ? onTouchCancel : undefined}
       >
-        <CaseStudyPhoto image={current} />
+        <div className={styles.slide} ref={currentSlideRef}>
+          <CaseStudyPhoto image={current} />
+        </div>
+
+        {peek ? (
+          <div className={styles.slide} ref={peekSlideRef}>
+            <CaseStudyPhoto image={images[peek.index]} />
+          </div>
+        ) : null}
 
         {hasMultiple ? (
           <>
