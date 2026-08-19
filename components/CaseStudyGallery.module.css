@@ -29,14 +29,23 @@
    direct style.transform writes on every pointermove/animation frame,
    never a CSS transition (see apple-design skill §3, §11: gesture-driven
    motion should never fight a declarative animation for control).
-   user-drag/user-select: none stop a mouse click-drag from starting the
-   browser's native "drag this image" ghost or selecting text instead of
-   driving the swipe. */
+   user-select: none stops a mouse click-drag from selecting text instead
+   of driving the swipe. */
 .slide {
   position: absolute;
   inset: 0;
-  -webkit-user-drag: none;
   user-select: none;
+}
+
+/* -webkit-user-drag doesn't inherit from .slide — it has to target the
+   <img> itself, or a mouse click-drag on the photo starts the browser's
+   native "drag this image" ghost instead of the swipe. Handled purely in
+   CSS rather than event.preventDefault() in onPointerDown: that also
+   fires (via bubbling) for a pointerdown on the prev/next buttons, and
+   suppressing a mouse's default pointerdown action there suppresses the
+   click that's supposed to follow it. */
+.slide img {
+  -webkit-user-drag: none;
 }
 
 /* ---------------------------------------------------------------- */

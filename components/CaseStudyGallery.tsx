@@ -226,11 +226,6 @@ export default function CaseStudyGallery({ images, storyLabel }: Props) {
     // they're unaffected by this check.
     if (event.pointerType === "mouse" && event.button !== 0) return;
 
-    // Stops the browser from starting its own native image-drag ghost on
-    // a click-and-drag over the photo — pointer capture below is what
-    // keeps tracking the gesture instead.
-    if (event.pointerType === "mouse") event.preventDefault();
-
     event.currentTarget.setPointerCapture(event.pointerId);
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
