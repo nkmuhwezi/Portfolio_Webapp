@@ -35,6 +35,31 @@ export default function CaseStudyFeature({ story }: { story: CaseStudy }) {
       </div>
 
       <CaseStudySteps steps={story.steps} cta={story.stepsCta} />
+
+      {story.externalEvidence && story.externalEvidence.length > 0 ? (
+        <div className={styles.externalEvidence}>
+          <p className={`eyebrow ${styles.evidenceEyebrow}`}>External evidence</p>
+
+          {story.externalEvidence.map((item) => (
+            <div
+              className={`${styles.evidenceItem} ${item.quiet ? styles.evidenceItemQuiet : ""}`}
+              key={item.href}
+            >
+              <p className={styles.evidenceHeading}>{item.heading}</p>
+              <p className={styles.evidenceSource}>{item.source}</p>
+              <a
+                className={styles.evidenceLink}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {item.cta}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : null}
     </article>
   );
 }

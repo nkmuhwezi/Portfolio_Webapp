@@ -162,6 +162,25 @@ export type CaseStudyStep = {
   body: string;
 };
 
+/**
+ * A link out to independent, third-party coverage of the work — a podcast
+ * episode, a published story, a UNICEF feature. Deliberately just a link:
+ * no embed, no thumbnail, nothing fetched until a reader actually clicks
+ * through, so this never has anything to say to Lighthouse.
+ */
+export type ExternalEvidenceLink = {
+  heading: string;
+  source: string;
+  href: string;
+  /** Rendered as the link text; an arrow glyph is added separately in the
+   * component so it's excluded from the accessible name (screen readers
+   * would otherwise announce it as literal text). */
+  cta: string;
+  /** A related mention rather than the primary piece of evidence —
+   * rendered visually quieter, never a second competing headline. */
+  quiet?: boolean;
+};
+
 export type CaseStudy = {
   id: "drc" | "coteDIvoire" | "telecom";
   eyebrow: string;
@@ -174,6 +193,9 @@ export type CaseStudy = {
   stepsCta: string;
   /** Exact substrings of headline/supportingLine/proofPoints to accent. */
   highlight: string[];
+  /** Independent coverage, shown after the step diagram. Optional — the
+   * telecom story has none, and none is invented to fill the slot. */
+  externalEvidence?: ExternalEvidenceLink[];
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -213,6 +235,21 @@ export const caseStudies: CaseStudy[] = [
     ],
     stepsCta: "Explore each step.",
     highlight: ["8.6M", "8.6M+"],
+    externalEvidence: [
+      {
+        heading: "Hear the work in context",
+        source: "SBC in the Mpox Response, UNICEF SBC podcast",
+        href: "https://theabcsofsbc.buzzsprout.com/2319755/episodes/17129935-sbc-in-the-mpox-response",
+        cta: "Listen to the episode",
+      },
+      {
+        heading: "Related field story",
+        source: "U-Report communities supporting vaccination in DRC, UNICEF Digital Impact",
+        href: "https://www.linkedin.com/posts/unicef-technology_by-norman-muhwezi-prince2-mba-thomas-activity-7216528234723622912-n2Lg",
+        cta: "Read the story",
+        quiet: true,
+      },
+    ],
   },
   {
     id: "coteDIvoire",
@@ -250,6 +287,14 @@ export const caseStudies: CaseStudy[] = [
     ],
     stepsCta: "Explore the delivery model",
     highlight: ["$12.6M", "1,500+ tons", "300+ classrooms", "15,000+ children", "$212,000"],
+    externalEvidence: [
+      {
+        heading: "Featured by UNICEF",
+        source: "Turning trash into building blocks for children's futures",
+        href: "https://www.unicef.org/stories/turning-trash-building-blocks-childrens-futures",
+        cta: "Read the UNICEF story",
+      },
+    ],
   },
   {
     id: "telecom",
@@ -355,7 +400,13 @@ export const telecomSchematic = {
 /* Other systems delivered                                             */
 /* ------------------------------------------------------------------ */
 
-export type OtherSystemMetric = { value: string; label: string };
+export type OtherSystemMetric = {
+  value: string;
+  label: string;
+  /** Independent confirmation of this one metric — same link-only,
+   * nothing-loads-until-clicked treatment as CaseStudy.externalEvidence. */
+  evidence?: { source: string; href: string; cta: string };
+};
 
 /**
  * A quieter breadth strip, not another case study — three additional
@@ -363,7 +414,15 @@ export type OtherSystemMetric = { value: string; label: string };
  * Experience entries) surfaced here as evidence rather than narrative.
  */
 export const otherSystems: OtherSystemMetric[] = [
-  { value: "30,000+", label: "Frontline worker payments digitised" },
+  {
+    value: "30,000+",
+    label: "Frontline worker payments digitised",
+    evidence: {
+      source: "UNICEF × Government of Côte d'Ivoire × MTN",
+      href: "https://www.unicef.org/wca/stories/providing-life-saving-vaccine-children-using-mobile-phones",
+      cta: "Read the UNICEF story",
+    },
+  },
   { value: "3M+", label: "Consultations through the national COVID chatbot" },
   { value: "50+", label: "Civil-registration agents trained" },
 ];
@@ -557,6 +616,36 @@ export const aiInPractice = {
     },
   ] as AIPracticeEntry[],
 };
+
+/* ------------------------------------------------------------------ */
+/* Selected external work                                              */
+/* ------------------------------------------------------------------ */
+
+export type ExternalWorkEntry = {
+  publication: string;
+  title: string;
+  role: string;
+  href: string;
+  /** Rendered as the link text; an arrow glyph is added separately in the
+   * component, excluded from the accessible name. */
+  cta: string;
+};
+
+/**
+ * External features and contributions with no other home on the site —
+ * a thin, evidence-only strip, not a press page. Kept to placements that
+ * genuinely have nowhere else to sit (the UNICEF case-study features live
+ * with their own stories instead, via CaseStudy.externalEvidence).
+ */
+export const selectedExternalWork: ExternalWorkEntry[] = [
+  {
+    publication: "BMW Foundation / Sifted",
+    title: "Protect | Empower | Transform: Tech Innovations Changing the World",
+    role: "Featured contributor",
+    href: "https://www.presseportal.de/download/document/5fad2a9140000064f11014a6-bmwfoundation-techforgoodreport-compressed.pdf",
+    cta: "Read",
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /* About                                                                */

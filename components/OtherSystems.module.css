@@ -54,6 +54,45 @@
   max-width: 24ch;
 }
 
+/* Independent confirmation of one metric — text/link only, no embed or
+   logo, nothing fetched until clicked. Only the 30,000+ metric carries
+   this today; the other two render with no extra <dd> at all. */
+.evidence {
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.evidenceSource {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.evidenceLink {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.evidenceLink:hover {
+  text-decoration: underline;
+}
+
+.evidenceLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 @media (max-width: 40rem) {
   .grid {
     grid-template-columns: minmax(0, 1fr);

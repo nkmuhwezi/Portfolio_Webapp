@@ -82,6 +82,79 @@
   }
 }
 
+/* ---------------------------------------------------------------- */
+/* External evidence — independent, third-party coverage. Text/link  */
+/* only: no embed, no thumbnail, no logo, nothing fetched until a    */
+/* reader actually clicks through. Deliberately quieter than the     */
+/* proof points above it — a footnote to the story, not a headline.  */
+/* ---------------------------------------------------------------- */
+
+.externalEvidence {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  max-width: var(--measure-text);
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding-top: clamp(1.25rem, 2.5vw, 1.5rem);
+  border-top: 1px solid var(--rule);
+}
+
+.evidenceEyebrow {
+  font-size: 0.625rem;
+}
+
+.evidenceItem {
+  min-width: 0;
+}
+
+.evidenceHeading {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+.evidenceSource {
+  margin: 0.2rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.evidenceLink {
+  margin-top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.evidenceLink:hover {
+  text-decoration: underline;
+}
+
+.evidenceLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* A related mention, not the primary piece of evidence — smaller,
+   muted, no accent color, so it never competes with the item above it. */
+.evidenceItemQuiet .evidenceHeading {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.evidenceItemQuiet .evidenceLink {
+  color: var(--muted);
+}
+
 @media print {
   .feature {
     break-inside: avoid;
@@ -89,5 +162,9 @@
 
   .body {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .externalEvidence {
+    break-inside: avoid;
   }
 }

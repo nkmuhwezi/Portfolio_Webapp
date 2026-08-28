@@ -34,6 +34,20 @@ export default function OtherSystems() {
             >
               <dt className={styles.value}>{metric.value}</dt>
               <dd className={styles.label}>{metric.label}</dd>
+              {metric.evidence ? (
+                <dd className={styles.evidence}>
+                  <span className={styles.evidenceSource}>{metric.evidence.source}</span>
+                  <a
+                    className={styles.evidenceLink}
+                    href={metric.evidence.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {metric.evidence.cta}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </dd>
+              ) : null}
             </div>
           ))}
         </dl>
