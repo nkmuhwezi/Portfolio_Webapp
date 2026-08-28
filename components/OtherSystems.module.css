@@ -54,24 +54,45 @@
   max-width: 24ch;
 }
 
-/* Independent confirmation of one metric — text/link only, no embed or
-   logo, nothing fetched until clicked. Only the 30,000+ metric carries
-   this today; the other two render with no extra <dd> at all. */
+/* Independent confirmation of one metric — same eyebrow/heading/source/
+   link treatment as CaseStudy.externalEvidence (CaseStudyFeature.module.css),
+   scaled down to stay subordinate to the metric it sits under. Text/link
+   only, no embed or logo, nothing fetched until clicked. Only the
+   30,000+ metric carries this today; the other two render with no extra
+   <dd> at all. */
 .evidence {
-  margin: 0.5rem 0 0;
+  margin: 0.6rem 0 0;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.2rem;
+}
+
+.evidenceEyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.evidenceHeading {
+  margin: 0.3rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--heading);
 }
 
 .evidenceSource {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.02em;
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--muted);
 }
 
 .evidenceLink {
+  margin-top: 0.3rem;
   align-self: flex-start;
   display: inline-flex;
   align-items: center;

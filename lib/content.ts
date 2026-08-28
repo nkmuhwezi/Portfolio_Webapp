@@ -147,7 +147,7 @@ export type Metric = { value: string; label: string };
 /** Exactly four — a fifth alone on its own row reads as an afterthought. */
 export const impactMetrics: Metric[] = [
   { value: "15+", label: "Years across technology & transformation" },
-  { value: "12.4M+", label: "Users reached through scaled digital platforms" },
+  { value: "12.4M+", label: "Users reached across scaled digital platforms" },
   { value: "$20M+", label: "Portfolio leadership" },
   { value: "2,000+", label: "Telecom sites delivered / modernised across Uganda and Sudan" },
 ];
@@ -403,9 +403,10 @@ export const telecomSchematic = {
 export type OtherSystemMetric = {
   value: string;
   label: string;
-  /** Independent confirmation of this one metric — same link-only,
-   * nothing-loads-until-clicked treatment as CaseStudy.externalEvidence. */
-  evidence?: { source: string; href: string; cta: string };
+  /** Independent confirmation of this one metric — identical shape and
+   * treatment to CaseStudy.externalEvidence, standardized in V2.5.1 so
+   * every "External evidence" block on the site reads the same way. */
+  evidence?: ExternalEvidenceLink;
 };
 
 /**
@@ -418,7 +419,8 @@ export const otherSystems: OtherSystemMetric[] = [
     value: "30,000+",
     label: "Frontline worker payments digitised",
     evidence: {
-      source: "UNICEF × Government of Côte d'Ivoire × MTN",
+      heading: "UNICEF × Government of Côte d'Ivoire × MTN",
+      source: "Digital payments for the national measles campaign",
       href: "https://www.unicef.org/wca/stories/providing-life-saving-vaccine-children-using-mobile-phones",
       cta: "Read the UNICEF story",
     },

@@ -36,7 +36,9 @@ export default function OtherSystems() {
               <dd className={styles.label}>{metric.label}</dd>
               {metric.evidence ? (
                 <dd className={styles.evidence}>
-                  <span className={styles.evidenceSource}>{metric.evidence.source}</span>
+                  <p className={styles.evidenceEyebrow}>External evidence</p>
+                  <p className={styles.evidenceHeading}>{metric.evidence.heading}</p>
+                  <p className={styles.evidenceSource}>{metric.evidence.source}</p>
                   <a
                     className={styles.evidenceLink}
                     href={metric.evidence.href}
