@@ -506,7 +506,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "unicef-drc",
     primary: "UNICEF Democratic Republic of Congo",
-    secondary: "Innovation Manager & Acting SBC Section Chief",
+    secondary: "Innovation Manager & Acting Section Chief",
     location: "Kinshasa",
     dates: "Mar 2023–Mar 2025",
     defaultOpen: true,
