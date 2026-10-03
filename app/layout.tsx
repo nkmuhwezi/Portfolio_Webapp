@@ -38,15 +38,31 @@ const THEME_INIT_SCRIPT = `
 
 // Marks the page as script-enabled, so the scroll-reveal sections (which
 // start hidden) are only hidden when something will actually reveal them
-// — see `html.js` in the section stylesheets. The timer is the failsafe:
-// if the page's JavaScript never loads, it removes the class after four
-// seconds and everything shows. components/RevealFailsafe.tsx cancels it
-// once the page has hydrated.
+// — see `html.js` in the section stylesheets. Rendered as a plain inline
+// <script> in <head>, NOT through next/script: in the app router a
+// beforeInteractive script is queued and run by Next's own runtime chunk,
+// which is too late — by then the page's other scripts can already have
+// failed, and a failure that happened before the listener below exists
+// is never seen (testing showed exactly that: only the timer fired).
+// Two ways back out if the page's JavaScript doesn't arrive:
+//  - a script that fails to load (blocked, 404, dropped connection) fires
+//    an error event on its <script> element, which doesn't bubble, hence
+//    the capturing listener: everything is shown immediately.
+//  - a script that hangs instead of failing never fires anything, so a
+//    four second timer is the backstop. Four, not less, because a slow
+//    phone can take about three seconds to start the page and the timer
+//    must outlast that. components/RevealFailsafe.tsx cancels it once the
+//    page has hydrated.
 const JS_FLAG_SCRIPT = `
   document.documentElement.classList.add("js");
-  window.__revealFailsafe = setTimeout(function () {
+  function showAll() {
+    clearTimeout(window.__revealFailsafe);
     document.documentElement.classList.remove("js");
-  }, 4000);
+  }
+  window.__revealFailsafe = setTimeout(showAll, 4000);
+  window.addEventListener("error", function (event) {
+    if (event.target && event.target.tagName === "SCRIPT") showAll();
+  }, true);
 `;
 
 const ebGaramond = EB_Garamond({
@@ -230,6 +246,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${ebGaramond.variable} ${figtree.variable} ${ibmPlexMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: JS_FLAG_SCRIPT }} />
+      </head>
       <body>
         {/* next/script hoists a beforeInteractive script into <head> at
             build time regardless of where it's written in JSX — it belongs
@@ -238,11 +257,6 @@ export default function RootLayout({
           id="theme-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
-        />
-        <Script
-          id="js-flag"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: JS_FLAG_SCRIPT }}
         />
         {/* Structured data — search engines parse this anywhere in the
             document, so it doesn't need to live in <head>. `<` is escaped
