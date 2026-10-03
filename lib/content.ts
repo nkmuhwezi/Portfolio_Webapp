@@ -809,7 +809,7 @@ export const faq: FaqEntry[] = [
   {
     question: "What is his experience with AI adoption?",
     answer:
-      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT and security firm, on practical AI opportunities across banking, government, healthcare and fintech. He has also taken Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
+      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT and security firm, on practical AI opportunities across banking, government, healthcare and fintech. He has also completed Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
   },
   {
     question: "Has he worked with UNICEF?",
