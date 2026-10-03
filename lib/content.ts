@@ -136,7 +136,7 @@ export const careerStages: CareerStage[] = [
   {
     year: "Now",
     stage: "AI",
-    body: "Applying my delivery experience to practical AI adoption.",
+    body: "Helping an IT and security firm decide where AI belongs in its clients' work.",
   },
 ];
 
@@ -150,7 +150,7 @@ export type Metric = { value: string; label: string };
 export const impactMetrics: Metric[] = [
   { value: "15+", label: "Years across technology & transformation" },
   { value: "12.4M+", label: "Users reached across scaled digital platforms" },
-  { value: "$20M+", label: "Portfolio leadership" },
+  { value: "$20M+", label: "Portfolio directed" },
   { value: "2,000+", label: "Telecom sites delivered / modernised across Uganda and Sudan" },
 ];
 
@@ -269,7 +269,7 @@ export const caseStudies: CaseStudy[] = [
       {
         number: "01",
         label: "Context",
-        body: "The classroom concept needed a clear route from early testing to dependable construction at scale.",
+        body: "The classroom concept needed a clear route from early testing to dependable construction.",
       },
       {
         number: "02",
@@ -300,10 +300,10 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "telecom",
-    eyebrow: "Infrastructure at scale",
+    eyebrow: "Telecom networks in Uganda and Sudan",
     headline: "Delivering telecom infrastructure at scale.",
     supportingLine:
-      "My years at MTN built the delivery habits I still use today: careful planning, vendor coordination, service quality and close attention to performance.",
+      "At MTN I learned to plan a rollout carefully, coordinate vendors and keep a close eye on service quality and performance. I still work that way.",
     proofPoints: [
       "1,000+ sites modernised in Uganda (700+ GSM, 300+ WCDMA, 80+ LTE)",
       "830+ 2G/3G sites swapped and 450+ new LTE sites commissioned in Sudan",
@@ -515,7 +515,7 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.unicef.org/drcongo/en",
     proof: "8.6M-user platform · $20M+ portfolio · 20-person team",
     bullets: [
-      "Directed a $20M+ portfolio and a 20-person team; served as Acting SBC Section Chief (OIC) for extended periods.",
+      "Directed a $20M+ portfolio and a 20-person team; served as Acting Section Chief (OIC) for extended periods.",
       "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
       "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 300+ U-Report community clubs in every province, including 120+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
       "Led vendor selection and procurement (Nyaruka/RapidPro, GoInnovation) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
@@ -597,17 +597,17 @@ export type AIPracticeEntry = {
 
 export const aiInPractice = {
   intro:
-    "For AI work, I start with the job that needs to be done. I look at where AI can improve the workflow and add value, who owns the decision, what should stay with people, and how results will be measured. I test the approach before scaling it.",
+    "For AI work, I start with the job that needs to be done. I look at where AI can improve the workflow, who owns the decision, what should stay with people, and how results will be measured. I test the approach before scaling it.",
   entries: [
     {
       title: "Enterprise AI Adoption",
       tag: "Current advisory work: UTBP",
-      body: "I help a Kampala-based IT and security firm identify practical AI opportunities across banking, government, healthcare and fintech, then shape the workflow, ownership and adoption plan around the strongest use cases. The focus is on improvements clients can see and measure.",
+      body: "I help a Kampala-based IT and security firm find where AI fits across banking, government, healthcare and fintech, then turn the strongest use cases into a workflow, an owner and an adoption plan. The focus is on improvements clients can see and measure.",
     },
     {
       title: "AI Solution Design",
       tag: "Cornell University coursework",
-      body: "Coursework in designing AI solutions from the ground up: framing the use case, working through data and model choices, and building in the human oversight a responsible deployment needs.",
+      body: "How to design an AI solution: framing the use case, working through data and model choices, and planning the human oversight a responsible deployment needs.",
       list: {
         label: "Selected coursework projects",
         items: [
@@ -659,12 +659,12 @@ export const about = {
   /** Exact substrings to render with emphasis. */
   emphasis: [
     "I started my career as a telecom engineer and have spent the past 15 years leading technology programmes across Africa.",
-    "digital transformation and AI adoption advisory work",
+    "digital transformation and AI adoption",
   ],
   paragraphs: [
     "I started my career as a telecom engineer and have spent the past 15 years leading technology programmes across Africa. My work has grown from network infrastructure into digital platforms, partnerships and large-scale programme delivery.",
-    "That mix of engineering and programme leadership still shapes how I work. I pay attention to the technology, the people using it, the partners around it and what it takes to keep the system working after launch.",
-    "Today, I bring that experience to digital transformation and AI adoption advisory work, with a focus on practical use cases, clear ownership and measurable results.",
+    "Coming from engineering, I pay attention to the technology, the people using it, the partners around it and what it takes to keep the system working after launch.",
+    "Today I advise on digital transformation and AI adoption, focusing on use cases with clear ownership and results you can measure.",
   ],
 };
 
@@ -746,7 +746,7 @@ export const capabilities: CapabilityGroup[] = [
     ],
   },
   {
-    title: "Partnerships & Ecosystems",
+    title: "Partnerships",
     items: [
       "Government",
       "telecom operators",
@@ -799,7 +799,7 @@ export const faq: FaqEntry[] = [
   {
     question: "What does Norman Muhwezi do?",
     answer:
-      "Norman leads digital transformation and advises organisations on practical AI adoption. He has spent 15 years delivering telecom networks, digital platforms used by millions and a $12.6M public-private partnership across Africa.",
+      "Norman leads digital transformation and advises organisations on AI adoption. He has spent 15 years delivering telecom networks, digital platforms used by millions and a $12.6M public-private partnership across Africa.",
   },
   {
     question: "What has he delivered at scale?",
@@ -809,7 +809,7 @@ export const faq: FaqEntry[] = [
   {
     question: "What is his experience with AI adoption?",
     answer:
-      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT and security firm, on practical AI opportunities across banking, government, healthcare and fintech. He has also completed Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
+      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT and security firm, on AI opportunities across banking, government, healthcare and fintech. He has also completed Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
   },
   {
     question: "Has he worked with UNICEF?",
