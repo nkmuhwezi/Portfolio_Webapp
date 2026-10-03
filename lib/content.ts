@@ -217,22 +217,22 @@ export const caseStudies: CaseStudy[] = [
       {
         number: "01",
         label: "Context",
-        body: "U-Report was growing across a large, multilingual country with different local realities and partners.",
+        body: "U-Report DRC had just under 5M users. Reach and trust were what held it back.",
       },
       {
         number: "02",
         label: "Model",
-        body: "The platform, local partnerships, language choices, communication channels and governance needed to support growth.",
+        body: "I built trust through word of mouth, offline communities and in-person work, using RapidPro's recommendation features, and created recruitment campaigns with incentives. I showed UNICEF programme sections how fast U-Report reached communities and collected data, and they invested in growing it. Zero-rated data deals and girls-only clubs added to the numbers.",
       },
       {
         number: "03",
         label: "Delivery",
-        body: "Working with partners, connecting the platform to programme delivery, tracking use and improving the service over time.",
+        body: "Connected to UNICEF's HOPE cash-transfer system, U-Report collected who got paid, how much, what fees they paid, how far they travelled to withdraw cash and whether agents had cash. That data let us work with Orange to reduce agents running out of cash and open more agent points closer to people.",
       },
       {
         number: "04",
         label: "Scale",
-        body: "8.6M+ users reached across the country.",
+        body: "Grew from just under 5M to 8.6M+ users across every province.",
       },
     ],
     stepsCta: "Explore each step.",
@@ -314,22 +314,22 @@ export const caseStudies: CaseStudy[] = [
       {
         number: "01",
         label: "Network",
-        body: "Large network programmes spread across many sites, teams and vendors.",
+        body: "I directed large network programmes across many sites and vendors, to tight deadlines, without letting quality of service slip.",
       },
       {
         number: "02",
         label: "Rollout",
-        body: "Planning the rollout, coordinating vendors and keeping delivery on track.",
+        body: "I kept delivery on track through proper planning, timely reporting and close vendor follow-up.",
       },
       {
         number: "03",
         label: "Performance",
-        body: "Protecting service quality while improving network performance.",
+        body: "Outages had to be kept to a minimum, with service restored by morning. I used SLA penalties to eliminate poor vendor performance.",
       },
       {
         number: "04",
         label: "Foundation",
-        body: "The strongest results came when the technology, teams and day-to-day operating processes worked together.",
+        body: "Planning, reporting, vendor follow-up and SLA penalties became the way I deliver, and contributed to MTN Uganda's #1 national Quality-of-Service ranking in 2014.",
       },
     ],
     stepsCta: "Explore each step.",
