@@ -144,6 +144,18 @@
   border-color: var(--accent-rule);
 }
 
+/* The ↓ settles down a touch on hover — a download, so it drops — the
+   same nudge as the hero's Download CV button. */
+.cv > span {
+  transition: translate 0.4s var(--ease-out);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .cv:hover > span {
+    translate: 0 2px;
+  }
+}
+
 @media (max-width: 40rem) {
   /* The name leads the hero directly below, so the monogram is redundant here
      and the space is better spent fitting all five links without scrolling. */

@@ -74,6 +74,23 @@
   background-color: var(--accent-wash);
 }
 
+/* The arrows lean in the direction they point on hover: → eases right,
+   ↗ up and right. */
+.primaryAction > span,
+.secondaryAction > span {
+  transition: translate 0.4s var(--ease-out);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .primaryAction:hover > span {
+    translate: 4px 0;
+  }
+
+  .secondaryAction:hover > span {
+    translate: 2px -2px;
+  }
+}
+
 .supportingLine {
   margin-top: 1.5rem;
   font-family: var(--font-mono);

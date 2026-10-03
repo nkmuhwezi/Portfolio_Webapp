@@ -2,10 +2,14 @@
 
 import { careerStages } from "@/lib/content";
 import { useRevealOnScroll } from "@/lib/useRevealOnScroll";
+import { useScrollProgress } from "@/lib/useScrollProgress";
 import styles from "./CareerTrajectory.module.css";
 
 export default function CareerTrajectory() {
   const { ref: rowRef, revealed } = useRevealOnScroll<HTMLOListElement>();
+  // The line fills as you scroll and lights each stage's marker as it
+  // arrives — same device as the Network modernisation programme.
+  const reached = useScrollProgress(rowRef);
 
   return (
     <section className={styles.section} aria-labelledby="career-trajectory-heading">
@@ -21,7 +25,7 @@ export default function CareerTrajectory() {
         <ol className={`${styles.row} ${revealed ? styles.revealed : ""}`} ref={rowRef}>
           {careerStages.map((item, index) => (
             <li
-              className={styles.stage}
+              className={`${styles.stage} ${index < reached ? styles.stageReached : ""}`}
               key={item.stage}
               style={{ transitionDelay: `${index * 90}ms` }}
             >

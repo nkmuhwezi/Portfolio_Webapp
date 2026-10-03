@@ -10,42 +10,76 @@
 }
 
 /* One line running behind all four stages, rather than four separate
-   connectors — reads as a single continuous progression. */
-.row::before {
+   connectors — reads as a single continuous progression. ::before is the
+   track; ::after is the fill that draws along it as you scroll (--p is
+   written by useScrollProgress, 0 to 1; the short linear transition only
+   smooths frame-to-frame jitter). */
+.row::before,
+.row::after {
   content: "";
   position: absolute;
   top: 0.3rem;
   left: 0;
   right: 0;
   height: 1px;
+}
+
+.row::before {
   background-color: var(--rule);
+}
+
+.row::after {
+  background-color: var(--accent);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+  transition: transform 0.12s linear;
 }
 
 .stage {
   position: relative;
   padding-top: 1.5rem;
   min-width: 0;
-  opacity: 0;
-  transform: translateY(10px);
   transition:
-    opacity 0.6s var(--ease),
-    transform 0.6s var(--ease);
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
 }
 
-.revealed .stage {
+/* Hidden only while html.js is set (see app/layout.tsx): without
+   scripts, or if they never load, the stages simply show. */
+:global(html.js) .stage {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+:global(html.js) .revealed .stage {
   opacity: 1;
   transform: none;
 }
 
+/* Hollow until the line reaches it, then fills and swells slightly. Sits
+   above the fill line (z-index) so the line never cuts through a marker
+   that hasn't lit yet. */
 .stage::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 0.5rem;
-  height: 0.5rem;
+  z-index: 1;
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border: 1.5px solid var(--accent-rule);
   border-radius: 50%;
+  background-color: var(--bg);
+  transition:
+    background-color 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    transform 0.35s var(--ease-out);
+}
+
+.stageReached::before {
   background-color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.25);
 }
 
 .year {
@@ -54,6 +88,11 @@
   letter-spacing: 0.1em;
   color: var(--muted);
   font-variant-numeric: lining-nums tabular-nums;
+  transition: color 0.35s var(--ease);
+}
+
+.stageReached .year {
+  color: var(--accent);
 }
 
 .stageName {
@@ -75,14 +114,26 @@
     gap: 1.75rem;
   }
 
-  .row::before {
-    display: none;
+  /* Stacked: one continuous vertical line (instead of a separate border
+     per stage) so the fill runs unbroken from the first marker to the
+     last. */
+  .row::before,
+  .row::after {
+    top: 0.6rem;
+    bottom: 0;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .row::after {
+    transform-origin: top;
+    transform: scaleY(var(--p, 0));
   }
 
   .stage {
     padding-top: 0;
     padding-left: 1.25rem;
-    border-left: 1px solid var(--rule);
   }
 
   .stage::before {
@@ -95,10 +146,44 @@
   }
 }
 
+/* Reduced motion and print: show the finished state, not the process.
+   (The hook also stands down under reduced motion.) */
+@media (prefers-reduced-motion: reduce) {
+  .row::after {
+    transform: none;
+  }
+
+  .stage::before {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    transform: none;
+  }
+
+  .year {
+    color: var(--accent);
+  }
+}
+
 @media print {
-  .stage {
+  :global(html.js) .stage {
     opacity: 1;
     transform: none;
+  }
+
+  .stage {
     break-inside: avoid;
+  }
+
+  .row::after {
+    transform: none;
+  }
+
+  .stage::before {
+    background-color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .year {
+    color: var(--accent);
   }
 }

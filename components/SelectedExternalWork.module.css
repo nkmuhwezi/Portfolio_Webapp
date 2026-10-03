@@ -21,11 +21,9 @@
 .item {
   padding-top: 1.125rem;
   border-top: 1px solid var(--rule);
-  opacity: 0;
-  transform: translateY(10px);
   transition:
-    opacity 0.6s var(--ease),
-    transform 0.6s var(--ease);
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
 }
 
 .item:first-child {
@@ -33,7 +31,13 @@
   border-top: none;
 }
 
-.revealed .item {
+/* Hidden only while html.js is set (see app/layout.tsx). */
+:global(html.js) .item {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+:global(html.js) .revealed .item {
   opacity: 1;
   transform: none;
 }
@@ -78,6 +82,17 @@
   text-decoration: underline;
 }
 
+/* The → eases right on hover, same family of nudge as the other links. */
+.link > span {
+  transition: translate 0.4s var(--ease-out);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .link:hover > span {
+    translate: 4px 0;
+  }
+}
+
 .link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -85,9 +100,12 @@
 }
 
 @media print {
-  .item {
+  :global(html.js) .item {
     opacity: 1;
     transform: none;
+  }
+
+  .item {
     break-inside: avoid;
   }
 }

@@ -57,14 +57,19 @@
   position: relative;
   padding-top: 1.5rem;
   min-width: 0;
-  opacity: 0;
-  transform: translateY(10px);
   transition:
-    opacity 0.6s var(--ease),
-    transform 0.6s var(--ease);
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
 }
 
-.stagesRevealed .stage {
+/* Hidden only while html.js is set (see app/layout.tsx): without
+   scripts, or if they never load, the stages simply show. */
+:global(html.js) .stage {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+:global(html.js) .stagesRevealed .stage {
   opacity: 1;
   transform: none;
 }
@@ -86,7 +91,7 @@
   transition:
     background-color 0.35s var(--ease),
     border-color 0.35s var(--ease),
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.35s var(--ease-out);
 }
 
 .stageReached::before {
@@ -99,7 +104,7 @@
    transition-delay belong to the staggered reveal, and a hover on it
    would inherit that delay. */
 .stageContent {
-  transition: translate 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: translate 0.45s var(--ease-out);
 }
 
 @media (hover: hover) {
@@ -291,7 +296,7 @@
 }
 
 @media print {
-  .stage {
+  :global(html.js) .stage {
     opacity: 1;
     transform: none;
   }

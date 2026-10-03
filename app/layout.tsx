@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Figtree, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
+import RevealFailsafe from "@/components/RevealFailsafe";
 import ThemeToggle from "@/components/ThemeToggle";
 import {
   capabilities,
@@ -33,6 +34,19 @@ const THEME_INIT_SCRIPT = `
       document.documentElement.setAttribute("data-theme", "dark");
     }
   } catch (e) {}
+`;
+
+// Marks the page as script-enabled, so the scroll-reveal sections (which
+// start hidden) are only hidden when something will actually reveal them
+// — see `html.js` in the section stylesheets. The timer is the failsafe:
+// if the page's JavaScript never loads, it removes the class after four
+// seconds and everything shows. components/RevealFailsafe.tsx cancels it
+// once the page has hydrated.
+const JS_FLAG_SCRIPT = `
+  document.documentElement.classList.add("js");
+  window.__revealFailsafe = setTimeout(function () {
+    document.documentElement.classList.remove("js");
+  }, 4000);
 `;
 
 const ebGaramond = EB_Garamond({
@@ -225,6 +239,11 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
         />
+        <Script
+          id="js-flag"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JS_FLAG_SCRIPT }}
+        />
         {/* Structured data — search engines parse this anywhere in the
             document, so it doesn't need to live in <head>. `<` is escaped
             defensively so no future content string could ever prematurely
@@ -236,6 +255,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <RevealFailsafe />
         <ThemeToggle />
       </body>
     </html>

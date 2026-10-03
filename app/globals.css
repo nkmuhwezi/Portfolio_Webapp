@@ -53,6 +53,10 @@
 
   /* Motion */
   --ease: cubic-bezier(0.32, 0.08, 0.24, 1);
+  /* Expo-out: moves fast, then settles. Used for scroll reveals, the
+     progression lines and hover nudges, where the ease-in-out above
+     reads sluggish. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 0.4s;
 }
 
