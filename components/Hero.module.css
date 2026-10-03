@@ -145,6 +145,38 @@
   color: var(--heading);
 }
 
+/* A quiet "right now" line, lighter than every action above it: muted
+   mono, a small accent dot, no border. padding-block gives it a real
+   24px-plus tap target without making it look like a button. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  padding-block: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  /* On a narrow screen this wraps; balance keeps it from stranding one
+     word on the second line. */
+  text-wrap: balance;
+  color: var(--muted);
+  transition: color var(--dur) var(--ease);
+}
+
+.status:hover {
+  color: var(--accent);
+}
+
+.statusDot {
+  flex-shrink: 0;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
 /* ---------------------------------------------------------------- */
 /* Portrait                                                          */
 /* ---------------------------------------------------------------- */

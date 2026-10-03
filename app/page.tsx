@@ -6,6 +6,7 @@ import CareerTrajectory from "@/components/CareerTrajectory";
 import Contact from "@/components/Contact";
 import Education from "@/components/Education";
 import Experience from "@/components/ExperienceLazy";
+import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import Nav from "@/components/Nav";
@@ -35,6 +36,7 @@ export default function Home() {
         <About />
         <Education />
         <Capabilities />
+        <FAQ />
         <Contact />
       </main>
     </>

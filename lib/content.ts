@@ -102,6 +102,8 @@ export const hero = {
   eyebrow: "Africa & emerging markets · Based in Addis Ababa",
   name: "Norman K. Muhwezi",
   title: "Digital Transformation Leader · AI Adoption Advisor",
+  /** Quiet "right now" line under the hero actions; links to Experience. */
+  status: "Now advising Unified Technology Business Partners",
   copy: "I've spent 15 years turning ambitious technology ideas into systems that work at scale, including telecom networks, digital platforms used by millions, and a $12.6M public-private partnership. I now bring that same delivery experience to AI adoption advisory work.",
 };
 
@@ -780,6 +782,69 @@ export const contact = {
   linkedinUrl: "https://www.linkedin.com/in/normanmuhwezi",
   supportingLine: "Based in Addis Ababa · Open to work across Africa and emerging markets",
 };
+
+/* ------------------------------------------------------------------ */
+/* Questions people ask                                                */
+/* ------------------------------------------------------------------ */
+
+export type FaqEntry = { question: string; answer: string };
+
+/**
+ * Plain-text answers only, no markup: the same strings render in the
+ * visible accordion and in the FAQPage JSON-LD, so what a search engine
+ * reads is always exactly what a visitor sees. Every fact here is already
+ * stated elsewhere on the page — this section restates, never adds.
+ */
+export const faq: FaqEntry[] = [
+  {
+    question: "What does Norman Muhwezi do?",
+    answer:
+      "Norman leads digital transformation and advises organisations on practical AI adoption. He has spent 15 years delivering telecom networks, digital platforms used by millions and a $12.6M public-private partnership across Africa.",
+  },
+  {
+    question: "What has he delivered at scale?",
+    answer:
+      "He scaled U-Report in the Democratic Republic of Congo to 8.6M+ users, built a $12.6M partnership that turned 1,500+ tons of recycled plastic into 300+ classrooms in Côte d'Ivoire, and delivered or modernised 2,000+ telecom sites across Uganda and Sudan.",
+  },
+  {
+    question: "What is his experience with AI adoption?",
+    answer:
+      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT and security firm, on practical AI opportunities across banking, government, healthcare and fintech. He has also taken Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
+  },
+  {
+    question: "Has he worked with UNICEF?",
+    answer:
+      "Yes, for more than eight years. Norman was Innovation Specialist at UNICEF Côte d'Ivoire (2016 to 2023), Innovation Manager on a short-term mission in Sierra Leone (2022), and Innovation Manager and Acting Section Chief at UNICEF Democratic Republic of Congo (2023 to 2025).",
+  },
+  {
+    question: "Where is he based, and where does he work?",
+    answer:
+      "Norman is based in Addis Ababa and is open to work across Africa and emerging markets.",
+  },
+  {
+    question: "How can I get in touch?",
+    answer:
+      "Use the contact section below to email Norman or connect with him on LinkedIn. He welcomes leadership opportunities and professional enquiries.",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Site                                                                */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The date any page content last actually changed (ISO, YYYY-MM-DD).
+ * Feeds the sitemap's <lastmod> and the schema's dateModified. Bump it
+ * when copy changes — not on every build, which would make the signal
+ * meaningless and get it ignored.
+ */
+export const lastUpdated = "2026-10-03";
+
+export const siteUrl = "https://www.normanmuhwezi.com";
+
+/** The Person node's @id, shared by the site-wide JSON-LD graph and the
+ * FAQ's own block so both point at the same entity. */
+export const personId = `${siteUrl}/#person`;
 
 /* ------------------------------------------------------------------ */
 /* Navigation                                                          */

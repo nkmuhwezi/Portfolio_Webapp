@@ -36,6 +36,11 @@ export default function Hero() {
               <span aria-hidden="true">↗</span>
             </a>
           </div>
+
+          <a className={styles.status} href="#experience">
+            <span className={styles.statusDot} aria-hidden="true" />
+            {hero.status}
+          </a>
         </div>
 
         <div className={styles.portraitWrap}>

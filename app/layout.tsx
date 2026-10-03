@@ -2,7 +2,19 @@ import type { Metadata } from "next";
 import { EB_Garamond, Figtree, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import ThemeToggle from "@/components/ThemeToggle";
-import { contact, education, experience, hero } from "@/lib/content";
+import {
+  capabilities,
+  caseStudies,
+  contact,
+  education,
+  experience,
+  hero,
+  lastUpdated,
+  otherSystems,
+  personId,
+  selectedExternalWork,
+  siteUrl,
+} from "@/lib/content";
 import "./globals.css";
 
 // Runs before hydration so the page never flashes the wrong theme. A stored
@@ -94,12 +106,21 @@ export const viewport = {
  * text that convention exists to avoid.
  */
 const currentRole = experience[0];
-// No "@context" here — this is only ever embedded as profilePageSchema's
-// mainEntity below, never emitted as its own standalone JSON-LD block.
+
+// Stable identifiers so every node below can point at the others by @id
+// instead of repeating them. personId lives in lib/content.ts because the
+// FAQ's own JSON-LD block (components/FAQ.tsx) also needs it, and a layout
+// file can't export extra values for it to import.
+const websiteId = `${siteUrl}/#website`;
+const profilePageId = `${siteUrl}/#profilepage`;
+
+// No "@context" on the individual nodes — they're emitted together as one
+// @graph (see graphSchema below).
 const personSchema = {
   "@type": "Person",
+  "@id": personId,
   name: hero.name,
-  url: "https://www.normanmuhwezi.com",
+  url: siteUrl,
   image: "https://www.normanmuhwezi.com/images/headshot-1600.jpg",
   jobTitle: hero.title,
   description: metaDescription,
@@ -124,19 +145,62 @@ const personSchema = {
     addressCountry: "Ethiopia",
   },
   sameAs: [contact.linkedinUrl],
+  // The four capability headings on the page, verbatim — topics he's
+  // credibly known for, not a keyword list invented for search engines.
+  knowsAbout: capabilities.map((group) => group.title),
 };
 
 /**
- * Wraps the Person above as the page's mainEntity — the shape Google's
- * structured-data guidance recommends for a personal profile/portfolio
- * page, rather than emitting Person as an unrelated top-level block.
+ * Every third-party page that covers this work, already linked visibly
+ * on the page (the "External evidence" blocks and Selected External
+ * Work). Marked up as `citation` so an AI engine or crawler can see the
+ * independent corroboration behind the claims, not just the claims.
+ * Built from the same content the visible links read, deduplicated by
+ * URL, so a link can't exist on the page without being cited here (or
+ * the reverse).
+ */
+const citations = [
+  ...caseStudies.flatMap((story) => story.externalEvidence ?? []),
+  ...otherSystems.flatMap((metric) => (metric.evidence ? [metric.evidence] : [])),
+]
+  .map((item) => ({ name: item.source, url: item.href }))
+  .concat(
+    selectedExternalWork.map((entry) => ({ name: entry.title, url: entry.href })),
+  )
+  .filter((item, index, all) => all.findIndex((x) => x.url === item.url) === index)
+  .map((item) => ({ "@type": "CreativeWork", name: item.name, url: item.url }));
+
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": websiteId,
+  url: siteUrl,
+  name: hero.name,
+  inLanguage: "en",
+  publisher: { "@id": personId },
+};
+
+/**
+ * The page's mainEntity is the Person (the shape Google's structured-data
+ * guidance recommends for a personal profile page), referenced by @id
+ * rather than nested, so the same entity can also be pointed at from the
+ * FAQ block. dateModified is the real last-content-change date, not the
+ * build date.
  */
 const profilePageSchema = {
-  "@context": "https://schema.org",
   "@type": "ProfilePage",
+  "@id": profilePageId,
   name: metaTitle,
-  url: "https://www.normanmuhwezi.com",
-  mainEntity: personSchema,
+  url: siteUrl,
+  inLanguage: "en",
+  dateModified: lastUpdated,
+  isPartOf: { "@id": websiteId },
+  mainEntity: { "@id": personId },
+  citation: citations,
+};
+
+const graphSchema = {
+  "@context": "https://schema.org",
+  "@graph": [websiteSchema, profilePageSchema, personSchema],
 };
 
 export default function RootLayout({
@@ -168,7 +232,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(profilePageSchema).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(graphSchema).replace(/</g, "\\u003c"),
           }}
         />
         {children}
