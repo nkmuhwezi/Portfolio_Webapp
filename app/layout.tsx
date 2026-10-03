@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Figtree, IBM_Plex_Mono } from "next/font/google";
-import Script from "next/script";
 import RevealFailsafe from "@/components/RevealFailsafe";
 import ThemeToggle from "@/components/ThemeToggle";
 import {
@@ -18,12 +17,18 @@ import {
 } from "@/lib/content";
 import "./globals.css";
 
-// Runs before hydration so the page never flashes the wrong theme. A stored
-// choice (the visitor has clicked Lumen or Vast before) always wins; with
-// no stored choice yet, this defaults to the OS/browser's own
-// prefers-color-scheme rather than a fixed brand default — see ThemeToggle
-// for the live-update half of this (system changes while no manual choice
-// has been made yet).
+// Sets the theme before the first paint so the page never flashes the
+// wrong one. A stored choice (the visitor has clicked Lumen or Vast
+// before) always wins; with no stored choice yet, this defaults to the
+// OS/browser's own prefers-color-scheme rather than a fixed brand default
+// — see ThemeToggle for the live-update half of this (system changes while
+// no manual choice has been made yet).
+//
+// Rendered as a plain inline <script> in <head>, not through next/script:
+// in the app router a beforeInteractive script is queued and run by Next's
+// own runtime chunk, which arrives well after the first paint. Measured on
+// the live site, a dark-mode visitor saw the light theme for up to a
+// second (and on a slow connection, longer) before it flipped to dark.
 const THEME_INIT_SCRIPT = `
   try {
     var stored = localStorage.getItem("theme");
@@ -247,17 +252,11 @@ export default function RootLayout({
       className={`${ebGaramond.variable} ${figtree.variable} ${ibmPlexMono.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: JS_FLAG_SCRIPT }} />
+        <script
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT + JS_FLAG_SCRIPT }}
+        />
       </head>
       <body>
-        {/* next/script hoists a beforeInteractive script into <head> at
-            build time regardless of where it's written in JSX — it belongs
-            here, not as a sibling of <html>, which isn't valid HTML. */}
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
-        />
         {/* Structured data — search engines parse this anywhere in the
             document, so it doesn't need to live in <head>. `<` is escaped
             defensively so no future content string could ever prematurely
