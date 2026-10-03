@@ -28,14 +28,29 @@
   gap: clamp(1rem, 2.5vw, 1.75rem);
 }
 
-.stages::before {
+/* The track (::before) and the fill that draws along it as you scroll
+   (::after). --p is written by useScrollProgress (0 to 1); a short linear
+   transition just smooths frame-to-frame jitter, it isn't a timed
+   animation. */
+.stages::before,
+.stages::after {
   content: "";
   position: absolute;
   top: 0.3rem;
   left: 0;
   right: 0;
   height: 1px;
+}
+
+.stages::before {
   background-color: var(--rule);
+}
+
+.stages::after {
+  background-color: var(--accent);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+  transition: transform 0.12s linear;
 }
 
 .stage {
@@ -54,23 +69,56 @@
   transform: none;
 }
 
+/* Hollow until the line reaches it, then fills and swells slightly. Sits
+   above the fill line (z-index) so the line never cuts through a marker
+   that hasn't lit yet. */
 .stage::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 0.5rem;
-  height: 0.5rem;
+  z-index: 1;
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border: 1.5px solid var(--accent-rule);
   border-radius: 50%;
+  background-color: var(--bg);
+  transition:
+    background-color 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stageReached::before {
   background-color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.25);
+}
+
+/* Only the text slides on hover, not the li: the li's transform and
+   transition-delay belong to the staggered reveal, and a hover on it
+   would inherit that delay. */
+.stageContent {
+  transition: translate 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .stage:hover .stageContent {
+    translate: 0.6rem 0;
+  }
 }
 
 .stageNumber {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
-  color: var(--accent);
+  color: var(--muted);
   font-variant-numeric: lining-nums tabular-nums;
+  transition: color 0.35s var(--ease);
+}
+
+.stageReached .stageNumber {
+  color: var(--accent);
 }
 
 .stageLabel {
@@ -91,20 +139,70 @@
     gap: 1.5rem;
   }
 
-  .stages::before {
-    display: none;
+  /* Stacked: one continuous vertical line (instead of a separate border
+     per stage) so the fill can run unbroken from the first marker to the
+     last. */
+  .stages::before,
+  .stages::after {
+    top: 0.6rem;
+    bottom: 0;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .stages::after {
+    transform-origin: top;
+    transform: scaleY(var(--p, 0));
   }
 
   .stage {
     padding-top: 0;
     padding-left: 1.25rem;
-    border-left: 1px solid var(--rule);
     padding-bottom: 0.25rem;
   }
 
   .stage::before {
     top: 0.35em;
     left: -0.25rem;
+  }
+}
+
+/* Reduced motion and print: show the finished state, not the process.
+   (The hook also stands down under reduced motion, so nothing here is
+   fighting a script.) */
+@media (prefers-reduced-motion: reduce) {
+  .stages::after {
+    transform: none;
+  }
+
+  .stage::before {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    transform: none;
+  }
+
+  .stageNumber {
+    color: var(--accent);
+  }
+
+  .stage:hover .stageContent {
+    translate: none;
+  }
+}
+
+@media print {
+  .stages::after {
+    transform: none;
+  }
+
+  .stage::before {
+    background-color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .stageNumber {
+    color: var(--accent);
   }
 }
 

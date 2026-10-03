@@ -3,6 +3,7 @@
 import { caseStudies, telecomSchematic } from "@/lib/content";
 import { highlight } from "@/lib/highlight";
 import { useRevealOnScroll } from "@/lib/useRevealOnScroll";
+import { useScrollProgress } from "@/lib/useScrollProgress";
 import CaseStudySteps from "./CaseStudySteps";
 import featureStyles from "./CaseStudyFeature.module.css";
 import styles from "./TelecomCaseStudy.module.css";
@@ -19,6 +20,10 @@ const story = caseStudies.find((s) => s.id === "telecom")!;
  */
 function Schematic() {
   const { ref: rowRef, revealed } = useRevealOnScroll<HTMLOListElement>();
+  // A line that fills as you scroll, lighting each stage's marker when it
+  // reaches it. The text sits in an inner wrapper so the hover slide never
+  // inherits the li's staggered reveal delay.
+  const reached = useScrollProgress(rowRef);
 
   return (
     <ol
@@ -28,13 +33,15 @@ function Schematic() {
     >
       {telecomSchematic.stages.map((stage, index) => (
         <li
-          className={styles.stage}
+          className={`${styles.stage} ${index < reached ? styles.stageReached : ""}`}
           key={stage.label}
           style={{ transitionDelay: `${index * 80}ms` }}
         >
-          <p className={styles.stageNumber}>{stage.number}</p>
-          <h4 className={styles.stageLabel}>{stage.label}</h4>
-          <p className={styles.stageDetail}>{stage.detail}</p>
+          <div className={styles.stageContent}>
+            <p className={styles.stageNumber}>{stage.number}</p>
+            <h4 className={styles.stageLabel}>{stage.label}</h4>
+            <p className={styles.stageDetail}>{stage.detail}</p>
+          </div>
         </li>
       ))}
     </ol>
