@@ -11,12 +11,22 @@
      screens — it scrolls horizontally instead, same rule as any wide
      table or code block. */
   overflow-x: auto;
+  /* overflow-x: auto also clips vertically, which cut the top and bottom
+     off the keyboard focus ring (it read as two tall brackets). Padding
+     gives the ring room; the matching negative margin keeps the layout
+     exactly where it was. */
+  padding-block: 0.5rem;
+  margin-block: -0.5rem;
 }
 
 .diagram {
   display: block;
   min-width: 32rem;
   max-width: 42rem;
+  /* An SVG clips anything outside its own box by default, which sliced
+     the top and bottom off the keyboard focus ring (it read as two tall
+     brackets). The ring sits right on that edge. */
+  overflow: visible;
 }
 
 /* Each step is a focusable SVG <g> (role="button") — transform-box lets a
@@ -58,6 +68,27 @@
   stroke-width: 2;
 }
 
+/* The path up to the chosen step lights up: steps before it get a thin
+   accent outline (the chosen one keeps its heavier one above), and the
+   connectors leading into them turn accent too. CSS wins over the SVG
+   presentation attributes the boxes and lines are drawn with. The sweep
+   delay is set inline per step so it runs left to right. */
+.stepDone .stepRect {
+  stroke: var(--accent);
+  stroke-width: 1.25;
+}
+
+.connector {
+  transition:
+    stroke var(--dur) var(--ease),
+    stroke-width var(--dur) var(--ease);
+}
+
+.connectorLit {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
 /* ---------------------------------------------------------------- */
 /* Step detail (revealed by tapping a step)                          */
 /* ---------------------------------------------------------------- */
@@ -76,6 +107,22 @@
 
 .stepDetailItem[data-active="true"] {
   display: block;
+  animation: stepDetailIn 0.4s var(--ease-out) both;
+}
+
+/* The text eases in as you pick a step instead of snapping. It only runs
+   on the active item, so the print stylesheet (which forces every item
+   open without data-active) is unaffected. */
+@keyframes stepDetailIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .stepDetailLabel {

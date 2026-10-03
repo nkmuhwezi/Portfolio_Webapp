@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { CaseStudyStep } from "@/lib/content";
 import styles from "./CaseStudySteps.module.css";
 
@@ -45,14 +45,22 @@ function StepDiagram({
   steps,
   activeIndex,
   onSelect,
+  onNavigate,
 }: {
   steps: CaseStudyStep[];
   activeIndex: number | null;
+  /** Click / Enter / Space: toggles, so picking the open step closes it. */
   onSelect: (index: number) => void;
+  /** Arrow keys: always lands on the step, never toggles it off. */
+  onNavigate: (index: number) => void;
 }) {
   const n = steps.length;
   const totalWidth = MARGIN_X * 2 + n * BOX_WIDTH + (n - 1) * GAP;
   const arrowId = useId();
+  // A second arrowhead in the accent color: SVG markers can't take a
+  // per-line color, so a lit connector swaps to this one.
+  const litArrowId = useId();
+  const stepRefs = useRef<(SVGGElement | null)[]>([]);
 
   return (
     <div className={styles.diagramScroll}>
@@ -82,6 +90,24 @@ function StepDiagram({
               strokeLinejoin="round"
             />
           </marker>
+          <marker
+            id={litArrowId}
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path
+              d="M2 1L8 5L2 9"
+              fill="none"
+              stroke="var(--accent)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </marker>
         </defs>
 
         {steps.map((step, index) => {
@@ -91,18 +117,28 @@ function StepDiagram({
             stepColors(index);
 
           const isActive = activeIndex === index;
+          // The path up to the chosen step lights up: every step before it,
+          // and every connector leading into it or into an earlier step.
+          const isDone = activeIndex !== null && index < activeIndex;
+          const connectorLit = activeIndex !== null && index <= activeIndex;
+          // Lighting sweeps left to right; un-lighting (a later pick, or
+          // closing the step) is immediate, since the delay only applies
+          // to the state being transitioned *into*.
+          const sweepDelay = { transitionDelay: `${index * 70}ms` };
 
           return (
             <g key={step.label}>
               {index > 0 ? (
                 <line
+                  className={`${styles.connector} ${connectorLit ? styles.connectorLit : ""}`}
+                  style={connectorLit ? sweepDelay : undefined}
                   x1={x - GAP}
                   y1={BOX_Y + BOX_HEIGHT / 2}
                   x2={x}
                   y2={BOX_Y + BOX_HEIGHT / 2}
                   stroke="var(--muted)"
                   strokeWidth="1"
-                  markerEnd={`url(#${arrowId})`}
+                  markerEnd={`url(#${connectorLit ? litArrowId : arrowId})`}
                 />
               ) : null}
 
@@ -115,7 +151,10 @@ function StepDiagram({
                   readers and voice control then hear two different labels
                   for what's visibly one control. */}
               <g
-                className={`${styles.step} ${isActive ? styles.stepActive : ""}`}
+                ref={(element) => {
+                  stepRefs.current[index] = element;
+                }}
+                className={`${styles.step} ${isActive ? styles.stepActive : ""} ${isDone ? styles.stepDone : ""}`}
                 role="button"
                 tabIndex={0}
                 aria-pressed={isActive}
@@ -124,7 +163,28 @@ function StepDiagram({
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
                     onSelect(index);
+                    return;
                   }
+
+                  // Left/Right (and Home/End) walk the steps, moving focus
+                  // and opening each one as you land on it, so the detail
+                  // follows the arrow keys. It stops at the ends rather
+                  // than wrapping.
+                  const target =
+                    event.key === "ArrowRight"
+                      ? index + 1
+                      : event.key === "ArrowLeft"
+                        ? index - 1
+                        : event.key === "Home"
+                          ? 0
+                          : event.key === "End"
+                            ? n - 1
+                            : null;
+                  if (target === null) return;
+                  event.preventDefault();
+                  if (target < 0 || target >= n || target === index) return;
+                  onNavigate(target);
+                  stepRefs.current[target]?.focus();
                 }}
               >
                 {/* Invisible, larger than the visible box it sits behind —
@@ -150,6 +210,7 @@ function StepDiagram({
                   fill={fill}
                   stroke={stroke}
                   strokeWidth="0.75"
+                  style={isDone ? sweepDelay : undefined}
                 />
                 <text
                   x={cx}
@@ -198,11 +259,18 @@ export default function CaseStudySteps({
     setActiveStep((current) => (current === index ? null : index));
   };
 
+  const goToStep = (index: number) => setActiveStep(index);
+
   return (
     <div className={styles.wrap} data-has-active={activeStep !== null}>
       <p className={`eyebrow ${styles.caption}`}>{cta}</p>
 
-      <StepDiagram steps={steps} activeIndex={activeStep} onSelect={selectStep} />
+      <StepDiagram
+        steps={steps}
+        activeIndex={activeStep}
+        onSelect={selectStep}
+        onNavigate={goToStep}
+      />
 
       {/*
         Every step's detail stays in the DOM at all times, not just the
