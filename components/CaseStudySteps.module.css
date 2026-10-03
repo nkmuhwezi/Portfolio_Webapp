@@ -79,9 +79,61 @@
 }
 
 .connector {
+  /* Just longer than the connector itself, so it reads as solid; the
+     entrance below animates the dash offset to draw it in. */
+  stroke-dasharray: 16;
   transition:
     stroke var(--dur) var(--ease),
     stroke-width var(--dur) var(--ease);
+}
+
+/* ---------------------------------------------------------------- */
+/* Entrance on scroll                                                */
+/* ---------------------------------------------------------------- */
+
+/* Each step (and the connector leading into it) is one .entry, with its
+   position in the row in --i. Hidden only while html.js is set (see
+   app/layout.tsx), and only until the diagram scrolls into view, so
+   without scripts the diagram just shows. */
+:global(html.js) .diagramScroll:not(.revealed) .entry {
+  opacity: 0;
+}
+
+:global(html.js) .revealed .entry {
+  animation: stepEntry 0.6s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+/* The connector draws in just after its box starts to rise; its opacity
+   is animated too so the arrowhead (which a dash offset can't hide)
+   doesn't appear ahead of the line. */
+:global(html.js) .revealed .connector {
+  animation: connectorDraw 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 90ms + 180ms);
+}
+
+@keyframes stepEntry {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes connectorDraw {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 16;
+  }
+
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
 }
 
 .connectorLit {
@@ -145,6 +197,13 @@
 }
 
 @media print {
+  /* Never print a half-revealed diagram. */
+  :global(html.js) .diagramScroll .entry,
+  :global(html.js) .diagramScroll .connector {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
   .diagram {
     min-width: 0;
     max-width: 100%;

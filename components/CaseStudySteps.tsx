@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, type CSSProperties } from "react";
 import type { CaseStudyStep } from "@/lib/content";
+import { useRevealOnScroll } from "@/lib/useRevealOnScroll";
 import styles from "./CaseStudySteps.module.css";
 
 const BOX_WIDTH = 135;
@@ -61,9 +62,16 @@ function StepDiagram({
   // per-line color, so a lit connector swaps to this one.
   const litArrowId = useId();
   const stepRefs = useRef<(SVGGElement | null)[]>([]);
+  // Entrance: the boxes rise in one after another and the connectors draw
+  // between them, once, when the diagram scrolls into view. Same reveal
+  // hook and html.js gate as the page's other sections.
+  const { ref: scrollRef, revealed } = useRevealOnScroll<HTMLDivElement>();
 
   return (
-    <div className={styles.diagramScroll}>
+    <div
+      className={`${styles.diagramScroll} ${revealed ? styles.revealed : ""}`}
+      ref={scrollRef}
+    >
       <svg
         className={styles.diagram}
         viewBox={`0 0 ${totalWidth} ${VIEW_HEIGHT}`}
@@ -127,7 +135,11 @@ function StepDiagram({
           const sweepDelay = { transitionDelay: `${index * 70}ms` };
 
           return (
-            <g key={step.label}>
+            <g
+              key={step.label}
+              className={styles.entry}
+              style={{ "--i": index } as CSSProperties}
+            >
               {index > 0 ? (
                 <line
                   className={`${styles.connector} ${connectorLit ? styles.connectorLit : ""}`}
