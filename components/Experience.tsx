@@ -37,52 +37,57 @@ export default function Experience() {
                   </div>
 
                   <div className={styles.main}>
-                    {/* The org name is a real link when we have one, so it can't
-                        live inside the toggle <button> below — an <a> nested in
-                        a <button> is invalid HTML. They're visually stacked as
-                        one header but interactively independent. */}
-                    <h3 className={styles.name}>
-                      {entry.orgUrl ? (
-                        <a
-                          className={styles.nameLink}
-                          href={entry.orgUrl}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          {entry.primary}
-                        </a>
-                      ) : (
-                        entry.primary
-                      )}
-                    </h3>
+                    {/* Everything above the expanding panel is one hover group, so
+                        the name, role line and evidence line slide together (the
+                        +/- icon and the bullets below stay put). */}
+                    <div className={styles.header}>
+                      {/* The org name is a real link when we have one, so it can't
+                          live inside the toggle <button> below — an <a> nested in
+                          a <button> is invalid HTML. They're visually stacked as
+                          one header but interactively independent. */}
+                      <h3 className={styles.name}>
+                        {entry.orgUrl ? (
+                          <a
+                            className={styles.nameLink}
+                            href={entry.orgUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                          >
+                            {entry.primary}
+                          </a>
+                        ) : (
+                          entry.primary
+                        )}
+                      </h3>
 
-                    <button
-                      type="button"
-                      className={styles.head}
-                      aria-expanded={isOpen}
-                      aria-controls={panelId}
-                      aria-label={`${isOpen ? "Collapse" : "Expand"} details for ${entry.primary}: ${entry.secondary}`}
-                      onClick={() => toggle(entry.id)}
-                    >
-                      <span className={styles.secondary}>{entry.secondary}</span>
+                      <button
+                        type="button"
+                        className={styles.head}
+                        aria-expanded={isOpen}
+                        aria-controls={panelId}
+                        aria-label={`${isOpen ? "Collapse" : "Expand"} details for ${entry.primary}: ${entry.secondary}`}
+                        onClick={() => toggle(entry.id)}
+                      >
+                        <span className={styles.secondary}>{entry.secondary}</span>
 
-                      <span className={styles.toggle} aria-hidden="true">
-                        <span className={styles.toggleBar} />
-                        <span
-                          className={`${styles.toggleBar} ${styles.toggleBarVertical}`}
-                        />
-                      </span>
-                    </button>
+                        <span className={styles.toggle} aria-hidden="true">
+                          <span className={styles.toggleBar} />
+                          <span
+                            className={`${styles.toggleBar} ${styles.toggleBarVertical}`}
+                          />
+                        </span>
+                      </button>
 
-                    {/* Scannable evidence, visible without opening the row —
-                        a recruiter reading collapsed rows still sees this. */}
-                    <p className={styles.proof}>{entry.proof}</p>
+                      {/* Scannable evidence, visible without opening the row —
+                          a recruiter reading collapsed rows still sees this. */}
+                      <p className={styles.proof}>{entry.proof}</p>
 
-                    {/* Always visible, unlike the bullets below — a personal
-                        aside, not detail that should be hidden behind a click. */}
-                    {entry.subtitle ? (
-                      <p className={styles.subtitle}>{entry.subtitle}</p>
-                    ) : null}
+                      {/* Always visible, unlike the bullets below — a personal
+                          aside, not detail that should be hidden behind a click. */}
+                      {entry.subtitle ? (
+                        <p className={styles.subtitle}>{entry.subtitle}</p>
+                      ) : null}
+                    </div>
 
                     <div
                       className={styles.panel}

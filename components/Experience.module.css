@@ -67,6 +67,7 @@
   line-height: 1.2;
   letter-spacing: -0.015em;
   color: var(--heading);
+  transition: translate 0.45s var(--ease-out);
 }
 
 /* Same underline-sweep treatment as the Contact links, so a linked
@@ -107,7 +108,9 @@
   font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--text);
-  transition: color var(--dur) var(--ease);
+  transition:
+    color var(--dur) var(--ease),
+    translate 0.45s var(--ease-out);
 }
 
 .head:hover .secondary {
@@ -122,6 +125,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.02em;
   color: var(--muted);
+  transition: translate 0.45s var(--ease-out);
 }
 
 /* A compressed scope line or personal aside — italic serif sets it apart
@@ -135,6 +139,20 @@
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text);
+  transition: translate 0.45s var(--ease-out);
+}
+
+/* The header group (name, role line, evidence line, aside) slides a
+   little to the right on hover — the same gesture as the "Questions
+   people ask" rows. The +/- icon, the dateline rail and the expanding
+   bullets all stay put, and nothing moves for touch or reduced motion. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .header:hover .name,
+  .header:hover .secondary,
+  .header:hover .proof,
+  .header:hover .subtitle {
+    translate: 0.5rem 0;
+  }
 }
 
 /* ---------------------------------------------------------------- */
