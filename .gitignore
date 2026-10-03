@@ -153,3 +153,8 @@ vite.config.ts.timestamp-*
 # Next.js generated types
 next-env.d.ts
 .env*
+
+# Claude Code skills installed locally (npx skills add) and their lock file.
+# Tooling for working on the site, not part of it. .claude/launch.json stays tracked.
+.claude/skills/
+skills-lock.json
