@@ -104,7 +104,7 @@ export const hero = {
   title: "Digital Transformation Leader · AI Adoption Advisor",
   /** Quiet "right now" line under the hero actions; links to Experience. */
   status: "Now advising Unified Technology Business Partners",
-  copy: "I've spent 15 years turning ambitious technology ideas into systems that work at scale, including telecom networks, digital platforms used by millions, and a $12.6M public-private partnership. I now bring that same delivery experience to AI adoption advisory work.",
+  copy: "I've spent more than 15 years turning ambitious technology ideas into systems that work at scale, including telecom networks, digital platforms used by millions, and a $12.6M public-private partnership. I now bring that same delivery experience to AI adoption advisory work.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -136,7 +136,7 @@ export const careerStages: CareerStage[] = [
   {
     year: "Now",
     stage: "AI",
-    body: "Helping an IT and security firm decide where AI belongs in its clients' work.",
+    body: "Advising an IT and security firm on where AI belongs in its clients' work.",
   },
 ];
 
@@ -151,7 +151,7 @@ export const impactMetrics: Metric[] = [
   { value: "15+", label: "Years across technology & transformation" },
   { value: "12.4M+", label: "Users reached across scaled digital platforms" },
   { value: "$20M+", label: "Portfolio directed" },
-  { value: "2,000+", label: "Telecom sites delivered / modernised across Uganda and Sudan" },
+  { value: "2,000+", label: "Telecom sites delivered or modernised across Uganda and Sudan" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -381,7 +381,7 @@ export const telecomSchematic = {
   evidence: [
     {
       value: "2,000+",
-      label: "Telecom sites delivered / modernised across Uganda and Sudan",
+      label: "Telecom sites delivered or modernised across Uganda and Sudan",
       primary: true,
     },
     { value: "830+", label: "2G/3G sites swapped" },
@@ -658,11 +658,11 @@ export const selectedExternalWork: ExternalWorkEntry[] = [
 export const about = {
   /** Exact substrings to render with emphasis. */
   emphasis: [
-    "I started my career as a telecom engineer and have spent the past 15 years leading technology programmes across Africa.",
+    "I started my career as a telecom engineer and have spent more than 15 years leading technology programmes across Africa.",
     "digital transformation and AI adoption",
   ],
   paragraphs: [
-    "I started my career as a telecom engineer and have spent the past 15 years leading technology programmes across Africa. My work has grown from network infrastructure into digital platforms, partnerships and large-scale programme delivery.",
+    "I started my career as a telecom engineer and have spent more than 15 years leading technology programmes across Africa. My work has grown from network infrastructure into digital platforms, partnerships and large-scale programme delivery.",
     "Coming from engineering, I pay attention to the technology, the people using it, the partners around it and what it takes to keep the system working after launch.",
     "Today I advise on digital transformation and AI adoption, focusing on use cases with clear ownership and results you can measure.",
   ],
@@ -799,7 +799,7 @@ export const faq: FaqEntry[] = [
   {
     question: "What does Norman Muhwezi do?",
     answer:
-      "Norman leads digital transformation and advises organisations on AI adoption. He has spent 15 years delivering telecom networks, digital platforms used by millions and a $12.6M public-private partnership across Africa.",
+      "Norman leads digital transformation and advises organisations on AI adoption. He has spent more than 15 years delivering telecom networks, digital platforms used by millions and a $12.6M public-private partnership across Africa.",
   },
   {
     question: "What has he delivered at scale?",
