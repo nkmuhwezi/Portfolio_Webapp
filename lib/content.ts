@@ -136,7 +136,7 @@ export const careerStages: CareerStage[] = [
   {
     year: "Now",
     stage: "AI",
-    body: "Advising an IT and security firm on where AI belongs in its clients' work.",
+    body: "Advising a Kampala-based IT, digital transformation, and AI firm on where AI belongs in its clients' work.",
   },
 ];
 
@@ -149,7 +149,7 @@ export type Metric = { value: string; label: string };
 /** Exactly four — a fifth alone on its own row reads as an afterthought. */
 export const impactMetrics: Metric[] = [
   { value: "15+", label: "Years across technology & transformation" },
-  { value: "12.4M+", label: "Users reached across scaled digital platforms" },
+  { value: "12.6M+", label: "Users reached across scaled digital platforms" },
   { value: "$20M+", label: "Portfolio directed" },
   { value: "2,000+", label: "Telecom sites delivered or modernised across Uganda and Sudan" },
 ];
@@ -210,7 +210,7 @@ export const caseStudies: CaseStudy[] = [
     proofPoints: [
       "8.6M+ users across every province",
       "300+ U-Report community clubs, including 120+ girls-only clubs",
-      "Zero-rated data agreements with Orange, Vodacom, Airtel and Africell",
+      "Managed and grew partnerships with four mobile network operators (Orange, Vodacom, Airtel, and Africell)",
       "Connected to UNICEF's HOPE cash-transfer verification system",
     ],
     steps: [
@@ -261,7 +261,7 @@ export const caseStudies: CaseStudy[] = [
       "How the idea moved from an early concept to more than 300 classrooms, backed by financing, quality testing and real-time construction monitoring.",
     proofPoints: [
       "$12.6M public-private partnership with Conceptos Plasticos",
-      "1,500+ tons of recycled plastic converted into 300+ classrooms",
+      "2,600+ tons of recycled plastic converted into 300+ classrooms",
       "15,000+ children served",
       "$212,000 in government cost reimbursement secured",
     ],
@@ -288,7 +288,7 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     stepsCta: "Explore the delivery model",
-    highlight: ["$12.6M", "1,500+ tons", "300+ classrooms", "15,000+ children", "$212,000"],
+    highlight: ["$12.6M", "2,600+ tons", "300+ classrooms", "15,000+ children", "$212,000"],
     externalEvidence: [
       {
         heading: "Featured by UNICEF",
@@ -502,7 +502,7 @@ export const experience: ExperienceEntry[] = [
     orgUrl: "https://www.unionbps.com/",
     proof: "AI adoption advisory · digital transformation · enterprise advisory",
     bullets: [
-      "Advise a Kampala-based IT and security firm on practical AI opportunities and digital transformation priorities across banking, government, healthcare and fintech, translating priority use cases into clearer workflows, ownership and adoption plans.",
+      "Advise a Kampala-based IT, digital transformation, and AI firm on practical AI opportunities and digital transformation priorities across banking, government, healthcare and fintech, translating priority use cases into clearer workflows, ownership and adoption plans.",
     ],
   },
   {
@@ -513,14 +513,14 @@ export const experience: ExperienceEntry[] = [
     dates: "Mar 2023–Mar 2025",
     defaultOpen: true,
     orgUrl: "https://www.unicef.org/drcongo/en",
-    proof: "8.6M-user platform · $20M+ portfolio · 20-person team",
+    proof: "8.6M-user platform · $20M+ portfolio as Acting Section Chief",
     bullets: [
-      "Directed a $20M+ portfolio and a 20-person team; served as Acting Section Chief (OIC) for extended periods.",
+      "Served as Acting Section Chief (OIC) for a cumulative 6.5 months, directing a $20M+ portfolio and 20 staff.",
       "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
       "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 300+ U-Report community clubs in every province, including 120+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
       "Led vendor selection and procurement (Nyaruka/RapidPro, GoInnovation) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
       "Adapted the Ebola-response RapidPro chatbot for DRC, originally designed at Côte d'Ivoire in 2021 and since adopted as a UNICEF global template across 5+ country offices.",
-      "Chaired the DRC Accountability to Affected Populations (AAP) Committee, securing $850,000 for community feedback systems, and secured zero-rated data agreements with Orange, Vodacom, Airtel, and Africell to sustain platform growth.",
+      "Chaired the DRC Accountability to Affected Populations (AAP) Committee, securing $850,000 for community feedback systems, and managed and grew partnerships with four mobile network operators (Orange, Vodacom, Airtel, and Africell), sustaining 219M+ free SMS in 2024.",
     ],
   },
   {
@@ -549,7 +549,7 @@ export const experience: ExperienceEntry[] = [
       "Led the digitisation of mobile-money payments for 30,000+ frontline workers, defining requirements, coordinating MNO integration and taking the solution through transition to operations.",
       "Designed and launched an Ebola-response RapidPro chatbot (2021), adopted as a UNICEF global template.",
       "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), working with YUX Design on platform customisation, integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
-      "Established and scaled U-Report Côte d'Ivoire to 3.8M+ users, managing MNO relationships and real-time reporting.",
+      "Established and scaled U-Report Côte d'Ivoire to 4 million users, managing MNO relationships and real-time reporting.",
       "Launched and ran the national CORONA chatbot on RapidPro with the Ministry of Health, consulted 3M+ times and adopted by government for national radio and TV campaigns; later added a module for COVAX (the global COVID-19 vaccine-sharing initiative).",
     ],
   },
@@ -602,7 +602,7 @@ export const aiInPractice = {
     {
       title: "Enterprise AI Adoption",
       tag: "Current advisory work: UTBP",
-      body: "I help a Kampala-based IT and security firm find where AI fits across banking, government, healthcare and fintech, then turn the strongest use cases into a workflow, an owner and an adoption plan. The focus is on improvements clients can see and measure.",
+      body: "I help a Kampala-based IT, digital transformation, and AI firm find where AI fits across banking, government, healthcare and fintech, then turn the strongest use cases into a workflow, an owner and an adoption plan. The focus is on improvements clients can see and measure.",
     },
     {
       title: "AI Solution Design",
@@ -804,12 +804,12 @@ export const faq: FaqEntry[] = [
   {
     question: "What has he delivered at scale?",
     answer:
-      "He scaled U-Report in the Democratic Republic of Congo to 8.6M+ users, built a $12.6M partnership that turned 1,500+ tons of recycled plastic into 300+ classrooms in Côte d'Ivoire, and delivered or modernised 2,000+ telecom sites across Uganda and Sudan.",
+      "He scaled U-Report in the Democratic Republic of Congo to 8.6M+ users, built a $12.6M partnership that turned 2,600+ tons of recycled plastic into 300+ classrooms in Côte d'Ivoire, and delivered or modernised 2,000+ telecom sites across Uganda and Sudan.",
   },
   {
     question: "What is his experience with AI adoption?",
     answer:
-      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT and security firm, on AI opportunities across banking, government, healthcare and fintech. He has also completed Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
+      "Since 2026, Norman has advised Unified Technology Business Partners, a Kampala-based IT, digital transformation, and AI firm, on AI opportunities across banking, government, healthcare and fintech. He has also completed Cornell University's Designing and Building AI Solutions and the Lonely Octopus AI Agent Bootcamp, earning a Certificate of Distinction from Lonely Octopus.",
   },
   {
     question: "Has he worked with UNICEF?",
