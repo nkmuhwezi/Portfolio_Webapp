@@ -806,7 +806,7 @@ export const faq: FaqEntry[] = [
   {
     question: "What has he delivered at scale?",
     answer:
-      "He scaled U-Report in the Democratic Republic of Congo to 8.6M+ users, built a $12.6M partnership that turned 2,600+ tons of recycled plastic into 300+ classrooms in Côte d'Ivoire, and delivered or modernised 2,000+ telecom sites across Uganda and Sudan.",
+      "He scaled U-Report in the Democratic Republic of Congo to 8.6M+ users, co-developed and led delivery of a $12.6M partnership that turned 2,600+ tons of recycled plastic into 300+ classrooms in Côte d'Ivoire, and delivered or modernised 2,000+ telecom sites across Uganda and Sudan.",
   },
   {
     question: "What is his experience with AI adoption?",
