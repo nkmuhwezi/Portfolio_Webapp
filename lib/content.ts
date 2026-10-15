@@ -222,7 +222,7 @@ export const caseStudies: CaseStudy[] = [
       {
         number: "02",
         label: "Model",
-        body: "I built trust through word of mouth, offline communities and in-person work, using RapidPro's recommendation features, and created recruitment campaigns with incentives. I showed UNICEF programme sections how fast U-Report reached communities and collected data, and they invested in growing it. Zero-rated data deals and girls-only clubs added to the numbers.",
+        body: "I built trust through word of mouth, offline communities and in-person work, using RapidPro's recommendation features, and created recruitment campaigns with incentives. I showed UNICEF programme sections how fast U-Report reached communities and collected data, and they invested in growing it. Partnerships with four mobile network operators and girls-only clubs added to the numbers.",
       },
       {
         number: "03",
@@ -258,7 +258,7 @@ export const caseStudies: CaseStudy[] = [
     eyebrow: "From pilot to operating model",
     headline: "Building a $12.6M partnership around recycled-plastic classrooms.",
     supportingLine:
-      "How the idea moved from an early concept to more than 300 classrooms, backed by financing, quality testing and real-time construction monitoring.",
+      "How the idea moved from an early concept to more than 300 classrooms, backed by quality testing and real-time construction monitoring.",
     proofPoints: [
       "$12.6M public-private partnership with Conceptos Plasticos",
       "2,600+ tons of recycled plastic converted into 300+ classrooms",
@@ -269,12 +269,12 @@ export const caseStudies: CaseStudy[] = [
       {
         number: "01",
         label: "Context",
-        body: "The classroom concept needed a clear route from early testing to dependable construction.",
+        body: "In 2018, I led the construction of the pilot with Conceptos Plasticos, which my supervisor called \"the first of its kind in UNICEF\": the first plastic-brick classroom in Côte d'Ivoire. The concept then needed a clear route from early testing to dependable construction.",
       },
       {
         number: "02",
         label: "Model",
-        body: "I led the partnership's structuring, financing arrangements and government engagement.",
+        body: "I co-developed the fundraising, communications, and business models, and led delivery. At the 2019 UN General Assembly, I worked with the Communication team to build a recycled-plastic model classroom and presented the project to UNICEF's Executive Director, Directors, and world leaders.",
       },
       {
         number: "03",
@@ -517,7 +517,7 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       "Served as Acting Section Chief (OIC) for a cumulative 6.5 months, directing a $20M+ portfolio and 20 staff.",
       "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
-      "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 300+ U-Report community clubs in every province, including 120+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE).",
+      "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 300+ U-Report community clubs in every province, including 120+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE). Drafted the winning UNICEF Inspire Award submission (2023).",
       "Led vendor selection and procurement (Nyaruka/RapidPro, GoInnovation) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
       "Adapted the Ebola-response RapidPro chatbot for DRC, originally designed at Côte d'Ivoire in 2021 and since adopted as a UNICEF global template across 5+ country offices.",
       "Chaired the DRC Accountability to Affected Populations (AAP) Committee, securing $850,000 for community feedback systems, and managed and grew partnerships with four mobile network operators (Orange, Vodacom, Airtel, and Africell), sustaining 219M+ free SMS in 2024.",
@@ -549,7 +549,9 @@ export const experience: ExperienceEntry[] = [
       "Led the digitisation of mobile-money payments for 30,000+ frontline workers, defining requirements, coordinating MNO integration and taking the solution through transition to operations.",
       "Designed and launched an Ebola-response RapidPro chatbot (2021), adopted as a UNICEF global template.",
       "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), working with YUX Design on platform customisation, integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
-      "Established and scaled U-Report Côte d'Ivoire to 4 million users, managing MNO relationships and real-time reporting.",
+      "Established and scaled U-Report Côte d'Ivoire to 4 million users, negotiating zero-rated SMS agreements with three mobile network operators (MTN, Orange, and Moov) and running real-time reporting.",
+      "Wrote, with the HIV section, the Grand Challenges proposal that won a $1M grant (2019) to promote HIV self-testing among young people, then served as UNICEF focal point for U-Test, the separately funded $2M HIV self-testing programme that grew from it, covering Côte d'Ivoire, Nigeria, and Cameroon.",
+      "Drafted, with the Education and Resource Mobilisation teams, the proposal that won $500K to turn the Ministry of Education's École à la Maison remote learning into a national Learning Management System (2021).",
       "Launched and ran the national CORONA chatbot on RapidPro with the Ministry of Health, consulted 3M+ times and adopted by government for national radio and TV campaigns; later added a module for COVAX (the global COVID-19 vaccine-sharing initiative).",
     ],
   },
