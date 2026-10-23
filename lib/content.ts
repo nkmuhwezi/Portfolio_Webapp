@@ -212,6 +212,7 @@ export const caseStudies: CaseStudy[] = [
       "300+ U-Report community clubs, including 120+ girls-only clubs",
       "Managed and grew partnerships with four mobile network operators (Orange, Vodacom, Airtel, and Africell)",
       "Connected to UNICEF's HOPE cash-transfer verification system",
+      "1,500+ young people trained on the U-Report Tour",
     ],
     steps: [
       {
@@ -517,6 +518,7 @@ export const experience: ExperienceEntry[] = [
     bullets: [
       "Served as Acting Section Chief (OIC) for a cumulative 6.5 months, directing a $20M+ portfolio and 20 staff.",
       "Built and led a misinformation-detection programme (Web Fact Checkers), using social-listening tools including Talkwalker to track and flag false information online. The programme trained 700 youth volunteers, who documented 100,000+ counter-misinformation actions and reached 3.4M+ people.",
+      "Ran the U-Report Tour, training 1,500+ young people, including 500 displaced youth in IDP camps in North Kivu, South Kivu and Ituri, in employment, digital skills, Protection from Sexual Exploitation and Abuse (PSEA) and entrepreneurship, leading to 100 new youth-led micro-enterprises.",
       "Scaled U-Report DRC (UNICEF's SMS-based youth polling and civic-engagement platform) to 8.6M+ users across 300+ U-Report community clubs in every province, including 120+ girls-only clubs, and connected it to UNICEF's cash-transfer verification system (HOPE). Drafted the winning UNICEF Inspire Award submission (2023).",
       "Led vendor selection and procurement (Nyaruka/RapidPro, GoInnovation) for the DRC digital platform portfolio, then directed end-to-end delivery of FunDoo, a youth livelihoods and social-impact platform: implementation planning, five-language localisation, youth user-testing, and a 10,000-user beta launch.",
       "Adapted the Ebola-response RapidPro chatbot for DRC, originally designed at Côte d'Ivoire in 2021 and since adopted as a UNICEF global template across 5+ country offices.",
@@ -549,7 +551,7 @@ export const experience: ExperienceEntry[] = [
       "Led the digitisation of mobile-money payments for 30,000+ frontline workers, defining requirements, coordinating MNO integration and taking the solution through transition to operations.",
       "Designed and launched an Ebola-response RapidPro chatbot (2021), adopted as a UNICEF global template.",
       "Authored and launched the roadmap for YOMA (Youth Agency Marketplace, a skills-to-opportunity platform), working with YUX Design on platform customisation, integrating it with U-Report and co-securing $2.08M to scale it regionally with Nigeria and WCARO.",
-      "Established and scaled U-Report Côte d'Ivoire to 4 million users, negotiating zero-rated SMS agreements with three mobile network operators (MTN, Orange, and Moov) and running real-time reporting.",
+      "Established and scaled U-Report Côte d'Ivoire to 4 million users, ranked #2 globally on the U-Report global dashboard, negotiating zero-rated SMS agreements with three mobile network operators (MTN, Orange, and Moov) and running real-time reporting.",
       "Wrote, with the HIV section, the Grand Challenges proposal that won a $1M grant (2019) to promote HIV self-testing among young people, then served as UNICEF focal point for U-Test, the separately funded $2M HIV self-testing programme that grew from it, covering Côte d'Ivoire, Nigeria, and Cameroon.",
       "Drafted, with the Education and Resource Mobilisation teams, the proposal that won $500K to turn the Ministry of Education's École à la Maison remote learning into a national Learning Management System (2021).",
       "Launched and ran the national CORONA chatbot on RapidPro with the Ministry of Health, consulted 3M+ times and adopted by government for national radio and TV campaigns; later added a module for COVAX (the global COVID-19 vaccine-sharing initiative).",
